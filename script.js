@@ -1,4 +1,7 @@
-		function pauseForOneSecond() {
+		
+    
+    
+    function pauseForOneSecond() {
 		  console.log('Start');
 
 		  setTimeout(function() {
@@ -66,3 +69,4 @@
   // Display the random string in the span element
   const spanElement = document.getElementById('randomStringSpan');
   spanElement.textContent = randomString;
+

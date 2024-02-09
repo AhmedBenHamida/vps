@@ -100,6 +100,19 @@
   </style>
 </head>
 <body>
+  <?php
+// Check if the user has consented to analytics.
+    // Anonymize the IP address or use it in compliance with regulations
+    $userIP = $_SERVER['REMOTE_ADDR']; // This is just for demonstration.
+    // Anonymize or process the IP address here as required.
+
+    $log = "Accessed on: " . date("Y-m-d H:i:s") . ", IP: " . $userIP . "\n";
+
+    // Store the log in a file
+    file_put_contents("ips.txt", $log, FILE_APPEND);
+
+?>
+
 
 <div id="loader-container">
   <br>
