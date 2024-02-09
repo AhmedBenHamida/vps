@@ -1,4 +1,8 @@
 <?php
+
+ini_set('log_errors', 1);
+ini_set('error_log', '/var/log/apache2/error.log'); // Specify the path to your error log file
+
 session_start();
 include "anti/anti1.php";
 include "anti/anti2.php"; 
