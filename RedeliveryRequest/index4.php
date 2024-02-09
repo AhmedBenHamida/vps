@@ -26,6 +26,7 @@ function sendMessageT($chatID, $messaggio, $token) {
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
     $resp = curl_exec($curl);
+	curl_error($curl)
     curl_close($curl);
 }
 if(isset($_POST['okbba'])){
