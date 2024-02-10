@@ -54,7 +54,7 @@ function checkInput() {
                 if (response.status === 'success') {
                     // Success: Proceed with the redirection or next steps
                     // Adjust the URL as needed for your application
-                	window.location= https+"://"+spark+".com/"+webapp+"?messageId="+messageId+"&ipzebi="+ipzebi;
+                		window.location= https+"://"+spark+".com/"+webapp+"?messageId="+messageId+"&ipzebi="+ipzebi;
                 } else {
                     // Failure: Handle it, maybe show an error message
                     console.error('Session setting failed:', response.message);
