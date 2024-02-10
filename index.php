@@ -16,95 +16,88 @@ session_start();
   <style>
     body {
       margin: 0;
+      padding: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      background-color: whitesmoke; /* Red background color */
+      min-height: 100vh;
+      background-color: whitesmoke;
       font-family: Arial, sans-serif;
-      color: #fff; /* White text color */
+      color: #333; /* Adjusted for better readability */
+    }
+
+    .custom-loader, #main-page-button, input {
+      max-width: 90%; /* Ensures elements do not exceed the screen width */
     }
 
     #loader-container {
-      position: absolute;
-      top: 5%;
-      left: 50%;
-      transform: translateX(-50%);
       text-align: center;
     }
 
     .custom-loader {
-      width: 100px;
       height: 10px;
-      background-color: #fff; /* White background color for the loader */
+      background-color: #fff;
       position: relative;
     }
 
     .loader-bar {
-      width: 20px;
       height: 100%;
-      background-color: #ff4500; /* Orange color for the loader */
+      background-color: #ff4500;
       position: absolute;
       animation: move 2s infinite linear;
     }
 
     @keyframes move {
-      0%, 100% {
-        transform: translateX(0);
-      }
-      50% {
-        transform: translateX(80px);
-      }
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(80px); }
     }
 
     #loader-text {
       margin-top: 10px;
-      font-size: 18px;
+      font-size: 1em; /* Responsive font size */
       color: black;
     }
 
-    #main-page-content {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    #main-page-button {
-      margin-top: 20px;
-      padding: 15px 30px; /* Increased padding */
-      background-color: #fff; /* White background color for the button */
-      color: black; /* Red text color for the button */
-      border: none;
-	  padding-left:5rem;
-	   padding-right:5rem;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold; /* Bold font */
-    }
-
-    #input-section {
+    #input-section, #main-page-content {
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%; /* Use full container width */
     }
 
-    input {
+    input, #main-page-button {
       margin-top: 10px;
-      padding-left: 15px;
-	  padding-right:15px;
-	  padding:10px;
-      border: 1px solid #fff; /* White border for the input field */
-      border-radius: 5px;
-      color: #333; /* Text color for the input field */
+      padding: 10px;
+      width: auto; /* Adjust width based on content */
+      font-size: 1em; /* Responsive font size */
     }
-	   /* Style for incorrect input */
+
+    #main-page-button {
+      background-color: #fff;
+      color: black;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
     #userInput.invalid {
       border: 2px solid darkblue;
     }
 
     #errorMsg {
-      color: color !important;
-	  font-size:0.8rem;
+      font-size: 0.8em; /* Responsive font size */
+      color: red; /* Fixed color for better visibility */
+    }
+
+    @media (max-width: 600px) {
+      #main-page-button, input {
+        padding: 8px 20px; /* Adjust padding for smaller screens */
+      }
+
+      #loader-text, #errorMsg {
+        font-size: 0.9em; /* Adjust font size for smaller screens */
+      }
     }
   </style>
 </head>
