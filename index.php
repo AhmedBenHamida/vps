@@ -1,3 +1,12 @@
+<?php
+session_start();
+// Storing session data
+?>
+
+
+
+
+
 <!DOCTYPE html>
 
 

