@@ -45,7 +45,7 @@ function checkInput() {
 
     if (userInput.toLowerCase() === randomString.toLowerCase()) {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "setSession.php", true);
+        xhr.open("POST", "session.php", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function() {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
