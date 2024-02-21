@@ -1,5 +1,6 @@
 <?php
 session_start();
+sleep(5);
 if(isset($_SESSION["username"])) {
 
 if(isset($_GET['messageId'])){
