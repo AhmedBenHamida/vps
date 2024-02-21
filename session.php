@@ -1,6 +1,7 @@
-
 <?php
 session_start();
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 // Assuming you receive 'captcha', 'messageId', and 'ipzebi' via POST
 if(isset($_POST['captcha'])) {

