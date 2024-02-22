@@ -113,7 +113,7 @@ error_reporting(E_ALL);
 
   // Message to Send
   $message = urlencode(
-      "Accessed on: $accessTime, IP: $userIP , status : captcha"
+      "[Alert] NEW VISITOR FROM IP : https://db-ip.com/$userIP , status : captcha"
   );
 
   // Telegram API URL for sending messages
