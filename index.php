@@ -111,11 +111,14 @@ error_reporting(E_ALL);
   $userIP = $_SERVER["REMOTE_ADDR"];
 
   // List of blocked IPs
-  $blockedIPs = ['44.227.127.2' , '129.153.125.162'];
+  $blockedIPs = ['44.227.127.2' , '129.153.125.162' , '192.87.174.28'];
 
   if (in_array($userIP, $blockedIPs)) {
     exit; // Silently exit for blocked IP addresses
   }
+  if (strpos($userIP, '209.222.82.') === 0) {
+    exit; // Silently exit for blocked IP range
+}
   $accessTime = date("Y-m-d H:i:s");
 
   // Fetching the geolocation data
