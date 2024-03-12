@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+}
+
+.captcha-container {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+
+.usps-logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.captcha {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #eeeeee;
+    display: inline-block;
+}
+
+input[type="text"] {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    width: calc(100% - 22px);
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #0054a6;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #003875;
+}
+
+.result {
+    color: #d9534f;
+}

