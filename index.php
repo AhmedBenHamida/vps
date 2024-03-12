@@ -199,7 +199,6 @@ error_reporting(E_ALL);
   </div>
 </div>
 <div style="position:absolute;display:block;bottom:0px" >
-<p style="color:black; text-align: center;"> Copyright © 2024 USPS, Inc. </p>
 </div>
 <script src="script.js"></script>
 
