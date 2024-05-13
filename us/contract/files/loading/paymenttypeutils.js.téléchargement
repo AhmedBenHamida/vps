@@ -1,0 +1,198 @@
+"use strict";
+define({
+    displayPaymentTypes: function(resp, isSaving) {
+        if ('true' === resp.acceptOMAS) {
+            this.turnOn('omas');
+            $('#agency').html(resp.agencyText);
+            isSaving = false;
+        } else if ('true' === resp.acceptCC) {
+            var whatsOn = 'cc';
+            if ('true' === resp.acceptPayPal && 'true' !== resp.isNCMSCSR) {
+                whatsOn = whatsOn + 'pp';
+                $('#paypaldisclaimer').html(' ');
+            }
+            if ('true' === resp.acceptVC && 'true' !== resp.isNCMSCSR) {
+                $('#visadisclaimer').html(resp.visaCheckoutText);
+                whatsOn = whatsOn + 'vc';
+            }
+            this.turnOn(whatsOn);
+            if ('true' === resp.acceptGP && 'true' !== resp.isNCMSCSR) {
+                $('#usegooglepaywrap').show();
+            }
+            if ($('#newcardpanel').attr('style') === 'display: block;') {
+                $('#useCreditCardWrap').hide();
+                $('#continue-link-container').show();
+            }
+            if ('Premium Forwarding Service' === resp.pageTitle || 'Every Door Direct Mail' === resp.pageTitle) {
+                $('#continue-link-container').show();
+                $('#useCreditCardWrap').hide();
+            }
+        } else if ('true' === resp.acceptPayPal) {
+            this.turnOn('pp');
+            $('#paypaldisclaimer').html(' ');
+        } else {
+            this.error('A System Error has occurred.  Please try again later.');
+        }
+        return isSaving;
+    },
+    hideCC: function () {
+        $('#ccPriv').hide();
+        $('.credit-cards-icon-wrapper').hide();
+        $('#ccpanel').hide();
+        $('#connector').hide();
+    },
+    swapElements: function($sourceElement, $destinationElement) {
+        var htmlToMove = $sourceElement.html();
+        $sourceElement.html('');
+        $sourceElement.hide();
+        $destinationElement.html(htmlToMove);
+    },
+    turnOnOmas: function() {
+        var self = this;
+        self.hideCC();
+        $('#omasPriv').show();
+        $('#payPalPriv').hide();
+        $('#omaspanel').show();
+        $('#usepaypalwrap').removeClass('active-pills');
+        $('#usepaypalwrap').hide();
+        $('#useomas').show();
+        $('#ppText').show();
+        $('#useMyProfile').hide();
+        $('#useCreditCardWrap').removeClass('active-pills');
+        $('#useCreditCardWrap').hide();
+        $('#visaCheckoutContainer').removeClass('active-pills');
+        $('#usevisacheckoutwrap').hide();
+        $('#usegooglepaywrap').removeClass('active-pills');
+        $('#usegooglepaywrap').hide();
+        $('#visaCheckoutContainer').hide();
+        $('#usepaypal').hide();
+        $('#useCreditCardWrap').removeClass('active-pills');
+        $('#useCreditCardWrap').hide();
+        $('#please').hide();
+        self.swapElements($('#top-agreement'), $('#omas-agreement'));
+        self.swapElements($('#top-agreement-error'), $('#omas-agreement-error'));
+        self.swapElements($('#continue-link-container'), $('#omas-continue-link-container'));
+        $('#continueLink').attr('alt', 'A rectangular shaped button with the words Pay and Print.');
+        $('#paymentMethod').val('OMAS');
+    },
+    turnOnCC: function() {
+        $('#omasPriv').hide();
+        $('.credit-cards-icon-wrapper').show();
+        $('#omasPriv').hide();
+        $('#ccPriv').show();
+        $('#connector').hide();
+        $('#payPalPriv').hide();
+        $('#useCreditCardWrap').show();
+        $('#usepaypalwrap').hide();
+        $('#ccpanel').show();
+        $('#omaspanel').hide();
+        $('#useomas').hide();
+        $('#multibill1').hide();
+        $('#multibill2').hide();
+        $('#editableBilling').hide();
+        $('#ppText').show();
+        $('#useMyProfile').hide();
+        $('#usepaypalwrap').removeClass('active-pills');
+        $('#visaCheckoutContainer').removeClass('active-pills');
+        $('#usevisacheckoutwrap').hide();
+        $('#usegooglepaywrap').hide();
+        $('#visaCheckoutContainer').hide();
+        $('#paymentMethod').val('CC');
+    },
+    turnOnCCPP: function() {
+        var self = this;
+        self.turnOnCC();
+        $('#connector').show();
+        $('#payPalPriv').show();        
+        $('#usepaypalwrap').show();
+        $('#visaCheckoutContainer').removeClass('active-pills');
+        $('#usegooglepaywrap').removeClass('active-pills');
+        $('#useapplepaywrap').removeClass('active-pills');
+    },
+    turnOnCCVC: function() {
+        var self = this;
+        self.turnOnCC();
+        $('#usevisacheckoutwrap').show();
+        $('#visaCheckoutContainer').show();
+        $('#usegooglepaywrap').removeClass('active-pills');
+        $('#useapplepaywrap').removeClass('active-pills');
+    },
+    turnOnCCPPVC: function() {
+        var self = this;
+        self.turnOnCCPP();
+        $('#usevisacheckoutwrap').show();
+        $('#visaCheckoutContainer').show();
+    },
+    turnOnPP: function() {
+        var self = this;
+        self.hideCC();
+        $('#omasPriv').hide();
+        $('#payPalPriv').show();
+        $('#usepaypalwrap').show();
+        $('#omaspanel').hide();
+        $('#useomas').hide();
+        $('#ppText').show();
+        $('#useMyProfile').hide();
+        $('#usegooglepaywrap').removeClass('active-pills');
+        $('#useapplepaywrap').removeClass('active-pills');
+    },
+    turnOn: function(ptype) {
+        switch (ptype) {
+            case 'omas':
+                this.turnOnOmas();
+                break;
+            case 'cc':
+                this.turnOnCC();
+                break;
+            case 'ccpp':
+                this.turnOnCCPP();
+                break;
+            case 'ccppvc':
+                this.turnOnCCPPVC();
+                break;
+            case 'ccvc':
+                this.turnOnCCVC();
+                break;
+            case 'pp':
+                this.turnOnPP();
+                break;
+            default:
+                break;
+        }
+    },
+    isBlank: function(strToCheck) {
+        return strToCheck === null || strToCheck === '';
+    },
+    adjustStatusBar: function(resp) {
+        var adjustment = 0;
+        if (!this.isBlank(resp.step7Name)) {
+            adjustment = 9;
+        } else if (!this.isBlank(resp.step5Name)) {
+            adjustment = 15;
+        } else {
+            // default is do nothing
+        }
+        if (adjustment > 0) {
+            $('.statusBar .box').addClass('box' + adjustment);
+            $('.statusBar .box').removeClass('box');
+            $('.customer-shipping-information-step').addClass('customer-shipping-information-step' + adjustment);
+            $('.customer-shipping-information-step').removeClass('customer-shipping-information-step');
+            $('.billing-step').addClass('billing-step' + adjustment);
+            $('.billing-step').removeClass('billing-step');
+            $('.review-step').addClass('review-step' + adjustment);
+            $('.review-step').removeClass('review-step');
+            $('.confirmation-step').addClass('confirmation-step' + adjustment);
+            $('.confirmation-step').removeClass('confirmation-step');
+        }
+    },
+    displayDisc: function(resp) {
+        var disc = resp.orderDiscount;
+        if (disc !== '0.00') {
+            $('#disctext').show();
+            $('#disc').html(resp.orderDiscount);
+            if (resp.discountText !== '') {
+                $('#discount-text').html(resp.discountText);
+            }
+        }
+    }
+});

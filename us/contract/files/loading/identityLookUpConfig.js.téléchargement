@@ -1,0 +1,8 @@
+"use strict";
+var sms_otp_id_lookup_config = {
+    eligible: [
+        '51c83b39-5c4b-4c82-a1c1-a2ae5b2383a1',
+        '51c83b39-5c4b-4c82-a1c1-a2ae5b2383a2',
+        'd4f9feb0-177e-49bc-9dbc-94e8c98a3f14',
+    ],
+};

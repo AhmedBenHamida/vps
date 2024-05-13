@@ -1,0 +1,97 @@
+'use strict';
+define({
+    setValues: function() {
+        var self = this;
+        var $fieldBrowser = $('#sourceBrowser');
+        if ($fieldBrowser !== null) {
+            $fieldBrowser.val(self.detectBrowser());
+        }
+        var $fieldWO = $('#sourceWo');
+        if ($fieldWO !== null) {
+            $fieldWO.val(getWO());
+        }
+        var $fieldSO = $('#sourceSo');
+        if ($fieldSO !== null) {
+            $fieldSO.val(getSO());
+        }
+        var $fieldOS = $('#sourceOS');
+        if ($fieldOS !== null) {
+            $fieldOS.val(navigator.platform);
+        }
+        var $fieldDomain = $('#sourceDomain');
+        if ($fieldDomain !== null) {
+            $fieldDomain.val('unknown');
+        }
+    },
+    getOS: function() {
+        return navigator.platform;
+    },
+    getDomain: function() {
+        return "unknown";
+    },
+    getSO: function() {
+        var tmSummer = new Date(Date.UTC(2005, 6, 30, 0, 0, 0, 0));
+        return -1 * tmSummer.getTimezoneOffset();
+    },
+    getWO: function() {
+        var tmWinter = new Date(Date.UTC(2005, 12, 30, 0, 0, 0, 0));
+        return -1 * tmWinter.getTimezoneOffset();
+    },
+    isNetscape: function() {
+        return navigator.vendor === 'Netscape6' || navigator.vendor === 'Netscape';
+    },
+    detectBrowser: function() {
+        var self = this;
+        var browserName = navigator.appName;
+        if (navigator.userAgent.indexOf ('Opera') > -1) {
+            browserName = 'Opera';
+        } else if (navigator.userAgent.indexOf ('MSIE') > -1) {
+            browserName = 'Internet Explorer';
+            // see below for versions > 9
+        } else if (self.isNetscape()) {
+            browserName = 'Netscape';
+        } else if (navigator.userAgent.indexOf ('Firefox') > -1) {
+            browserName = 'Firefox';
+        } else if (navigator.vendor.indexOf ('Apple') > -1) {
+            browserName = 'Safari';
+        } else if (navigator.userAgent.indexOf ('Chrome') > -1) {
+            browserName = 'Chrome';
+        } else if (navigator.userAgent.indexOf ('Windows') > -1) {
+            // IE 10 and above no longer have MSIE token
+            browserName = 'Internet Explorer';
+        } else if (navigator.userAgent.indexOf ('Gecko') > -1) {
+            browserName = 'Mozilla';
+        } else if (navigator.appName.indexOf ('Netscape') !== -1) {
+            browserName = 'Netscape';
+        } else {
+            // do nothing
+        }
+        return browserName;
+    },
+    hideForGuest: function(isGuest) {
+        if ('true' === isGuest) {
+            $('#no-card-text').hide();
+            $('#newtxt').hide();
+            $('#savecard').hide();
+        }
+    },
+    showForDisplayable: function() {
+        $('#saveCard').show();
+        $('#cardNicknameWrap').show();
+    },
+    checkbox508: function(id) {
+      var $checkbox = $('#' + id);
+      if ($checkbox.is(':checked')) {
+          $checkbox.attr('aria-checked', 'true');
+      } else {
+          $checkbox.attr('aria-checked', 'false');
+      }
+    },
+    buttonListener: function(id) {
+        var $button = $('#' + id);
+        $button.on('click', function(e) {
+            e.preventDefault();
+            window.location.href = $button.attr('href');
+        });
+    }
+});

@@ -1,0 +1,2553 @@
+/* html body */
+html, body {
+    min-width: 0px !important; 
+}
+/* body */
+body {
+    color: #000000;
+}
+/* iframe */
+iframe {
+    border: 0;
+}
+/* bold */
+b, strong {
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: normal !important; 
+}
+/* .row */
+.row {
+    clear: both;
+}
+/* manage-edit-logo */
+#manage-edit-logo {
+    margin-top: -15px;
+}
+/* manage-edit-digits */
+#manage-edit-digits {
+    margin-top: -20px;
+}
+/* input[type=checkbox] */
+input[type=checkbox]:focus ~ span .checkbox .btn-primary:focus button.close:focus, span.global-add-card-btn:focus { 
+    border-color: #66afe9;
+    outline: 0;
+    box-shadow: inset 0 1 px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+/* visuallyhidden */
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+} 
+/* btn-primary */
+.btn-primary {
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    display: inline-block;
+    box-sizing: border-box;
+    color: #ffffff;
+    background: #333366;
+    min-width: 188px;
+    text-align: center;
+    border: 2px #333366 solid;
+    border-radius: 3px;
+    height: 44px;
+    text-decoration: none;
+    padding: 10px 20px;
+    line-height: 17px;
+}
+/* .deleteLinkText */
+.deleteLinkText {
+    float: left;
+}
+/* .btn-primary */
+.btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover, .btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary, .btn-primary.focus, .btn-primary:focus {
+    color: #fff;
+    background-color: #333366;
+    border-color: #333366;
+    outline: none;
+    outline-offset: 0px;
+}
+/* .btn-primary */
+.btn-primary:hover {
+    background: #ededed;
+    color: #333366;
+    border: 2px #ededed solid;
+    cursor: pointer;
+}
+/* .btn-primary */
+.btn-primary.button--white {
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    display: inline-block;
+    box-sizing: border-box;
+    color: #333366;
+    background: #ffffff;
+    min-width: 188px;
+    text-align: center;
+    border: 2px #333366 solid;
+    border-radius: 3px;
+    height: 44px;
+    text-decoration: none;
+    padding: 10px 20px;
+    line-height: 17px;
+}
+/* .btn-primary */
+.btn-primary.button--white:hover {
+    background: #f7f7f7;
+    color: #333366;
+    border: 2px solid #333366;
+}
+/* .btn-primary */
+.btn-primary.button--green {
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    display: inline-block;
+    box-sizing: border-box;
+    color: #fff;
+    background: #218748;
+    min-width: 188px;
+    text-align: center;
+    border: 2px #218748 solid;
+    border-radius: 3px;
+    height: 44px;
+    text-decoration: none;
+    padding: 10px 20px;
+    line-height: 17px;
+}
+/* .btn-primary */
+.btn-primary.button--green:hover {
+    background: #ededed;
+    color: #218748;
+    border: 2px solid #ededed;
+}
+/* .btn-active */
+.btn.active, .btn:active {
+    box-shadow: none;
+}
+/* .info-icon */
+.info-icon {
+    width: 16px;
+    height: 16px;
+    background-image: url(../images/info-icon.svg);
+    background-size: 40px;
+    background-position: -12px -12px;
+    display: inline-block;
+    margin-left: 0px;
+    margin-bottom: -3px;
+    margin-top: -3px;
+    cursor: pointer;
+}
+/* h1 */
+h1 {
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 30px;
+    line-height: 34px;
+    color: #333366;
+    margin: 0;
+    padding: 0;
+}
+/* h2 */
+h2 {
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 24px;
+    line-height: 28px;
+    color: #333366;
+    margin: 0;
+    padding: 0;
+}
+/* a */
+a:hover {
+    color: #595959;
+    text-decoration: none;
+}
+/* a */
+a:focus {
+    color: #333366;
+    text-decoration: none;
+}
+/* p */
+p {
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    line-height: 150%;
+    color: #595959;
+    margin: 0;
+    padding: 0;
+}
+@media only screen and (max-width: 767px) {
+    /* h1 */
+    h1 {
+        font-size: 23px;
+        line-height: 30px;
+    }
+    /* .button-container */
+    .button-container {
+        padding-top: 30px;
+        text-align: center;
+    }
+}
+@media only screen and (min-width: 768px) {
+    /* h1 */
+    h1.title {
+        padding-top: 60px;
+    }
+    /* .button-container */
+    .button-container {
+        display: inline-block;
+        padding-right: 28px;
+    }
+}
+/********** START Billing Information CSS **********/ 
+/* .bold-header */
+.bold-header {
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    color: #333366;
+    padding-top: 2px;
+}
+/* .billing-information, .verify-identity-subheader */
+.billing-information, .verify-identity-subheader {
+    padding-top: 23px;
+}
+/* .first-col-row-one */
+.first-col-row-one {
+    padding-top: 15px;
+    padding-bottom: 8px;
+    font-size: 12px;
+}
+/* .statusBar.text */
+.statusBar.text {
+    padding-bottom: 5px;
+}
+/* .customer-shipping-information-step, .billing-step, .review-step, .confirmation-step */
+.customer-shipping-information-step, .billing-step, .review-step, .confirmation-step {
+    display: inline-block;
+    width: 24%;
+    text-align: center;
+}
+/* .customer-shipping-information-step15, .billing-step15, .review-step15, .confirmation-step15 */
+.customer-shipping-information-step15, .billing-step15, .review-step15, .confirmation-step15 {
+    display: inline-block;
+    width: 15%;
+    text-align: center;
+}
+/* .customer-shipping-information-step9, .billing-step9, .review-step9, .confirmation-step9 */
+.customer-shipping-information-step9, .billing-step9, .review-step9, .confirmation-step9 {
+    display: inline-block;
+    width: 9%;
+    text-align: center;
+}
+/* .customer-shipping-information-step, .billing-step, .review-step, .confirmation-step */
+.customer-shipping-information-step p, .billing-step p, .review-step p, .confirmation-step p {
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+/* statusBar */
+.statusBar .box {
+    display: block;
+    width: 24%;
+    height: 20px;
+    -webkit-transform: skewX(-20deg);
+    transform: skewX(-20deg);
+    background: #d8d8d8;
+    margin-right: 5px;
+    float: left;
+}
+.statusBar .box15 {
+    display: block;
+    width: 15%;
+    height: 20px;
+    -webkit-transform: skewX(-20deg);
+    transform: skewX(-20deg);
+    background: #d8d8d8;
+    margin-right: 5px;
+    float: left;
+}
+.status-step .size24 {
+    width: 24%;
+}
+.status-step .size15 {
+    width: 15%;
+}
+.status-step .size9 {
+    width: 9%;
+}
+.statusBar .box9 {
+    display: block;
+    width: 9%;
+    height: 20px;
+    -webkit-transform: skewX(-20deg);
+    transform: skewX(-20deg);
+    background: #d8d8d8;
+    margin-right: 5px;
+    float: left;
+}
+/* statusBar */
+.statusBar .active {
+    background: #333366;
+}
+/* .payment-progress-bar */
+.payment-progress-bar {
+    padding-top: 30px;
+}
+/* box-color */
+.box-color {
+    background-color: #f7f7f7;
+    margin-top: 12px;
+}
+/* order-subtotal, shipping-cost */
+#order-subtotal, #shipping-cost {
+    font-size: 14px;
+    color: #000000;
+}
+/* items-order-total */
+#items-order-total {
+    font-size: 14px;
+    color: #000000;
+    padding-bottom: 14px;
+}
+/* full-text */
+#full-text {
+    line-height: 20px;
+}
+/* .billing-information-header-info, .subheader-text */
+.billing-information-header-info, .subheader-text {
+    padding-top: 25px;
+}
+/* .inline-link */
+.inline-link:hover, .inline-link-chevron:hover {
+    color: #999999;
+}
+/* .inline-link */
+.inline-link {
+    color: #333366;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+/* .global-add-address-btn.difffernt-address */
+.global-add-address-btn.different-address {
+    padding-top: 15px;
+    padding-bottom: 23px;
+}
+/* .form-group.new-address-instructions */
+.form-group.new-address-instructions {
+    padding-top: 22px;
+}
+/* .required-field-text */
+.required-field-text {
+    font-size: 12px;
+    padding-top: 36px;
+}
+/* .privacy-policy */
+.privacy-policy {
+    padding-top: 26px;
+    line-height: 20px;
+    font-size: 14px;
+}
+/* .form-group */
+.form-group {
+    margin-bottom: 26px;
+}
+/* .form-control */
+.form-control:focus option:first-of-type {
+    display: none;
+}
+/* select */
+select::-ms-expand {
+    display: none;
+}
+/* input */
+input::-ms-clear {
+    display:none;
+}
+/* label */
+label.checkbox.disclaimer {
+    font-size: 12px;
+}
+/* label */
+label.checkbox {
+    padding-top: 1px;
+    font-size: 14px;
+    text-align: left;
+    padding-left: 30px;
+    padding-bottom: 0px;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #595959;
+}
+/* .checkbox */
+.checkbox input[type=checkbox] {
+    display: none;
+}
+/* input[type=checkbox] */
+input[type=checkbox] ~ span.checkbox {
+    display: inline-block;
+    font-size: 16px;
+    width: 20px;
+    height: 20px;
+    line-height: 24px;
+    border: 1px solid #595959;
+    color: #333366;
+    margin: 0 5px 0 0;
+    padding: 0;
+    text-align: center;
+    background: #fff;
+    vertical-align: text-bottom;
+}
+/* input[type=checkbox] */
+input[type=checkbox]:checked ~ span.checkbox:after {
+    content: "\2714";
+    font-family: 'fontello', sans-serif;
+    font-size: 19px;
+    line-height: 20px;
+    display: block;
+}
+/* paypageWrapper */
+#paypageWrapper #card-number-error {
+    margin-top: -20px;
+    background: #fff;
+    position: relative;
+    padding-top: 0px;
+    width: 50%;
+}
+/* paypageWrapper */
+#paypageWrapper #security-code-error {
+    float: right;
+    width: 27%;
+    background: #fff;
+    position: relative;
+    margin-right: 0px;
+    text-align: right;
+    padding-right: 0px;
+    margin-top: -20px;
+}
+@media only screen and (max-width:1176px){
+    #paypageWrapper #security-code-error {
+        width: 30%;
+    }
+}
+@media only screen and (max-width: 950px) {
+    /* paypageWrapper */
+    #paypageWrapper #security-code-error {
+        width: 39%;
+    }   
+}
+@media only screen and (max-width: 910px) {
+    /* paypageWrapper */
+    #paypageWrapper #security-code-error {
+        margin-top:-35px;
+    }   
+}
+@media only screen and (max-width: 767px) {
+    /* paypageWrapper */
+    #paypageWrapper #security-code-error {
+        width: 30%;
+        margin-top:-20px;
+    }   
+}
+@media only screen and (max-width: 509px) {
+    /* paypageWrapper */
+    #paypageWrapper #security-code-error {
+        width: 40%;
+    }   
+}
+@media only screen and (max-width: 487px) {
+    /* paypageWrapper */
+    #paypageWrapper #security-code-error {
+        margin-top:-35px;
+    }   
+}
+/* .error */
+.error input[type='text']:not(#quick-tools--input), .error input[type='number']:not(#quick-tools--input), .error input[type='date']:not(#quick-tools--input), .error select.form-control {
+    border: 1px solid #e71921;
+}
+/* .form-control */
+.form-control.error {
+    border: 1px solid #e71921 !important;
+}
+/* .checkbox */
+.checkbox.error {
+    border: 1px solid #e71921 !important;
+}
+/* .error */
+.error .error-message, .error-message #alertHeader p {
+    display: block;
+}
+/* .table */
+.table {
+    display: table !important;
+}
+/* .error-message */
+.error-message, #alertHeader p {
+    display: none;
+    color: #e71921;
+    font-size: 13px;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding-top: 5px;
+    line-height: 16px;
+}
+/* .top-error-message.error */
+.top-error-message.error {
+    padding-top: 18px;
+}
+/* span.error-message */
+span.error-message + span.error-message {
+    padding-top: 9px;
+}
+/* .agree-to-terms */
+.agree-to-terms span.error-message {
+    padding-left: 27px;
+}
+/* span.error-message.expiration-date */
+span.error-message.expiration-date {
+    margin-right: -160px;
+}
+/* label */
+label {
+    font-weight: normal;
+    font-size: 12px;
+    color: #595959;
+}
+/* .checkbox, .radio */
+.checkbox, .radio {
+    margin-top: 3px;
+    margin-bottom: 0px;
+}
+/* .credit-radio-container */
+.credit-radio-container {
+    padding-top: 10px;
+}
+/* .privacy-policy-text */
+.privacy-policy-text {
+    font-size: 14px;
+    color: #595959;
+    padding-left: 0px;
+    line-height: 17px;
+    display: inline-block;
+    margin: 0 0 11px;
+}
+/* label.checkbox */
+label.checkbox span.checkbox {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+/* nickname1, nickname2, nickname3 */
+#nickname1, #nickname2, #nickname3 {
+    margin-left: 0px;
+}
+/* paypal-radio-text-wrapper, .visa-checkout-radio-text.wrapper, .radio-text.wrapper */
+.paypal-radio-text-wrapper, .visa-checkout-radio-text-wrapper, .radio-text-wrapper {
+    display: inline-block;
+}
+/* .card-categories-row */
+.card-categories-row {
+    background-color: #f7f7f7;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 0px;
+    padding-left: 20px;
+    margin-left: 23px;
+}
+/* .subscription-indent */
+.subscription-indent {
+    padding-left: 20px;
+    margin-left: 23px;
+}
+/* .card-row */
+.card-row {
+    padding-bottom: 11px;
+    padding-top: 12px;
+}
+/* .paypal-text, .visa-checkout-text */
+.paypal-text, .visa-checkout-text {
+    font-size: 14px;
+    padding-left: 20px;
+}
+/* .checkbox-text */
+.checkbox-text {
+    font-size: 14px;
+}
+/* .form-instructions */
+.form-instructions {
+    font-size: 14px;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #595959;
+    padding-top: 23px;
+    padding-bottom: 20px;
+}
+/* .form-instructions p */
+.form-instructions  p{
+    font-size: 14px;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #595959;
+}
+/* .form-group p */
+.form-group p{
+    font-size: 14px;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #595959;
+}
+/* .form-billing-address-instructions */
+.form-billing-address-instructions {
+    padding-top: 6px;
+    font-size: 14px;
+    color: #595959;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+/* .stored-line-break */
+.stored-line-break {
+    border-color: #ededed;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    margin-left: -15px;
+    margin-right: 0px;
+}
+/* .save-credit-card */
+.save-credit-card {
+    padding-top: 8px;
+}
+/* input[tpe=checkbox], input[type=radio] */
+input[type=checkbox], input[type=radio] {
+    vertical-align: top;
+    margin: 3px 0 0;
+}
+/* .card-type-header */
+.card-type-header {
+    width: 23%;
+}
+/* .nickname-header */
+.nickname-header {
+    width: 21%;
+}
+/* .card-number-header */
+.card-number-header {
+    width: 19%
+}
+/* .ma-card-type-header */
+.ma-card-type-header {
+    width: 27%;
+}
+/* .ma-nickname-header */
+.ma-nickname-header {
+    width: 27%;
+}
+/* .ma-card-number-header */
+.ma-card-number-header {
+    width: 26%
+}
+/* .ma-expiration-date-header */
+.ma-expiration-date-header {
+    width: 6%;
+}
+/* .card-security-header */
+.card-security-header{
+    padding-left:44px;
+}
+/* credit card logos */
+.american-credit-card, .mastercard-credit-card, .visa-credit-card, .discover-credit-card, .paypal-account-logo, .visa-checkout-account-logo {
+    width: 55px;
+    height: 38px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 0px 1px;
+}
+/* credit card logos */
+.american-credit-card.logo, .mastercard-credit-card.logo, .visa-credit-card.logo, .discover-credit-card.logo {
+    margin-left: 0px;
+}
+/* credit card logos */
+.mastercard-credit-card{
+    margin-left: 5px;
+}
+/* credit card logos */
+.visa-credit-card{
+    margin-left: 5px;
+}
+/* credit card logos */
+.discover-credit-card{
+    margin-left: 5px;
+}
+/* .visa-checkout-account-logo */
+.visa-checkout-account-logo {
+    background-image: url(https://assets.secure.checkout.visa.com/VCO/images/acc_49x31_wht01.png);
+    margin-left: -30px;
+}
+/* .paypal-account-logo */
+.paypal-account-logo{
+    background-image: url(../images/paypal-logo.svg);
+    margin-left: -30px;
+}
+/* .credit-card-holder */
+.credit-card-holder{
+    padding-left: 0px;
+}
+/* .credit-card-data */
+.credit-card-data {
+    padding-left: 15px;
+    background-color: #f7f7f7;
+    width: 950px;
+    height: 32px;
+}
+/* .credit-card-data */
+.credit-card-data li span {
+    text-align: center;
+    color:#333366;
+    font-size:12px;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+/* .credit-card-data */
+.credit-card-data li {
+    display:inline-block;
+}
+/* .credit-card-holder */
+.credit-card-holder li{
+    display:inline-block;
+}
+/* .credit-card-holder, .subscription-cards-header-holder */
+.cards-header-holder, .subscription-cards-header-holder{
+    color:#333366;
+    font-size:12px;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+/* .subExpiresHeader, subNicknameHeader subNumberHeader */
+#subExpiresHeader, #subNicknameHeader, #subNumberHeader {
+    padding-left:30px;
+}
+/* label.ccradio,.credit-card-radio ~ label,.global-paypal-radio~label,.global-visa-checkout-radio~label,#card-one-radio ~ label */
+label.ccradio,.credit-card-radio ~ label,.global-paypal-radio~label,.global-visa-checkout-radio~label,#card-one-radio ~ label{
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color:#333366;
+    font-size: 18px;
+    padding-left: 4px;
+}
+/* .credit-card-radio,.global-paypal-radio,.global-visa-checkout-radio */
+.credit-card-radio,.global-paypal-radio,.global-visa-checkout-radio{
+    -webkit-appearance: none;
+    content: '';
+    width:13px;
+    height:13px;
+    background-color:#fff;
+    border-radius:50%;
+    outline:0px;
+    border:solid 1px #595959;
+}
+/* .global-card-radio */
+.global-card-radio{
+    -webkit-appearance: none;
+    content: '';
+    width:13px;
+    height:13px;
+    background-color:#fff;
+    border-radius:50%;
+    outline:0px;
+    border:solid 1px #595959;
+    margin-left: -20px;
+}
+/* .credit-card-radio:checked:after,.global-paypal-radio:checked:after,.global-visa-checkout-radio:checked:after,#stored-card-two-radio:checked:after,.global-card-radio:checked:after */
+.credit-card-radio:checked:after,.global-paypal-radio:checked:after,.global-visa-checkout-radio:checked:after,#stored-card-two-radio:checked:after,.global-card-radio:checked:after{
+    content: '';
+    height:50%;
+    width:50%;
+    display:table;
+    margin:26%;
+    border-radius:50%;
+    background-color:#595959;
+}
+/* .global-card-radio ~ label */
+.global-card-radio ~ label {
+    font-family: "HelveticaNeueW02-55Roma", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #595959;
+    font-size: 16px;
+    padding-left: 6px;
+}
+/* .global-card-holder-nickname */
+.global-card-holder-nickname{
+    margin-left:-23px;
+}
+/* .global-pymt-info-inputs input[type='text'] */
+.global-pymt-info-inputs input[type='text'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 44px;
+    padding: 5px 10px;
+    border: 1px solid #333366;
+    border-radius: 3px;
+    position: relative;
+    color: #000;
+}
+/* .security-code-body */
+.security-code-body{
+    margin: 0px 20px 0px 20px;
+    font-size: 12px;
+    color:#595959;
+    font-family: "HelveticaNeueW02-55Roma", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+/* .card-security-code p */
+.card-security-code p {
+    font-size: 12px;
+    line-height: 16px;
+    padding-top: 15px;
+}
+/* .urbanization-code-body */
+.urbanization-code-body{
+    margin: 0px 20px 0px 20px;
+    font-size: 12px;
+    color:#595959;
+    font-family: "HelveticaNeueW02-55Roma", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+/* .urbanization-code p */
+.urbanization-code p {
+    font-size: 12px;
+    line-height: 16px;
+    padding-top: 15px;
+}
+/* select.form-control */
+select.form-control {
+    width: 100%;
+    height: 44px;
+    line-height: 31px;
+    border: 1px solid #333366;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    color: #333366;
+    padding-right: 45px !important;
+}
+/* input[type=checkbox] */
+input[type=checkbox], input[type="radio"].toggle {
+    position: absolute;
+    opacity: 0;
+}
+/* .profile-info input[type=checkbox]:checked ~ span.profile-checkbox:after, .agree-to-terms input[type=checkbox]:checked ~ span.agree-to-terms-checkbox:after */
+.profile-info input[type=checkbox]:checked ~ span.profile-checkbox:after, .agree-to-terms input[type=checkbox]:checked ~ span.agree-to-terms-checkbox:after {
+    content: "\2714";
+    font-family: 'fontello', sans-serif;
+    font-size: 19px;
+    line-height: 20px;
+    display: block;
+}
+/* label.profile-checkbox, label.agree-to-terms */
+label.profile-checkbox, label.agree-to-terms {
+    padding-top: 5px;
+    font-size: 14px;
+    text-align: left;
+    padding-left: 34px;
+    padding-bottom: 20px;
+}
+/* .agree-to-terms-checkbox.subscription */
+.agree-to-terms-checkbox.subscription {
+    padding-left: 48px;
+}
+/* span.agree-to-terms-checkbox */
+span.agree-to-terms-checkbox {
+    position: absolute;
+}
+/* p.terms-text */
+p.terms-text {
+    font-size: 14px;
+}
+/* span.terms-text */
+span.terms-text {
+    padding-left: 27px;
+    display: flex;
+    padding-top: 1px;
+    line-height: 18px;
+}
+/* label.checkbox span.profile-checkbox, label.checkbox span.agree-to-terms-checkbox */
+label.checkbox span.profile-checkbox, label.checkbox span.agree-to-terms-checkbox {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+/* label.inputLabel.security-code */
+label.inputLabel.security-code {
+    white-space: nowrap;
+}
+/* label.inputLabel.urbanization-code */
+label.inputLabel.urbanization-code {
+    white-space: nowrap;
+}
+/* .profile-info input[type=checkbox] ~ span.profile-checkbox, .agree-to-terms input[type=checkbox] ~ span.agree-to-terms-checkbox */
+.profile-info input[type=checkbox] ~ span.profile-checkbox, .agree-to-terms input[type=checkbox] ~ span.agree-to-terms-checkbox {
+    display: inline-block;
+    font-size: 16px;
+    width: 20px;
+    height: 20px;
+    line-height: 24px;
+    border: 1px solid #595959;
+    color: #333366;
+    margin: 0 5px 0 0;
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+    background: #fff;
+}
+/* .profile-info-checkbox, .agree-to-terms-checkbox */
+.profile-info-checkbox, .agree-to-terms-checkbox {
+    padding-top: 10px;
+}
+/* .save-credit-card input[type=checkbox] ~ span.save-checkbox */
+.save-credit-card input[type=checkbox] ~ span.save-checkbox {
+    display: inline-block;
+    font-size: 16px;
+    width: 20px;
+    height: 20px;
+    line-height: 24px;
+    border: 1px solid #595959;
+    color: #333366;
+    margin: 0 5px 0 0;
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+    background: #fff;
+}
+/* .save-credit-card input[type=checkbox]:checked ~ span.save-checkbox:after */
+.save-credit-card input[type=checkbox]:checked ~ span.save-checkbox:after {
+    content: "\2714";
+    font-family: 'fontello', sans-serif;
+    font-size: 20px;
+    line-height: 19px;
+    display: block;
+}
+/* .global-add-card-btn */
+.global-add-card-btn {
+    cursor: pointer;
+}
+/* .global-add-card-btn:after, .global-add-address-btn:after */
+.global-add-card-btn:after, .global-add-address-btn:after {
+    content: ' +';
+    color: #e71921;
+    position: relative;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+}
+/* .global-addbtn-holder */
+.global-addbtn-holder {
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 28px;
+    color: #333366;
+    padding: 0;
+    font-size: 14px;
+}
+/* .global-cards-holder */
+.global-cards-holder {
+    background:#f7f7f7;
+    height:32px;
+    color:#333366;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    padding-top: 10px;
+    margin-bottom:30px;
+    padding-left: 30px;
+    width:950px;
+}
+/* .global-storedcard-wrapper, .stored-card-second */
+.global-storedcard-wrapper, .stored-card-second {
+    margin-left: 3%;
+}
+/* .global-storedcard-wrapper  .global-card-number, .stored-card-second .global-card-number */
+.global-storedcard-wrapper  .global-card-number, .stored-card-second .global-card-number {
+    margin-left:15px;
+    color:#595959;
+    font-size:12px;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif; } .global-storedcard-wrapper  .global-edit-card{
+    margin-left:10px;
+    color:#333366;
+    font-size:14px;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+/* .global-storedcard-wrapper .card-nickname,  .global-storedcard-wrapper ,.global-card-number */
+.global-storedcard-wrapper .card-nickname,  .global-storedcard-wrapper ,.global-card-number {
+    color: #595959;
+    font-size:14px;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin-left: 24px;
+}
+/* .global-storedcard-wrapper .credit-card-radio, .stored-card-second .credit-card-radio */
+.global-storedcard-wrapper .credit-card-radio, .stored-card-second .credit-card-radio {
+    -webkit-appearance: none;
+    content: '';
+    width: 13px;
+    height: 13px;
+    background-color: #fff;
+    border-radius: 50%;
+    outline: 0px;
+    border: solid 1px #595959;
+    margin-bottom: -2px;
+}
+/* .paypageCVVWrapper */
+.paypageCVVWrapper {
+    margin-top: -10px;
+    margin-left: -25px;
+    height: 44px;
+}
+/* .cvvIframe */
+.cvvIframe {
+    width: 100%;
+}
+/* .global-storedcard-wrapper  input[type='text'], .stored-card-second  input[type='text'] */
+.global-storedcard-wrapper  input[type='text'], .stored-card-second  input[type='text'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 44px;
+    border: 1px solid #333366;
+    border-radius: 3px;
+    color: #000;
+    padding-left: 20px;
+    width: 100px;
+    margin-top: -10px;
+    margin-left: -25px;
+}
+/* .global-remove-card, .global-remove-card-three */
+.global-remove-card, .global-remove-card-three {
+    font-size: 14px;
+    color: #595959;
+    float: right;
+    cursor: pointer;
+    white-space: nowrap;
+    padding-top: 12px;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif; 
+}
+/* .global-remove-card:after, .global-remove-card-three:after */
+.global-remove-card:after, .global-remove-card-three:after {
+    content: "";
+    background-image: url(../images/close_x.svg);
+    display: inline;
+    background-repeat: no-repeat;
+    background-size: 12px;
+    padding-left: 26px;
+    background-position: 9px 2px;
+}
+/* .global-pymt-select */
+.global-pymt-select {
+    background: transparent url(../images/blue-caret-down.svg) no-repeat;
+    background-position: 94% 13px;
+    background-size: 18px 18px;
+    cursor: pointer;
+}
+/* .global-nick-name */
+.global-nick-name {
+    margin-left: -15px;
+}
+/* .global-stored-card-number */
+.global-stored-card-number {
+    margin-left: 9%;
+}
+/* .global-stored-card-expires */
+.global-stored-card-expires {
+    margin-left: -31%;
+}
+/* subTypeHeader, subNicknameHeader, subNumberHeader subExpiresHeader */
+#subTypeHeader, #subNicknameHeader, #subNumberHeader, #subExpiresHeader {
+    width: 25%;
+}
+/* .paypal-icon-wrapper, .visa-checkout-icon-wrapper */
+.paypal-icon-wrapper, .visa-checkout-icon-wrapper {
+    display: inline-block;
+    padding-left: 43px;
+    vertical-align: -10px;
+}
+/* .subscription-cards-header-holder */
+.subscription-cards-header-holder {
+    padding: 0;
+}
+/* .cards-header-holder ul > li, .subscription-cards-header-holder ul > li */
+.cards-header-holder ul > li, .subscription-cards-header-holder ul > li  {
+    display: inline-block;
+    white-space: nowrap;
+}
+/* subscription-category-row */
+#subscription-category-row {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 47px;
+}
+/* #header1 .stored-card-edit-wrapper, #header2 .stored-card-edit-wrapper, #header3 .stored-card-edit-wrapper */
+#header1 .stored-card-edit-wrapper, #header2 .stored-card-edit-wrapper, #header3 .stored-card-edit-wrapper {
+    margin-left: 0px;
+}
+/* #subscriptioncols */
+#subscriptioncols {
+    padding-left:5px;
+    padding-right:0;
+}
+@media only screen and (max-width: 767px) {
+    /* .container-fluid */
+    .container-fluid {
+        min-width: 320px;
+    }
+    /* .global-payment-header */    
+    .global-payment-header {
+        background-color: #f7f7f7;
+        padding-top: 16px;
+        padding-bottom: 20px;
+    }
+    /* .billing-information-header-info, .subheader-text */
+    .billing-information-header-info, .subheader-text {
+        padding-top: 20px;
+    }
+    /* .billing-information, .verify-identity-subheader */
+    .billing-information, .verify-identity-subheader {
+        padding-top: 14px;
+    }
+    /* .required-field-text */
+    .required-field-text {
+        padding-top: 24px;
+    }
+    /* .privacy-policy */
+    .privacy-policy {
+        padding-top: 18px;
+        line-height: 20px;
+        font-size: 14px;
+    }
+    /* .checkbox, .radio */
+    .checkbox, .radio {
+        position: relative;
+        display: block;
+        margin-top: 24px;
+        margin-bottom: 10px;
+    }
+    /* .stored-card */
+    .stored-card {
+        margin-top: 6px;
+    }
+    /* .american-credit-card.logo, .mastercard-credit-card.logo, .visa-credit-card.logo, .discover-credit-card.logo */
+    .american-credit-card.logo, .mastercard-credit-card.logo, .visa-credit-card.logo, .discover-credit-card.logo {
+        margin-left: 7px;
+    }
+    /* .form-instructions */
+    .form-instructions {
+        padding-top: 0px;
+        padding-bottom: 5px;
+    }
+    /* .form-instructions.form */
+    .form-instructions.form {
+        padding-bottom: 20px;
+    }
+    /* .order-total-box */
+    .order-total-box {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    /* .global-cards-holder */
+    .global-cards-holder{
+        width:800px;
+    }
+    /* .global-storedcard-wrapper input[type='text'], .stored-card-second input[type='text'] */
+    .global-storedcard-wrapper input[type='text'], .stored-card-second input[type='text'] {
+        margin-left: 25px !important;
+        margin-bottom: 20px !important;
+    }
+    /* .paypageCVVWrapper */
+    .paypageCVVWrapper {
+        margin-left: 25px;
+        margin-top: 0px;
+        margin-bottom: 37px;
+    }
+    /* .security-code-label */
+    .security-code-label {
+        padding-left: 24px;
+        white-space: nowrap;
+    }
+    /* .urbanization-code-label */
+    .urbanization-code-label {
+        padding-left: 24px;
+        white-space: nowrap;
+    }
+    /* input.form-control.security-code-card-one, input.form-control.security-code-card-two, input.form-control.security-code-card-three */
+    input.form-control.security-code-card-one, input.form-control.security-code-card-two, input.form-control.security-code-card-three {
+        margin-top: 0px;
+    }
+    /* .card-security-header */
+    .card-security-header{
+        padding-left:20px;
+    }
+    /* .radio-text-wrapper */
+    .radio-text-wrapper {
+        display: inline-block;
+        width: 100%
+    }
+    /* .credit-cards-icon-wrapper */
+    .credit-cards-icon-wrapper {
+        display: inline-block;
+        padding-left: 21px;
+        padding-top: 4px;
+    }
+    /* .buttons-holder */
+    .buttons-holder {
+        padding-bottom: 40px;
+    }
+    /* .buttons-holder.form */
+    .buttons-holder.form {
+        padding-top: 0px;
+    }
+    /* .stored-line-break */
+    .stored-line-break{
+        display:none;
+    }
+    /* .global-card-holder-nickname */
+    .global-card-holder-nickname {
+        margin-left: 0px;
+    }
+    /* .global-stored-card-number */
+    .global-stored-card-number{
+        margin-left:0px;
+    }
+    /* .global-storedcard-wrapper .card-nickname, .global-storedcard-wrapper .global-card-number, .stored-card-expires */
+    .global-storedcard-wrapper .card-nickname, .global-storedcard-wrapper .global-card-number, .stored-card-expires {
+        font-size:12px;
+    }
+    /* .mobile-view-expires */
+    .mobile-view-expires {
+        margin-left:24px;
+        font-size: 12px;
+    }
+    /* .global-stored-card-expires */
+    .global-stored-card-expires {
+        margin-left: 0px;
+    }
+    /* .mobile-view-nickname,.mobile-view-card-number,.mobile-expires */
+    .mobile-view-nickname,.mobile-view-card-number,.mobile-expires{
+        margin-left: 24px;
+        font-size: 12px;
+    }
+    /* .global-card-radio */
+    .global-card-radio {
+        margin-left: -10px
+    }
+    /* .global-storedcard-wrapper, .stored-card-second .global-card-number */
+    .global-storedcard-wrapper, .stored-card-second .global-card-number {
+        margin-left:5px;
+    }
+    /* .global-card-number */
+    .global-card-number {
+        margin-left:15px;
+    }
+    /* ..global-remove-card, .global-remove-card-three */
+    .global-remove-card, .global-remove-card-three {
+        margin-right:20px;
+    }
+    /* .stored-card-expires */
+    .stored-card-expires{
+        margin-left:15px;
+    }
+    /* .global-storedcard-wrapper, .stored-card-second */
+    .global-storedcard-wrapper, .stored-card-second {
+        background-color: #f7f7f7;
+        margin-left: -15px
+    }
+    /* .global-payment .payprint-button-holder */
+    .global-payment .payprint-button-holder {
+        margin-left:80px;
+        margin-top:30px;
+    }
+    /* .global-payment .back-button-holder */
+    .global-payment .back-button-holder {
+        margin-left:80px;
+    }
+    /* .nickname-row */
+    .nickname-row {
+        padding-top: 14px;
+    }
+    /* .card-number-row */
+    .card-number-row {
+        padding-top: 19px;
+    }
+    /* .expiration-date-row */
+    .expiration-date-row {
+        padding-top: 19px;
+        padding-bottom: 15px;
+    }
+    /* .global-pymt-info-inputs */
+    .global-pymt-info-inputs {
+        padding-top: 24px;
+    }
+    /* .global-addbtn-holder */
+    .global-addbtn-holder {
+        padding-top: 18px;
+    }
+    /* .paypal-text, .visa-checkout-text */
+    .paypal-text, .visa-checkout-text {
+        padding-left: 21px;
+    }
+    /* .payment-line-break */
+    .payment-line-break {
+        margin-bottom: -15px;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    /* .agree-to-terms-checkbox.subscription */
+    .agree-to-terms-checkbox.subscription {
+        margin-top: -15px;
+        padding-top: 10px;
+    }
+}
+@media only screen and (min-width: 768px) {
+    /* .text-indentation-wrapper */
+    .text-indentation-wrapper {
+        padding-left: 8%;
+    }
+    /* .payment-line-break */
+    .payment-line-break {
+        border-color: #ededed;
+        margin-top: 13px;
+        margin-bottom: 10px;
+        margin-left: -20px;
+        margin-right: -15px;
+    }
+    /* .form-instructions.form */
+    .form-instructions.form {
+        padding-top: 0px;
+    }
+    /* .credit-cards-icon-wrapper */
+    .credit-cards-icon-wrapper {
+        display: inline-block;
+        padding-left: 15px;
+        vertical-align: -10px;
+    }
+    /* .buttons-holder */
+    .buttons-holder {
+        padding-top: 34px;
+        padding-bottom: 40px;
+    }
+    /* .buttons-holder */
+    .buttons-holder.form {
+        padding-top: 15px;
+    }
+    /* .global-pymt-info-inputs */
+    .global-pymt-info-inputs {
+        padding-left: 35px;
+    }
+    /* .global-addbtn-holder */
+    .global-addbtn-holder {
+        padding-left: 38px;
+        padding-top: 7px;
+    }
+    /* .security-code-label */
+    .security-code-label {
+        display: none;
+    }
+    /* .urbanization-code-label */
+    .urbanization-code-label {
+        display: none;
+    }
+    /* .agree-to-terms-checkbox.subscription */
+    .agree-to-terms-checkbox.subscription {
+        padding-top: 5px;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 989px) {
+    /* select.form-control */
+    select.form-control {
+        padding: 6px 8px;
+    }
+    /* .text-indentation-wrapper */
+    .text-indentation-wrapper {
+        padding-left: 6%;
+    }
+    /* span.error-message.expiration-date */
+    span.error-message.expiration-date {
+        margin-right: -120px;
+    }
+    /* .global-card-radio ~ label */
+    .global-card-radio ~ label {
+        width: 105px;
+    }
+    /* .card-type-header */
+    .card-type-header {
+        width: 22%;
+        font-size: 11px;
+    }
+    /* .nickname-header */
+    .nickname-header {
+        width: 20%;
+        font-size: 11px;
+    }
+    /* .card-number-header */
+    .card-number-header {
+        width: 18%;
+        font-size: 11px;
+    }
+    /* .expiration-date-header */
+    .expiration-date-header {
+        width: 12%;
+        font-size: 11px;
+    }
+    /* .card-security-header */
+    .card-security-header {
+        padding-left: 0px;
+        font-size: 11px;
+    }
+    /* .global-card-holder-nickname */
+    .global-card-holder-nickname {
+        margin-left: -25px;
+        display: block;
+    }
+    /* .global-stored-card-number */
+    .global-stored-card-number {
+        margin-left: 0px;
+    }
+    /* .global-stored-card-expires */
+    .global-stored-card-expires {
+        margin-left: -58%;
+    }
+    /* .paypageCVVWrapper, .global-storedcard-wrapper  input[type='text'], .stored-card-second  input[type='text'] */
+    .paypageCVVWrapper, .global-storedcard-wrapper  input[type='text'], .stored-card-second  input[type='text'] {
+        margin-left: -62px;
+    }
+}
+/*** END BILLING INFORMATION CSS ***/
+/********** START STORED CREDIT CARDS CSS **********/ 
+/* .stored-credit-cards */
+.stored-credit-cards {
+    padding-top: 41px;
+}
+/* .stored-credit-cards-header-info */
+.stored-credit-cards-header-info {
+    padding-top: 15px;
+}
+/* .stored-card-heading */
+.stored-card-heading {
+    margin-bottom:50px;
+}
+/* heading-line */
+.heading-line {
+    width: 90%;
+}
+/* heading-line */
+.heading-line hr {
+    border-color: #d8d8d8;
+    margin-top: 15px;
+    margin-bottom: 0px;
+    margin-right: -3px;
+}
+/* .stored-card-heading h1 */
+.stored-card-heading h1 {
+    color:#333366;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/* .stored-card-sub-heading */
+.stored-card-sub-heading {
+    margin-bottom:30px;
+}
+/* .stored-card-sub-heading span */
+.stored-card-sub-heading span {
+    font-size:24px;
+    color:#333366;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/* .card-type */
+.card-type {
+    padding-left: 0px;
+}
+/* .stored-card-info-text */
+.stored-card-info-text {
+    margin-bottom:30px;
+}
+/* .stored-card-info-text p */
+.stored-card-info-text p {
+    color:#595959;
+    font-size:16px;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif; 
+}
+/* .stored-card-heading-holder */
+.stored-card-heading-holder {
+    color:#333366;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height:32px;
+    display: inline-block;
+}
+/* .stored-card-heading-holder p */
+.stored-card-heading-holder p {
+    color: #333366;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    padding-top: 3px;
+}
+/* .stored-credit-cards-limit p */
+.stored-credit-cards-limit p {
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding-top: 20px;
+}
+/* .add-btn-holder .stored-card-addcard */
+.add-btn-holder .stored-card-addcard {
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 28px;
+    color: #333366;
+    margin: 0 0 0 15px;
+    padding: 0;
+    cursor: pointer;
+    border: 0px;
+    background: #fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+/* .stored-card-addcard:after */
+.stored-card-addcard:after {
+    content: ' +';
+    color: #e71921;
+    position: relative;
+    font-weight: 400;
+    font-size: 22px;
+    text-decoration: none
+}
+/* .stored-card-remove */
+.stored-card-remove {
+    font-size: 14px;
+    color: #595959;
+    float: right;
+    cursor: pointer;
+}
+/* .stored-card-remove:after */
+.stored-card-remove:after {
+    content: "";
+    background-image: url(../images/close_x.svg);
+    display: inline;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+    padding-left: 26px;
+    background-position: 9px 2px;
+}
+/* .stored-card-edit */
+.stored-card-edit {
+    margin-left: 10px;
+    color: #333366;
+    font-size: 14px;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    cursor: pointer;
+}
+/* .stored-card-number */
+.stored-card-number {
+    margin-bottom:20px;
+    padding-left: 0px;
+}
+/* .stored-card-type-wrapper */
+.stored-card-type-wrapper {
+    margin-bottom: 10px;
+}
+/* .card-vendor */
+.card-vendor {
+    padding-left: 0px;
+    padding-top: 15px;
+}
+/* .stored-card-wrapper */
+.stored-card-wrapper {
+    background:#f7f7f7;
+    width: 90%;
+    padding-top: 13px;
+    margin-top: 27px;
+}
+/* .stored-card-content-wrapper */
+.stored-card-content-wrapper {
+    margin-left:10%;
+}
+/* .stored-cardnum-indicator */
+.stored-cardnum-indicator {
+    font-size:12px;
+    color:#595959;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif; 
+}
+/* .stored-card-logo-text, .stored-card-number-digit, .stored-card-nickname */
+.stored-card-logo-text, .stored-card-number-digit, .stored-card-nickname {
+    font-size:14px;
+    color:#000000;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif; 
+}
+/* .stored-card-number-text, .stored-card-type-text, .stored-card-nickname-text, .stored-card-expires-text */
+.stored-card-number-text, .stored-card-type-text, .stored-card-nickname-text, .stored-card-expires-text {
+    font-size:12px;
+    color:#595959;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif; 
+}
+/* .back-button-holder */
+.back-button-holder {
+    margin-top: 30px;
+}
+/* .add-btn-holder */
+.add-btn-holder {
+    padding-top: 15px;
+}
+@media only screen and (max-width: 767px) {
+    /* heading-line */
+    .heading-line {
+        width: 100%;
+    }
+    /* .stored-credit-cards */
+    .stored-credit-cards {
+        padding-top: 20px;
+    }
+    /* .stored-card-wrapper */
+    .stored-card-wrapper{
+        width:100%;
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+    /* .stored-card-heading */
+    .stored-card-heading {
+        margin-bottom: 10px;
+    }
+    /* .stored-card-number, .stored-card-expires */
+    .stored-card-number, .stored-card-expires {
+        margin-bottom: 20px;
+        padding-left: 0px;
+    }
+    /* .card-number-column, .nickname-column, .expires-column */
+    .card-number-column, .nickname-column, .expires-column {
+        padding-left: 0px;
+        padding-top: 6px;
+    }
+    /* .card-vendor */
+    .card-vendor {
+        padding-top: 0px;
+        padding-right: 0px;
+    }
+    /* .card-number, .nickname */
+    .card-number, .nickname {
+        padding-top: 9px;
+    }
+    /* .stored-card-sub-heading */
+    .stored-card-sub-heading {
+        margin-bottom: 10px;
+    }
+    /* .stored-card-type-wrapper */
+    .stored-card-type-wrapper {
+        margin-bottom:10px;
+    }
+    /* .stored-card-number-text, .stored-card-expires-text */
+    .stored-card-number-text, .stored-card-expires-text {
+        font-size:12px;
+        padding-left: 0px;
+    }
+    /* .stored-card-content-wrapper */
+    .stored-card-content-wrapper {
+        margin-left:0%;
+    }
+    /* .stored-card-info-text */
+    .stored-card-info-text {
+        margin-bottom: 0px;
+    }
+    /* .stored-card-logo-wrapper */
+    .stored-card-logo-wrapper {
+        margin-bottom: 24px;
+        margin-left: -15px;
+    }
+    /* .back-button-holder */
+    .back-button-holder {
+        text-align: center;
+    }
+}
+@media only screen and (min-width: 768px) {
+    /* .stored-card-logo-wrapper */
+    .stored-card-logo-wrapper {
+        margin-bottom: 15px;
+        padding-left: 0px;
+    }
+    /* .card-number, .nickname */
+    .card-number, .nickname {
+        padding-top: 15px;
+    }
+    /* .card-number-column, .nickname-column, .expires-column */
+    .card-number-column, .nickname-column, .expires-column {
+        padding-left: 15px;
+    }
+    /* stored-card-add-btn */
+    #stored-card-add-btn {
+        padding-left: 15px;
+    }
+}
+/*** END STORED CREDIT CARDS CSS ***/
+/*********** START ADD CREDIT CARD CSS ************/
+/* .add-new-card-inputs input[type='text'] */ 
+.add-new-card-inputs input[type='text'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    height: 44px;
+    padding: 5px 10px;
+    border: 1px solid #333366;
+    border-radius: 3px;
+    position: relative;
+    color: #000;
+}
+/* .add-input-label */
+.add-input-label {
+    font-size:12px;
+    color:#595959;
+    font-family: 'HelveticaNeueW01', Helvetica, Arial, sans-serif;
+}
+/* .form-first-row */
+.form-first-row {
+    padding-top:9px;
+}
+/* .add-card-select */
+.add-card-select {
+    background: transparent url(../images/blue-caret-down.svg) no-repeat;
+    background-position: 94% 13px;
+    background-size: 18px 18px;
+    cursor: pointer;
+}
+/* .add-card-billing-address */
+.add-card-billing-address {
+    margin-top: -19px;
+}
+/* .stored-payment p */
+.stored-payment p {
+    padding-top: 21px;
+}
+@media only screen and (max-width: 767px) {
+    /* p.add-card-instructions */
+    p.add-card-instructions {
+        padding-top: 20px;
+    }
+    /* .add-credit-cards */
+    .add-credit-cards {
+        padding-top: 24px;
+    }
+}
+@media only screen and (min-width: 768px) {
+    /* .stored-credit-cards-header-info */
+    .stored-credit-cards-header-info {
+        margin-bottom: -10px;
+    }
+    /* p.form-instructions.cardholders-info */
+    p.form-instructions.cardholders-info {
+        padding-top: 10px;
+    }
+    /* .add-credit-cards */
+    .add-credit-cards {
+        padding-top: 34px;
+    }
+}
+/*** END ADD CREDIT CARD CSS ***/
+/*********** START EDIT CREDIT CARD CSS ************/
+/* .edit.stored-card-wrapper */
+.edit.stored-card-wrapper {
+    margin-top: 16px;
+}
+/* .stored-card-logo */
+.stored-card-logo {
+    background-image: url(../images/american-express-logo.png);
+    width: 55px;
+    height: 38px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 0px 1px;
+}
+/* .edit-card-info-inputs */
+.edit-card-info-inputs {
+    padding-top:20px;
+    float: left;
+    width: 100%;
+}
+/* .edit-card-info-inputs input[type='text'] */
+.edit-card-info-inputs input[type='text'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 44px;
+    padding: 5px 10px;
+    border: 1px solid #333366;
+    border-radius: 3px;
+    position: relative;
+    color: #000;
+}
+/* .stored-edit-sub-heading span */
+.stored-edit-sub-heading span {
+    font-size: 18px;
+    color: #333366;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/* .stored-edit-sub-heading */
+.stored-edit-sub-heading {
+    margin-bottom: 10px;
+}
+/* .stored-edit-info-text p */
+.stored-edit-info-text p {
+    color: #000000;
+    font-size: 12px;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin-top: 20px;
+}
+/* .edit-card-billing-address */
+.edit-card-billing-address {
+    margin-bottom: 18px;
+}
+/* .stored-edit-card-num-in */
+.stored-edit-card-num-in {
+    font-size: 12px;
+    color: #595959;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+/* .stored-card-logo-text, .stored-card-number-digit, .stored-card-expires */
+.stored-card-logo-text, .stored-card-number-digit, .stored-card-expires {
+    font-size: 14px;
+    color: #000000;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+/* .stored-edit-heading h3 */
+.stored-edit-heading h3 {
+    color:#333366;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/* .edit-input-label */
+.edit-input-label {
+    font-size:12px;
+    color:#595959;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+/* .edit-required-field */
+.edit-required-field {
+    opacity:.5;
+    font-size:12px;
+    color:#595959;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+/* .edit-billing-address */
+.edit-billing-address {
+    font-size:16px;
+    color:#333366;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/* .profile-info label, .agree-to-terms label */
+.profile-info label, .agree-to-terms label {
+    font-size: 14px;
+    color: #595959;
+}
+/* .edit-card-select */
+.edit-card-select {
+    background: transparent url(../images/blue-caret-down.svg) no-repeat;
+    background-position: 94% 13px;
+    background-size: 18px 18px;
+    cursor: pointer;
+}
+/* .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control */
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #fff !important;
+    opacity: 1;
+}
+@media only screen and (max-width: 767px) {
+    /* .stored-card-content-wrapper */
+    .stored-card-content-wrapper {
+        margin-left: 1%;
+    }
+    /* p.edit-card-information */
+    p.edit-card-information {
+        padding-top: 20px;
+    }
+}
+/*** END EDIT CREDIT CARD CSS ***/
+/* @media only screen and (max-width: 767px) {}
+@media only screen and (min-width: 768px) {}
+*/
+@media only screen and (min-width: 1200px) {
+    /* .container-fluid */
+    .container-fluid {
+        width: 1170px;
+    }
+}
+/******* Stored Credit Card Additions ******/
+/* div#stored-card-one-wrapper */
+div#stored-card-one-wrapper {
+    margin-top:30px;
+}
+/* .stored-card-delete-wrapper */
+.stored-card-delete-wrapper {
+    padding-right:0px;
+    padding-left:0px;
+}
+@media only screen and (max-width: 767px) {
+    /* .inner-container */
+    .inner-container {
+        padding:0px;
+    }
+    /* .row.stored-card-wrapper */
+    .row.stored-card-wrapper{
+        margin-left:-15px;
+        width: 100%;
+        padding: 0px;
+    }
+    /* .bold-header */
+    .bold-header {
+        padding-left: 0px;
+    }
+    /* .inner-fluid */
+    .inner-fluid {
+        margin-right:-30px;
+        margin-left:0px;
+    }
+    /* .stored-card-digit-holder */
+    .stored-card-digit-holder{
+        margin-bottom:12px;
+        padding-left: 0px;
+    }
+    /* .stored-card-edit-wrapper */
+    .stored-card-edit-wrapper {
+        padding-left:0px;
+    }
+}
+/*** END ***/
+/********** START BILLING INFORMATION OMAS **********/
+/* p#form-text */ 
+p#form-text {
+    font-size: 14px;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif; 
+}
+/* .omas-payment-header #form-text */
+.omas-payment-header #form-text {
+    padding-top: 12px;
+}
+/* .omas-radio-container */
+.omas-radio-container {
+    padding-top: 20px;
+}
+@media only screen and (max-width: 767px) {
+    /* .omas-payment-header */
+    .omas-payment-header {
+        margin-top: -10px;
+    }
+}
+@media only screen and (min-width: 768px) {
+    /* .omas-payment-header */
+    .omas-payment-header {
+        padding-top: 10px;
+    }
+}
+/*** END BILLING INFORMATION OMAS CSS ***/
+/********** START SUBSCRIPTION PAYMENT INFORMATION STORED CREDIT CARDS CSS **********/
+/* .subscription-payment-information .global-card-radio ~ label */
+.subscription-payment-information .global-card-radio ~ label {
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif; 
+}
+/* .subscription-payment-information-cards-wrapper */
+.subscription-payment-information-cards-wrapper {
+    display: inline-block;
+    padding-top: 30px;
+}
+@media only screen and (max-width: 767px) {
+    /* .subscription-privacy-policy */
+    .subscription-privacy-policy {
+        padding-top: 0px;
+    }
+}
+@media only screen and (min-width: 768px) {
+    /* .subscription-privacy-policy */
+    .subscription-privacy-policy {
+        padding-top: 20px;
+    }
+}
+/*** END SUBSCRIPTION PAYMENT INFORMATION STORED CREDIT CARDS CSS ***/
+/********** START VERIFY IDENTITY CSS **********/ 
+/* .required-field-indicator p */
+.required-field-indicator p {
+    padding-top: 18px;
+    padding-bottom: 18px;
+    font-size: 12px;
+}
+/* .verify-identity-radio-buttons */
+.verify-identity-radio-buttons {
+    padding: 15px 0px 0px 0px; 
+}
+/* .enter-new-address */
+.enter-new-address{
+    display: none;
+}
+/* .global-add-address-btn */
+.global-add-address-btn {
+    font-size: 14px;
+    color: #333366;
+}
+/* .global-address-radio */
+.global-address-radio {
+    -webkit-appearance: none;
+    content: '';
+    width: 13px;
+    height: 13px;
+    background-color: #fff;
+    border-radius: 50%;
+    outline: 0px;
+    border: solid 1px #595959;
+    margin-left: -20px;
+}
+/* .global-address-radio:checked:after */
+.global-address-radio:checked:after {
+    content: '';
+    height: 50%;
+    width: 50%;
+    display: table;
+    margin: 28%;
+    border-radius: 50%;
+    background-color: #595959;
+}
+/* .select-address */
+.select-address {
+    margin-bottom: 10px;
+}
+/* .card-information-container */
+.card-information-container {
+    float: left;
+    width: 100%;
+}
+/* .cardholder-name */
+.cardholder-name {
+    padding-bottom: 10px;
+}
+/* .card-nickname-container */
+.card-nickname-container {
+    clear: both;
+}
+/* .global-pymt-info-inputs.verify-identity-wrapper */
+.global-pymt-info-inputs.verify-identity-wrapper {
+    padding-top: 5px;
+}
+/* .read-comply */
+.read-comply {
+    padding-top: 15px;
+}
+/* .verify-identity-radio-buttons label */
+.verify-identity-radio-buttons label {
+    margin-bottom: 0px;
+    padding: 4px 0px 2px 5px;
+}
+@media only screen and (max-width: 767px) {
+    /* .verify-identity-logos */
+    .verify-identity-logos {
+        padding-left: 28px;
+    }
+}
+/*** END VERIFY IDENTITY CSS ***/
+/********** START MODAL STYLING **********/
+/* .modal-content */
+.modal-content {
+    border-radius: 0px;
+}
+/* .modal-header */
+.modal-header {
+    padding: 0px;
+    border-bottom: 0px;
+}
+/* .modal-title */
+.modal-title {
+    padding: 30px 30px 0px 30px; 
+}
+/* .delete-stored-card.modal-title, .session-expiring.modal-title */
+.delete-stored-card.modal-title, .session-expiring.modal-title {
+    text-align: center;
+}
+/* .delete-stored-card .button-container, .session-expiring .button-container */
+.delete-stored-card .button-container, .session-expiring .button-container {
+    padding-top: 30px;
+}
+/* .delete-stored-card.modal-container, .session-expiring.modal-container */
+.delete-stored-card.modal-container, .session-expiring.modal-container {
+    padding-bottom: 30px;
+}
+/* .delete-stored-card p, .session-expiring p */
+.delete-stored-card p, .session-expiring p {
+    font-size: 14px;
+    line-height: 18px;
+    padding-top: 5px;
+    text-align: center;
+}
+/* .delete-stored-card .button-container + .button-container, .session-expiring .button-container + .button-container */
+.delete-stored-card .button-container + .button-container, .session-expiring .button-container + .button-container {
+    padding-right: 0px;
+}
+/* .delete-stored-card.modal-dialog, .session-expiring.modal-dialog */
+.delete-stored-card.modal-dialog, .session-expiring.modal-dialog {
+    margin: 250px auto;
+}
+/* .card-security-code.modal-dialog, .urbanization-code.modal-dialog */
+.card-security-code.modal-dialog, .urbanization-code.modal-dialog {
+    margin: 125px auto;
+}
+/* .card-security-code.modal-body, .urbanization-code.modal-body, .delete-stored-card.modal-body, .session-expiring.modal-body */
+.card-security-code.modal-body, .urbanization-code.modal-body, .delete-stored-card.modal-body, .session-expiring.modal-body {
+    font-family: "HelveticaNeueW02-55Roma", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color:#595959;
+    padding: 5px 30px 0px 30px; 
+}
+/* .modal-header-content */
+.modal-header-content {
+    margin-left:20px;
+    margin-top:10px;
+    font-size:18px;
+    color:#333366;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+/* label.global-payment-card-info */
+label.global-payment-card-info {
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+/* .close */
+.close {
+    opacity: 1;
+}
+/* .modal-header .close */
+.modal-header .close {
+    margin-top: 0px !important;
+    padding: 20px 20px 0px 0px 
+}
+/* .card-security-code-image, .urbanization-code-image */
+.card-security-code-image, .urbanization-code-image {
+    /* width:100%; */
+    padding: 15px 0px 40px 0px; 
+    width: 160px !important;
+}
+/* .card-security-code-modal-header, .urbanization-code-modal-header, .delete-stored-card-modal-header, .session-expiring-modal-header */
+.card-security-code-modal-header, .urbanization-code-modal-header, .delete-stored-card-modal-header, .session-expiring-modal-header {
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-size:18px !important;
+    color:#333366 !important;
+    padding-bottom: 0px !important; 
+}
+/* .modal-header .close:after */
+.modal-header .close:after {
+    content: "";
+    background-image:url(../images/close_x.svg);
+    padding-right:20px;
+    display:inline;
+    background-repeat:no-repeat;
+    background-size:15px;
+    padding-left:0px;
+    background-position: 5px 4px;
+}
+/* .close-delete-modal:after */
+.close-delete-modal:after {
+    content: "";
+    background-image: url(../images/close_x.svg);
+    display: inline;
+    background-repeat: no-repeat;
+    background-size: 12px;
+    padding-left: 26px;
+    background-position: 9px 4px;
+    margin-left: 90%;
+}
+/* .delete-modal-btn */
+.delete-modal-btn {
+    background: #333366;
+    border: solid 1px #333366;
+    color: #ffffff;
+    font-weight: 700;
+    display: inline-block;
+    text-align: center;
+    height: 35px;
+    font-size: 16px;
+    border-radius: 3px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+/* .session-expiring-button */
+.session-expiring-button {
+    width: 100%;
+    text-align: center;
+    padding-right: 0px;
+}
+/* .close-modal-btn */
+.close-modal-btn {
+    background:#ffffff;
+    border: solid 1px #333366;
+    color: #333366 ;
+    font-weight: 700;
+    display: inline-block;
+    text-align: center;
+    height: 35px;
+    font-size: 16px;
+    border-radius: 3px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+/* .modal-header, .modal-footer */
+.modal-header, .modal-footer {
+     border-bottom: 0px;
+}
+/* .modal-footer */
+.modal-footer {
+    border-top: 0px;
+}
+@media only screen and (max-width: 767px) {
+    /* .close-delete-modal:after */
+    .close-delete-modal:after {
+        margin-left: 280px;
+    }
+    /* .modal-dialog {
+        margin: 10px !important;
+    } */
+    /* .delete-stored-card.modal-dialog, .session-expiring.modal-dialog */
+    .delete-stored-card.modal-dialog, .session-expiring.modal-dialog {
+        margin: 250px auto;
+        margin-top: 35% !important;
+    }
+    /* .modal-dialog */
+    .modal-dialog {
+        width: 315px;
+        margin: 30px auto;
+    }
+    /* .card-security-code.modal-body, .urbanization-code.modal-body, .delete-stored-card.modal-body, .session-expiring.modal-body */
+    .card-security-code.modal-body, .urbanization-code.modal-body, .delete-stored-card.modal-body, .session-expiring.modal-body {
+        padding: 5px 27px 0px 27px;
+    }
+    /* .card-security-code-image, .urbanization-code-image */
+    .card-security-code-image, .urbanization-code-image {
+        padding: 15px 0px 27px 0px;
+        /* width: 122px; */
+        width: 100%;
+    }
+    /* .delete-stored-card .button-container, .session-expiring .button-container */
+    .delete-stored-card .button-container, .session-expiring .button-container {
+        padding-top: 15px;
+    }
+}
+@media only screen and (min-width: 768px) {
+    /* .modal-dialog */
+    .modal-dialog {
+        width: 400px;
+    }
+    /* .delete-stored-card.modal-dialog */
+    .delete-stored-card.modal-dialog {
+        width: 470px;
+    }
+    /* .session-expiring.modal-dialog */
+    .session-expiring.modal-dialog {
+        width: 500px;
+    }
+    /* img.card-security-code-image + img.card-security-code-image */
+    img.card-security-code-image + img.card-security-code-image {
+        margin-left: 13px;
+    }
+    /* img.urbanization-code-image + img.urbanization-image */
+    img.urbanization-code-image + img.urbanization-image {
+        margin-left: 13px;
+    }
+}
+/*** END MODAL CSS ***/
+/********** START SPINNER CSS **********/
+/* div#preload */
+div#preload {
+    display: none; 
+}
+/* .crossfade */
+.crossfade{
+    visibility: hidden;
+}
+/***** START WHITE SPINNER *****/
+/* .gray-overlay */
+.gray-overlay {
+color: white;
+    background-color: #031533;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: .50;
+}
+/* .spinner-content h5 */
+.spinner-content h5 {
+    font-size: 18px;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-top: 0px;
+    color: #ffffff;
+}
+/* .white-spinner-container */
+.white-spinner-container {
+    position: fixed;
+    top: 41%;
+    text-align: center;
+    z-index: 999;
+}
+/* .white-spinner-container p */
+.white-spinner-container p {
+    color: #fff;
+    padding-top: 5px;
+}
+/* .spinner-content */
+.spinner-content {
+    display: block;
+    position: relative;
+    background: #333366;
+       opacity: 1;
+    z-index: 1000;
+    padding: 30px 30px 30px 30px;
+}
+/* .spinnerWhite, .spinnerBlue */
+.spinnerWhite, .spinnerBlue {
+    width: 200px;
+    height: 9px;
+    display: inline-block;
+    position: relative;
+}
+/* .white-spinner-wrapper */
+.white-spinner-wrapper {
+    margin: 36px auto;
+}
+@media only screen and (max-width: 767px) {
+    /* .white-spinner-wrapper */
+    .white-spinner-wrapper {
+        width: 262px;
+    }
+}
+@media only screen and (min-width: 768px) {
+    /* .white-spinner-wrapper */
+    .white-spinner-wrapper {
+        width: 240px;
+    }
+}
+/** END WHITE SPINNER **/
+/***** START BLUE SPINNER *****/
+/* .white-overlay */
+.white-overlay {
+    background: #fff;
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+}
+/* .checkout-text */
+.checkout-text {
+    padding-top: 20px;
+}
+/* .spinner-container */
+.spinner-container {
+    position: fixed;
+    top: 45%;
+    text-align: center;
+    width: 100%;
+}
+/* .spinner-header */
+.spinner-header {
+    color: #fff;
+}
+/* .spinner-container h5 */
+.spinner-container h5 {
+    color: #595959;
+    font-family: "HelveticaNeueW02-75Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+}
+/* .spinner-optional-text */
+.spinner-optional-text {
+    color: #595959;
+    font-size: 10px;
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+/* .spinner-container p */
+.spinner-container p {
+    color: #595959;
+    padding-top: 5px;
+}
+/* .j-spinner img */
+.j-spinner img {
+    width:200px;
+    height:100%;
+    position: absolute;
+    z-index:-1;
+    top:0;
+    left:0;
+    opacity:0;
+}
+/* visible */
+.visible {
+    opacity: 1 !important;
+}
+/** END BLUE SPINNER **/
+/*** END SPINNER CSS ***/
+/*** START Modal CSS ***/
+/*** END Modal CSS ***/
+/* #privacy-policy, #storedMsg */
+#privacy-policy, #storedMsg {
+    font-family: "HelveticaNeueW02-55Roma","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 150%;
+    color: #595959;
+    margin: 0;
+    padding: 0;
+    padding-left: 0px;
+}
+/** below is MGO temp **/
+/* .full */
+.full {
+    width: 100%;
+}
+/* .step-flow */
+.step-flow {
+    margin-top:15px;
+    min-height: 10px;
+    background: #333366; /* For Safari 5.1 to 6.0 */
+    border-radius: 3px;
+    padding: 10px;
+    text-align:center;
+}
+/* .step-flow */
+.step-flow .item {
+    vertical-align: middle;
+    text-align:left;
+    width: 20%;
+}
+/* .step-flow */
+.step-flow .num {
+    padding-right:10px;
+    font-size: 20px;
+    text-align: center;
+}
+/* .step-flow */
+.step-flow .num, .step-flow .item  {
+    color: #EDEDED;
+    font-size: 12px;
+}
+/* .step-flow */
+.step-flow .headerHighlight {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+/* .highlight */
+.hilight {
+    color: #333366;
+    line-height: 32px;
+    font-size: 26px;
+    max-width: 90%;
+}
+/* .title-main */
+.title-main {
+    font-weight: normal !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+/* .desc-main */
+.desc-main {
+    font-weight: normal !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    line-height: 32px;
+    font-size: 26px;
+    max-width: 90%;
+    color: #000000;
+}
+/** above is MGO temp **/
+/* #csc-info */
+#csc-info {
+ display: inline-block; 
+ position: relative; 
+ top: 0px;
+ left: -100px; 
+ margin-right: -20px;
+}
+@media only screen and (max-width: 1190px) {
+    /* #csc-info */
+    #csc-info {
+         display: inline-block; 
+         position: relative; 
+         top: 0px;
+         left: -5em;
+     }   
+}
+@media only screen and (max-width: 992px) {
+    /* #csc-info */
+    #csc-info {
+         display: inline-block; 
+         position: relative; 
+         top: 0px;
+         left: -25%;
+    }   
+}
+@media only screen and (max-width: 960px) {
+    /* #csc-info */
+    #csc-info {
+         display: inline-block; 
+         position: relative; 
+         top: 0px;
+         left: -25%;
+    }   
+}
+@media only screen and (max-width: 890px) {
+    /* #csc-info */
+    #csc-info {
+         display: inline-block; 
+         position: relative; 
+         top: 0px;
+    }   
+}
+@media only screen and (max-width: 767px) {
+    /* #csc-info */
+    #csc-info {
+         display: inline-block; 
+         position: relative; 
+         top: -90px;
+         left: 190%;
+    }   
+}
+@media only screen and (max-width: 640px) {
+    /* #csc-info */
+    #csc-info {
+         display: inline-block; 
+         position: relative; 
+         top: -90px;
+         left: 200%;
+    }   
+}
+@media only screen and (max-width: 530px) {
+    /* #csc-info */
+    #csc-info {
+         display: inline-block; 
+         position: relative; 
+         top: -90px;
+         left: 205%;
+    }   
+}
+@media only screen and (max-width: 508px) {
+    /* #csc-info */
+    #csc-info {
+         display: inline-block; 
+         position: relative; 
+         top: -90px;
+         left: 170%;
+    }   
+}
+@media only screen and (max-width: 495px) {
+    /* #csc-info */
+    #csc-info {
+         display: inline-block; 
+         position: relative; 
+         top: -90px;
+         left: 180%;
+    }   
+}
+@media only screen and (max-width: 417px) {
+    /* #csc-info */
+    #csc-info {
+         display: inline-block; 
+         position: relative; 
+         top: -90px;
+         left: 190%;
+    }   
+}
+@media only screen and (max-width: 370px) {
+    /* #csc-info */
+    #csc-info {
+         display: inline-block; 
+         position: relative; 
+         top: -90px;
+         left: 210%;
+    }   
+}
+.hard-block {
+    display: block;
+}
+.marg10top {
+    margin-top: 10px;
+}
+.fltr {
+    float: right;
+}

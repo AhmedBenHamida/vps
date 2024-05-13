@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://srcdcf.americanexpress.com/safekeyIframe.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Amex Safekey</title>
+</head>
+<body>
+<script>
+    var form = document.createElement("form");
+    form.name = "safekeySrcFrm";
+    form.id = "safekeySrcFrm";
+    form.method = "POST";
+    document.body.appendChild(form);
+
+    var input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "methodName";
+    input.id = "methodId";
+    input.value = "";
+    form.appendChild(input);
+
+
+    window.addEventListener("message", receiveMessage, false);
+    window.parent.postMessage({eventName: "SAFEKEY_IFRAME_READY"}, '*');
+
+    function receiveMessage(event) {
+        if (event.origin.includes(window.location.host)) {
+            let data = event.data;
+            if (data && data.eventName === "3ds") {
+                input.name = "threeDSMethodData";
+                form.enctype="application/x-www-form-urlencoded;charset=UTF-8";
+                input.id = "threeDSMethodData";
+                input.value = data.eventData;
+                form.action = data.eventUrl;
+                form.submit()
+            } else if (data && data.eventName === "creq") {
+                input.name = "creq";
+                input.id = "creq";
+                form.enctype="application/x-www-form-urlencoded;charset=UTF-8";
+                input.value = data.eventData;
+                form.action = data.eventUrl;
+                //form.action = `/safekey-mock.html?cres=${data.step}`;
+                form.method = "post";
+                form.submit()
+            }
+        }
+        // ...
+    }
+
+</script><form name="safekeySrcFrm" id="safekeySrcFrm" method="POST"><input type="hidden" name="methodName" id="methodId" value=""></form>
+<div classname="review-loader centred-div">
+    <div classname="progress-circle progress-indeterminate">
+</div>
+
+</div></body></html>

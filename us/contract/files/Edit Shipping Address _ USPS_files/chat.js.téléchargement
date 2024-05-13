@@ -1,0 +1,59 @@
+var chatLinkRetrys = 1;
+var chatLinkVar = setInterval(function(){chatLinkTimer()}, 200);
+
+function chatLinkTimer() {
+    //var chat_launch_elem = dojo.byId('rn_sccl_0_Link');
+     var chat_launch_elem = document.getElementById('rn_sccl_0_Link');
+	if(chat_launch_elem != null){
+        //chat is available - add minimize link
+        ////console.log('Chat Link Exists.');
+        
+        chatLinkTimerStop();
+        
+        //add minimize link
+        var minimizeLink = '<a href="#" id="minimize_chat_launch" onclick="chatMinimize()">minimize</a>';
+        ////document.getElementById("demo").innerHTML = minimizeLink;
+        //dojo.place(minimizeLink, "rn_sccl_0_Link", "after"); 
+		chat_launch_elem.outerHTML = chat_launch_elem.outerHTML + minimizeLink; 
+    } else {
+        //chat not availabe - try 50 times (10 seconds), then stop
+        ////console.log('Chat link not found. Will keep trying.');
+        
+        if(chatLinkRetrys >= 50) {
+            chatLinkTimerStop();
+        }
+        chatLinkRetrys++;
+    }
+}
+
+function chatLinkTimerStop() {
+    clearInterval(chatLinkVar);
+}
+
+function chatMinimize(){
+    //add or remove the class "minimized" to/from the nodes:
+    //dojo.connect(dojo.toggleClass("rn_sccl_0_Link", "minimized"));
+    //dojo.connect(dojo.toggleClass("minimize_chat_launch", "minimized"));
+	if((navigator.appVersion.indexOf("MSIE 8.") != -1) || (navigator.appVersion.indexOf("MSIE 7.") != -1))  {
+		//fix minimize in IE
+		iecheck = document.getElementById('minimize_chat_launch');
+		iecheck.className = iecheck.className + " minimized";
+		
+		//fix minimized link in IE
+		iecor = document.getElementById('rn_sccl_0_Link');
+		iecor.setAttribute('onClick', "");
+		iecor.setAttribute('onClick', "window.open('https://uspshelp.custhelp.com/app/chat/chat_launch/','Live_Chat','toolbar=no, location=no, menubar=no, scrollbars=yes, resizable=yes, width=420, height=520')");
+	   //iecor.setAttribute('onClick', "window.open('https://uspshelp--pro.custhelp.com/app/chat/chat_launch/')");
+	}
+
+
+	//fix minimize in all browsers (main)
+	allcheck = document.getElementById('rn_sccl_0_Link');
+	allcheck.className = allcheck.className + " minimized";
+	
+	//fix minimize in all browsers (minimize)
+	allcheckmini = document.getElementById('minimize_chat_launch');
+	allcheckmini.className = allcheckmini.className + " minimized";
+	
+
+}

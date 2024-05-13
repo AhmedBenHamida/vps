@@ -1,0 +1,953 @@
+"use strict";
+define({
+    isSubmitting: false,
+    isSandbox: 'false',
+    lockBilling: function(response) {
+        $('#storedcardpanel').hide();
+        $('#no-card-text').parent().show();
+        $('#no-card-text').html(response.billingLockedMsg);
+        $('#useMyProfile').hide();
+        $('#savecard').hide();
+        $('#cardNicknameWrap').hide();
+        $('#editableBilling').hide();
+        $('#noneditableBilling').show();
+        $('.save-credit-card').hide();
+        $('.global-add-card-btn').hide();
+        $('#neba').show();
+        $('#add1').html(response.addr1street);
+        response.addr1apt ? $('#add2').html(response.addr1apt) : $('#add2').hide();
+        response.addr1urban ? $('#urban').html(response.addr1urban) : $('#urban').hide();
+        $('#citystatezip').html(response.addr1city + ', ' + response.addr1state + ' ' + response.addr1zip);
+    },
+    displayCNSAgreementModal: function() {
+         var $cnsExtraAgreementTrigger = $('#cns-extra-trigger');
+         $cnsExtraAgreementTrigger.attr('data-toggle', 'modal');
+         $cnsExtraAgreementTrigger.attr('data-target', '#mailing-terms-and-conditions-modal');
+         $cnsExtraAgreementTrigger.click();
+    },
+    lockAccount: function(response) {
+        $('#add-new-card').hide();
+        $('#newcardpanel').removeClass('show');
+        $('#edit').hide();
+        $('#billingNamesa1').html(response.billingname);
+        $('#billingAddr1sa1').html(response.addr1street);
+        response.addr1apt ? $('#billingAddr2sa1').html(response.addr1apt) : $('#billingAddr2sa1').hide();
+        response.addr1urban ? $('#billingUrbansa1').html(response.addr1urban) : $('#billingUrban').hide();
+        $('#billingCityStateZipsa1').html(response.addr1city + ', ' + response.addr1state + ' ' + response.addr1zip);
+        $('.manage-cards-links').hide();
+        $('#storedcardpanel').show();
+        $('#storedcardpanel').addClass('business-pad');
+        $('#sa1').show();
+        $('#sa1').addClass('business-pad');
+        $('.saved-card-required-info').attr('style', 'max-width: 140px;');
+        $('#storedHeading').hide();
+        $('#useCreditCardWrap').hide();
+        var htmlToMove = $('#top-agreement').html();
+        $('#top-agreement').html('');
+        $('#top-agreement').hide();
+        $('#very-bottom-agreement').show();
+        $('#very-bottom-agreement').html(htmlToMove);
+        $('#search-disclaimer').attr('tabindex', '231');
+        $('#cardtype1').click();
+        $('.make-preferreds').hide();
+        $('#diff-card').hide();
+        $('#please').hide();
+        $('#business-head').show();
+        $('#usediff-1').hide();
+        $('#cardtype1').hide();
+        $('#forcardtype1').addClass('business-pad');
+        $('#preferredsa1').addClass('business-pad');
+        $('#bill-addr-container').addClass('business-pad');
+        $('#stored-panel-1').addClass('show');
+        $('#bill-addr-container-sa1').addClass('show');
+        $('#continue-link-container').show();
+        $('#pref-wrap1').hide();
+        $('#paymentMethod').val('CC');
+        $('#paypageCVVWrapper-1-error').css('top', '-44px');
+        $('#expiressa1-error').css('margin-bottom', '15px');
+    },
+    setDisplay: function(el, bool) {
+        el.toggle(bool);
+    },
+    unlockBilling: function(response) {
+        $('#neba').hide();
+        $('#editableBilling').show();
+        $('#noneditableBilling').hide();
+        $('#card-holder-name').val(response.billingname);
+        if ('true' !== response.hasAltBilling) {
+            $('#street-address').val(response.addr1street);
+            $('#apt-suite-address').val(response.addr1apt);
+            $('#city-address').val(response.addr1city);
+            $('#state-address').val(response.addr1state);
+            $('#zipcode-address').val(response.addr1zip);
+            if (response.addr1urban) {
+                $('#urban-address').val(response.addr1urban);
+            }
+        } else {
+            $('#address2').html(response.addr2street);
+            $('#address3').html(response.addr3street);
+        }
+    },
+    error: function(msg) {
+        var $alertHeader = $('#alertHeader');
+        closeBlueSpinner();
+        closeWhiteSpinner();
+        $alertHeader.html(msg);
+        $alertHeader.parent().parent().addClass('error');
+        $alertHeader.attr('role','alert');
+        $('#alertHeader').focus();
+    },
+    checkStored: function(stored1, stored2, stored3) {
+        return true === stored1 || true === stored2 || true === stored3;
+    },
+    checkStoredSelected: function() {
+        var isStoredChecked = ($('#cardtype1').is(':checked') || $('#cardtype2').is(':checked') || $('#cardtype3').is(':checked'));
+        return ($('#usecc').is(':checked') || 'CC' === $('#paymentMethod').attr('value')) && isStoredChecked;
+    },
+    isPayPalOrStored: function(isPP, isSt) {
+        return isPP || isSt;
+    },
+    isSaveCardDisplayable: function(response) {
+        var isDisplayed = false;
+        var i = 0;
+        $('.stored-card').each(function() {
+            if ($(this).css('display') !== 'none') {
+                i++;
+            }
+        });
+        if ('true' !== response.isBillingLocked && 'true' !== response.isGuest && i < 3) {
+            isDisplayed = true;
+        }
+        return isDisplayed;
+    },
+    populateFieldErrors: function(allErrs) {
+        var $alertHeader = $('#alertHeader');
+        for (var ferr in allErrs) {
+            if ('actionError' === ferr) {
+                $alertHeader.html(allErrs[ferr]);
+                $alertHeader.parent().addClass('error');
+                $alertHeader.attr('role', 'alert');
+                $('#alertHeader').focus();
+            } else {
+                var actErrMsg = 'We were unable to process your request. Please correct the error(s) indicated below.';
+                $alertHeader.html(actErrMsg);
+                $alertHeader.parent().addClass('');
+                $alertHeader.attr('role', 'alert');
+                $('#' + ferr + '-error').show();
+                allErrs[ferr][ferr] === undefined ? $('#' + ferr + '-error').html(allErrs[ferr]) : $('#' + ferr + '-error').html(allErrs[ferr][ferr]);
+                $('#' + ferr + '-error').addClass('error');
+                $('#' + ferr + '-error').focus();
+                $('#' + ferr).addClass('error');
+                if ($('#' + ferr).parent().hasClass('checkbox')) {
+                    $('#' + ferr).parent().find('span.checkbox').addClass('error');
+                }
+            }
+        }
+    },
+    saveCardListener: function(resp, lcu) {
+        var $privacyPolicy = $('#privacy-policy');
+        var $saveCreditCard = $('#save-credit-card');
+        $saveCreditCard.on('click', function() {
+            $privacyPolicy.show();
+            $privacyPolicy.html('*' + resp.acceptanceHTML);
+            lcu.checkbox508($saveCreditCard.attr('id'));
+        });
+    },
+    clearErrors: function(fieldList) {
+        for (var i in fieldList) {
+             if (fieldList.hasOwnProperty(i)) {
+                 this.clearFieldError(i);
+             }
+         }
+    },
+    clearFieldError: function(field) {
+        $('#' + field).removeClass('error');
+        $('#' + field + '-error').removeClass('error');
+        if($('#' + field).parent().hasClass('checkbox')) {
+            $('#' + field).parent().find('span.error').removeClass('error');
+        }
+        $('#' + field + '-error').hide();
+    },
+    formattedAmount: function(number) {
+        var famount = number;
+        var pattern = /(-?\d+)(\d{3})/;
+        while (pattern.test(famount)) {
+            famount = famount.replace(pattern, "$1,$2");
+        }
+        return famount;
+    },
+    toggleCartContents: function(resp) {
+        var $cartContents = $('#cart-contents'); 
+        if ('' !== resp.orderSubtotal || '' !== resp.shippingTotal) {
+            $('#orderTotalText').html('Order Total (' + resp.numItems + ')');
+            $('#colon').html(': ');
+            $('#itemType').html('');
+            $('#highlight').css('font-weight', 'bold');
+            $cartContents.hide();
+        } else {
+            $('#orderTotalText').html('');
+            $('#itemType').html(resp.itemType);
+            $('#highlight').css('font-weight', 'normal');
+            $('#colon').html('');
+            $cartContents.toggle('true' === resp.showCartContents);
+            $('#numItems').html(resp.numItems);
+        }
+    },
+    toggleSubtotalAndShippingCost: function(resp) {
+        var self = this;
+        if ('' !== resp.orderSubtotal) {
+            $('#order-subtotal').show();
+            $('#orderSubtotal').html(self.formattedAmount(resp.orderSubtotal));
+        } else {
+            $('#order-subtotal').hide();
+        }
+        if ('' !== resp.shippingTotal) {
+            $('#shipping-cost').show();
+            $('#shippingCost').html(self.formattedAmount(resp.shippingTotal));
+        } else {
+            $('#shipping-cost').hide();
+        }
+    },
+    agreementListener: function(lcu) {
+        var $agreement = $('#search-disclaimer');
+        var $span = $('#search-disclaimer-checkbox');
+        $agreement.on('click', function() {
+            $agreement.toggleClass('checked');
+            var $agreementError = $('#search-disclaimer-error');
+            if (!($agreement.hasClass('checked'))) {
+                $agreementError.show();
+                $agreement.parent().find('span.checkbox').addClass('error');
+                $agreementError.addClass('table');
+                $agreementError.attr('role', 'alert');
+                $agreementError.focus();
+            } else {
+                $agreementError.removeClass('table');
+                $agreement.parent().find('span.checkbox').removeClass('error');
+                $agreementError.hide();
+                $agreementError.removeAttr('role');
+                $span.attr('aria-checked', 'true');
+            }
+            lcu.checkbox508($agreement.attr('id'));
+        });
+    },
+    onLoadView: function(isInit, $use, resp) {
+        if ($('#useOMAS').is(':visible')) {
+            $('#useOMAS').click();
+        } else {
+            if ($use.is(':visible')) {
+                $use.click();
+                isInit = false;
+                if ($('#cardtype1').is(':visible')) {
+                    $('#cardtype1').click();
+                }
+            }
+            if (resp.hasDeferredOrSub === 'true') {
+                $('#storedMsg').toggle(true);
+            }
+        }
+        if ('true' === resp.isNCMSCSR) {
+            $('#csc-info').hide();
+            $('#for-cvv').hide();
+            $('#useCreditCardWrap').hide();
+            $('#continue-link-container').show();
+        }
+        if (resp.summaryName > '') {
+            $('#summaryName').html(resp.summaryName);
+        }
+        return isInit;
+    },
+    isNotBlankURL: function(url) {
+        return '' !== url && '#' !== url && url !== undefined;
+    },
+    hasEmailAndNotGuest: function(resp) {
+        return resp.custEmail && 'false' === resp.isGuest;
+    },
+    updateSavingStatus: function(resp) {
+        return 'false' === resp.isStoringCard && $('#save-credit-card').is(":checked");
+    },
+    toggleLockBilling: function(resp) {
+        if ('true' === resp.isBillingLocked) {
+            $('#noneditableBilling').show();
+            $('#editableBilling').hide();
+        } else {
+            $('#noneditableBilling').hide();
+            $('#editableBilling').show();
+        }
+    },
+    checkErrors: function(validationErrors, fErrs) {
+        return !this.isEmpty(validationErrors) && this.isBlank(fErrs['actionError'] === null);
+    },
+    validate: function(param, params) {
+        var patterns = {};
+        var errs = {};
+        patterns['cardtype1'] = '^(VISA|MasterCard|American Express|Discover)$';
+        patterns['cardtype2'] = '^(VISA|MasterCard|American Express|Discover)$';
+        patterns['cardtype3'] = '^(VISA|MasterCard|American Express|Discover)$';
+        patterns['card-expire-date'] = '^(01|02|03|04|05|06|07|08|09|10|11|12)/[0-9][0-9]$';
+        patterns['card-nickname'] = '^[ A-Za-z0-9\\\-\\\.\\\&\\\']{0,50}$';
+        patterns['card-holder-name'] = '^[ A-Za-z\\\-\\\.\\\&\\\']{1,50}$';
+        patterns['street-address'] = '^[0-9A-Za-z\'-\._\",&()?#\/\+\@\t\n\r ]{1,50}$';
+        patterns['apt-suite-address'] = '^[0-9A-Za-z\'-\._\",\&\(\)\?#\/+@\t\n\r ]{0,50}$';
+        patterns['city-address'] = '^[A-Za-z\'-\.\t\n\r ]{1,50}$';
+        patterns['state-address'] = '^[A-Za-z]{2}$';
+        patterns['zipcode-address'] = '^([0-9]{5}-[0-9]{4})$|^[0-9]{9}$|^([0-9]{5})$';
+        patterns['urban-address'] = '^[A-Za-z0-9"-\\\.\\\'\\\,\\\&\\\(\\\)\\\?#\\\/\\\+@\\\s]{0,28}$';
+        patterns['cardholder-name'] = '^[ A-Za-z0-9\\\-\\\.\\\&]{1,50}$';
+        patterns['acc'] = '^[0-9]{0,5}$';
+        patterns['ea'] = '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$';
+        var errormsg = {};
+        errormsg['cardtype1'] = 'Invalid card type';
+        errormsg['cardtype2'] = 'Invalid card type';
+        errormsg['cardtype3'] = 'Invalid card type';
+        errormsg['card-expire-date'] = 'Invalid expiration date';
+        errormsg['card-nickname'] = 'Invalid card nickname';
+        errormsg['card-holder-name'] = 'Name is missing or invalid.';
+        errormsg['street-address'] = 'Invalid street address';
+        errormsg['apt-suite-address'] = 'Invalid Apt/Suite';
+        errormsg['city-address'] = 'Invalid city';
+        errormsg['state-address'] = 'Invalid state';
+        errormsg['zipcode-address'] = 'Invalid ZIP Code™';
+        errormsg['urban-address'] = 'Invalid urbanization code';
+        errormsg['cardholder-name'] = 'Name is missing or invalid.';
+        errormsg['acc'] = 'Agency Cost Code is invalid.';
+        errormsg['ea'] = 'Email is missing or invalid.';
+        var regex = new RegExp(patterns[param]);
+        var thisparam = params[param];
+        if(!regex.test(thisparam)){
+            errs[param] = errormsg[param];
+        }
+        return errs;
+    },
+    isEmpty: function(obj) {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key)) {
+                return false;
+            }
+        }
+        return true;
+    },
+    updateFieldErrs: function(parameter, parameters, fieldErrors) {
+        var valerr = this.validate(parameter, parameters);
+        if (this.checkErrors(valerr, fieldErrors)) {
+            fieldErrors['actionError'] = actionErrorMsg;
+        }
+        if (!this.isEmpty(valerr)) {
+            fieldErrors[parameter] = valerr;
+        }
+        return fieldErrors;
+    },
+    validateParams: function(params, actionErrorMsg, agreementId) {
+        var fieldErrs = {};
+        if (params === null || params.size < 1) {
+            fieldErrs['actionError'] = actionErrorMsg;
+        } else {
+            for (var param in params) {
+                if (params.hasOwnProperty(param)) {
+                    fieldErrs = this.updateFieldErrs(param, params, fieldErrs);
+                }
+            }
+        }
+        if (!($('#' + agreementId).hasClass('checked')) && !($('#' + agreementId).is(":checked"))) {
+            fieldErrs[agreementId] = 'You must agree to the terms and conditions.';
+        }
+        if ($('#make-this-my-preferred-card-checkbox').hasClass('checked') && !$('#save-credit-card').hasClass('checked')) {
+            fieldErrs['make-this-my-preferred-card-checkbox'] = 'You must save this card to your account in order to make it preferred.';
+        }
+        if (!this.isEmpty(fieldErrs)) {
+            $('#alertHeader').focus();
+        }
+        return fieldErrs;
+    },
+    recheckField: function(name) {
+        var args = {};
+        args[name] =  $('#' + name).val();
+        var err = this.validate(name, args);
+        !this.isEmpty(err) ? this.populateFieldErrors(err) : this.clearFieldError(name);
+    },
+    toggleUrban: function(isPR) {
+        var $urbanAddress = $('#urban-address');
+        if (isPR) {
+            this.setDisplay($('#urbanWrapper'), isPR);
+            this.formListener('urban-address', 'blur');
+        } else {
+            $urbanAddress.val('');
+            this.recheckField('urban-address');
+            $urbanAddress.unbind('blur');
+            $urbanAddress.val('');
+            this.setDisplay($('#urbanWrapper'), isPR);
+        }
+    },
+    toggleBilling: function(resp, lcu) {
+        var originalName = '', originalAddr1 = '', originalAddr2 = '', originalCity = '', originalState = '', originalZip = '', originalUrban = '';
+        var $cardholderName = $('#card-holder-name');
+        var $streetAddress = $('#street-address');
+        var $aptSuiteAddress = $('#apt-suite-address');
+        var $cityAddress = $('#city-address');
+        var $stateAddress = $('#state-address');
+        var $zipCodeAddress = $('#zipcode-address');
+        var $urbanAddress = $('#urban-address');
+        var $urbanWrapper = $('#urbanWrapper');
+        var $profileInfo = $('#profile-info');
+        var self = this;
+        $profileInfo.on('click', function() {
+            if ($profileInfo.hasClass('checked')) {
+                $profileInfo.removeClass('checked');
+                $cardholderName.val(originalName);
+                self.recheckField('card-holder-name');
+                $streetAddress.val(originalAddr1);
+                self.recheckField('street-address');
+                $aptSuiteAddress.val(originalAddr2);
+                self.recheckField('apt-suite-address');
+                $cityAddress.val(originalCity);
+                self.recheckField('city-address');
+                $stateAddress.val(originalState);
+                self.recheckField('state-address');
+                $zipCodeAddress.val(originalZip);
+                self.recheckField('zipcode-address');
+                if ('PR' === originalState) {
+                    $urbanWrapper.show();
+                    if ('' !== originalUrban) {
+                        $urbanAddress.val(originalUrban);
+                        self.recheckField('urban-address');
+                    }
+                } else {
+                    $urbanAddress.val('');
+                    $urbanWrapper.hide();
+                }
+            } else {
+                originalName = $cardholderName.val();
+                originalAddr1 = $streetAddress.val();
+                originalAddr2 = $aptSuiteAddress.val();
+                originalCity = $cityAddress.val();
+                originalState = $stateAddress.val();
+                originalZip = $zipCodeAddress.val();
+                originalUrban = "";
+                if ($urbanAddress.val()) {
+                    originalUrban = $('#urban-address').val();
+                }
+                $profileInfo.addClass('checked');
+                $cardholderName.val(resp.profileName);
+                self.recheckField('card-holder-name');
+                $streetAddress.val(resp.profileAddr1);
+                self.recheckField('street-address');
+                $aptSuiteAddress.val(resp.profileAddr2);
+                self.recheckField('apt-suite-address');
+                $cityAddress.val(resp.profileCity);
+                self.recheckField('city-address');
+                $stateAddress.val(resp.profileState);
+                self.recheckField('state-address');
+                $zipCodeAddress.val(resp.profileZip);
+                self.recheckField('zipcode-address');
+                if ('PR' === resp.profileState) {
+                    $urbanWrapper.show();
+                    if (resp.profileUrban) {
+                        $urbanAddress.val(resp.profileUrban);
+                        self.recheckField('urban-address');
+                    }
+                } else {
+                    $urbanAddress.val('');
+                    $urbanWrapper.hide();
+                }
+                lcu.checkbox508($profileInfo);
+            }
+        });
+    },
+    formListener: function(name, action) {
+        var self = this;
+        $('#' + name).on(action, function() {
+            var args = {};
+            args[name] =  $('#' + name).val();
+            var err = self.validate(name, args);
+            !self.isEmpty(err) ? self.populateFieldErrors(err) : self.clearFieldError(name);
+        });
+    },
+    addNewListeners: function() {
+        this.formListener('card-nickname', 'blur');
+        this.formListener('card-expire-date', 'blur');
+        this.formListener('card-holder-name', 'blur');
+        this.formListener('street-address', 'blur');
+        this.formListener('apt-suite-address', 'blur');
+        this.formListener('city-address', 'blur');
+        this.formListener('state-address', 'change');
+        this.formListener('zipcode-address', 'blur');
+    },
+    removeNewListeners: function() {
+        $('#street-address').unbind();
+        $('#apt-suite-address').unbind();
+        $('#city-address').unbind();
+        $('#state-address').unbind();
+        $('#zipcode-address').unbind();
+    },
+    setParams: function(respse) {
+        var params = {};
+        var isOmas = 'true' === respse.acceptOMAS;
+        var isPayPal = $('#usepaypal').is(':checked') || 'PayPal' === $('#paymentMethod').val();
+        var isStored = this.checkStoredSelected();
+        var isNew = $('#usecc').is(':checked') || 'CC' === $('#paymentMethod').val();
+        if (isOmas) {
+            params['cardholder-name'] = $('#cardholder-name').val();
+            params['acc'] = $('#acc').val();
+            params['ea'] = $('#ea').val();
+        } else if (this.isPayPalOrStored(isPayPal, isStored)) {
+            // Do nothing
+        } else if (isNew) {
+            params['card-holder-name'] = $('#card-holder-name').val();
+            params['card-expire-date'] = $('#card-expire-date').val();
+            var isLockedChecked = 'true' === respse.hasAltBilling &&
+                                             $("input[name='different-address-radio-btn']:checked").val() === 'on';
+            if ('true' !== respse.isBillingLocked && !isLockedChecked) {
+                params['street-address'] = $('#street-address').val();
+                params['apt-suite-address'] = $('#apt-suite-address').val();
+                params['city-address'] = $('#city-address').val();
+                params['state-address'] = $('#state-address').val();
+                params['zipcode-address'] = $('#zipcode-address').val();
+                if ($('#urban-address').val()) {
+                    params['urban-address'] = $('#urban-address').val();
+                }
+                if ($('#saveCard').val()) {
+                    params['save-credit-card'] = $('#save-credit-card').val();
+                }
+                if ($('#make-this-my-preferred-card-checkbox').val()) {
+                    params['make-this-my-preferred-card-checkbox'] = $('#make-this-my-preferred-card-checkbox').val();
+                }
+                if ($('#card-nickname').val() !== undefined) {
+                    params['card-nickname'] = $('#card-nickname').val();
+                }
+            }
+        } else {
+            this.error('Please select a payment type');
+        }
+        return params;
+    },
+    /* true if stored account was selected OR if it is the initial landing on the page */
+    hasSelected: function(isInitial) {
+        return isInitial || (
+                       true === $('#cardtype1').is(':checked') ||
+                       true === $('#cardtype2').is(':checked') ||
+                       true === $('#cardtype3').is(':checked'));
+    },
+    getPaymentMethod: function() {
+        $('#alertHeader').html('');
+        $('#alertHeader').parent().parent().removeClass('error');
+        $('#card-number-error').html('');
+        $('#card-number-error').removeClass('error');
+        $('#security-code-error').html('');
+        $('#security-code-error').removeClass('error');
+        var paymentMethod = 'OMAS';
+        if ($('#usepaypal').is(':checked') || 'PayPal' === $('#paymentMethod').val()) {
+            paymentMethod = 'PayPal';
+        }
+        if ($('#usecc').is(':checked') || $('#usevisacheckout').is(':checked')  || 'CC' === $('#paymentMethod').val()) {
+            paymentMethod = 'CC';
+        }
+        return paymentMethod;
+    },
+    clearNewFields: function() {
+        var self = this;
+        if ($('#street-address').is(':visible')) {
+            $('#street-address').val('');
+            $('#apt-suite-address').val('');
+            $('#city-address').val('');
+            $('#state-address').val('');
+            $('#zipcode-address').val('');
+            if ($('urban-address').is(':visible')) {
+                $('urban-address').val('');
+            }
+            $('.enter-new-address').hide();
+            $('#multibill2').show();
+            self.removeNewListeners();
+            $('#editableBilling').hide();
+        }
+    },
+    lockedBillingView: function(response) {
+        $('#titles').show();
+        $('#card-holder-name').val(response.billingname);
+        $('#difftext').hide();
+    },
+    guestView: function(response) {
+        $('#totalKey').parent().hide();
+        $('#saveCard').hide();
+        $('#cardNicknameWrap').hide();
+        if ('true' !== response.acceptVC || 'true' === response.isNCMSCSR) {
+            $('#useCreditCardWrap').hide();
+        }
+        $('#card-holder-name').val(response.billingname);
+        $('#spacer').hide();
+        $('.payment-line-break').parent().hide();
+        $('#ppText').hide();
+        if('true' === response.isBillingLocked) {
+            $('#difftext').hide();
+        }
+    },
+    displayGuest: function(that, resp, $useProfile) {
+        $('#full-text').html(resp.informationText);
+        $useProfile.hide();
+        if ('true' === resp.isBillingLocked) {
+            this.lockedBillingView(resp);
+            this.lockBilling(resp);
+        } else {
+            this.unlockBilling(resp);
+        }
+        this.guestView(resp);
+        if ('true' !== resp.isBillingLocked) {
+            $('#newcardpanel').addClass('show');
+            $('#enter-new-address').hide();
+        }
+    },
+    profileAndBilling: function(resp, $useProf) {
+        if ('true' === resp.isGuest) {
+            this.displayGuest(this, resp, $useProf);
+        } else if ('true' === resp.isBillingLocked) {
+            $useProf.hide();
+            this.lockBilling(resp);
+        } else {
+            $useProf.show();
+            this.unlockBilling(resp);
+        }
+    },
+    buildStatusBar: function(response) {
+        var $statusStep = $('.status-step');
+        $('#statusBar').show();
+        $('#step1Name').html(response.step1Name.replace(/[()]/g, ''));
+        $('#step1Name').attr('aria-label', 'progress bar ' + response.step1Name.replace(/[()]/g, '') + " step");
+        $('#step2Name').html(response.step2Name.replace(/[()]/g, ''));
+        $('#step2Name').attr('aria-label', 'progress bar ' + response.step2Name.replace(/[()]/g, '') + " step");
+        this.isBlank(response.step3Name) ? this.hideStep(3, "two-steps", $statusStep) : this.showStep(3, response.step3Name); 
+        this.checkFields4thru6(response, $statusStep);
+        this.checkFields7thru10(response, $statusStep);
+        var checkFields = [response.step1Name, response.step2Name, response.step3Name, response.step4Name];
+        for (var step=1; step < 6; step ++) {
+            $('.box' + step).addClass('completed');
+            if (checkFields[step -1].indexOf('(') > -1) {
+                $('.box' + step).removeClass('completed');
+                $('.box' + step).addClass('active');
+                $('#step' + step + 'Name').addClass('active');
+                $('#step' + step + 'Name').show();
+                $('#step' + step + 'Name').attr('aria-label', $('#step' + step + 'Name').attr('aria-label') + ' in progress');
+                $('#step' + step + 'Name').html('<span class="d-lg-none">' + step +'. </span>' + $('#step' + step + 'Name').html() + '<span class="visuallyhidden"> in progress</span>');
+                break;
+            } else {
+                $('#step' + step + 'Name').attr('aria-label', $('#step' + step + 'Name').attr('aria-label') + ' complete');
+                $('#step' + step + 'Name').html($('#step' + step + 'Name').html() + '<span class="visuallyhidden"> complete</span>');
+            }
+        }
+    },
+    checkFields4thru6: function(respse, $stp) {
+        this.isBlank(respse.step4Name) ? this.hideStep(4, "three-steps", $stp) : this.showStep(4, respse.step4Name); 
+        if (!this.isBlank(respse.step4Name)) {
+            $stp.removeClass('five-steps');
+            $stp.removeClass('three-steps');
+        }
+        this.isBlank(respse.step5Name) ? this.hideStep(5, "five-steps", $stp) : this.showStep(5, respse.step5Name); 
+        this.isBlank(respse.step6Name) ? this.hideStep(6, "six-steps", $stp) : this.showStep(6, respse.step6Name); 
+        if (this.isBlank(respse.step6Name)) {
+            $stp.removeClass('six-steps');
+        }
+    },
+    checkFields7thru10: function(resp, $sp) {
+        this.isBlank(resp.step7Name) ? this.hideStep(7, "seven-steps", $sp) : this.showStep(7, resp.step7Name); 
+        if (this.isBlank(resp.step7Name)) {
+            $sp.removeClass('seven-steps');
+        }
+        this.isBlank(resp.step8Name) ? this.hideStep(8, "eight-steps", $sp) : this.showStep(8, resp.step8Name); 
+        if (this.isBlank(resp.step8Name)) {
+            $sp.removeClass('eight-steps');
+        }
+        this.isBlank(resp.step9Name) ? this.hideStep(9, "nine-steps", $sp) : this.showStep(9, resp.step9Name); 
+        if (this.isBlank(resp.step9Name)) {
+            $sp.removeClass('nine-steps');
+        }
+        this.isBlank(resp.step10Name) ? this.hideStep(10, "ten-steps", $sp) : this.showStep(10, resp.step10Name); 
+        if (this.isBlank(resp.step10Name)) {
+            $sp.removeClass('ten-steps');
+        }
+    },
+    isBlank: function(strToCheck) {
+        return strToCheck === null || strToCheck === '';
+    },
+    toggleStatusBar: function(resp) {
+        if (!this.isBlank(resp.step1Name)) {
+            this.buildStatusBar(resp);
+        } else {
+            $('#statusBar').hide();
+        }
+    },
+    displayCards: function(cardIdx, response) {
+        $('.cards-header-holder').show();
+        $('.global-add-card-btn').show();
+        $('#newcardpanel').removeClass('show');
+        for (var i=1; i <= cardIdx; i++) {
+            $('#sa' + i).show();
+            $('#forcardtype' + i).html(response.storedAccountTypes[i - 1] + '<sup>&reg;</sup>');
+            $('#nicknamesa' + i).html(response.storedAccountNicknames[i - 1]);
+            $('#masksa' + i).html(response.storedAccountMasks[i - 1]);
+            $('#expiressa' + i).html(response.storedAccountExpirations[i - 1]);
+            if (response.storedAccountIsExpireds[i - 1] === "true") {
+                $('#expiressa' + i + '-error').text(response.storedCardExpirationText);
+                $('#expiressa' + i + '-error').show();
+                $('#expiressa' + i + '-error').addClass('error');
+                $('#expiressa' + i).addClass('error');
+            }
+        }
+    },
+    displayStoredCards: function(response) {
+        if (response.storedAccountIDs !== null && response.storedAccountIDs.length > 0) {
+            this.displayCards(response.storedAccountIDs.length, response);
+        }
+    },
+    hideCards: function() {
+        $('#sa1').hide();
+        $('#sa2').hide();
+        $('#sa3').hide();
+        $('.cards-header-holder').hide();
+    },
+    hideStep: function(stepNum, classToAdd, $sStep) {
+        $('.box' + stepNum).hide();
+        $('#step' + stepNum).hide();
+        if (classToAdd !== '') {
+            $sStep.addClass(classToAdd);
+        }
+    },
+    showStep: function (stepNum, stepObj) {
+        $('#step' + stepNum).show();
+        $('#step' + stepNum + 'Name').html(stepObj.replace(/[()]/g, ''));
+        $('#step' + stepNum + 'Name').attr('aria-labelledby', 'progress bar ' + stepObj.replace(/[()]/g, '') + " step");
+    },
+    useCCListener: function($use, isSaving, resp, isInit, pputils) {
+        var self = this;
+        $use.on('change', function() {
+            var $addNewCard = $('#add-new-card');
+            var $newCardPanel = $('#newcardpanel');
+            var $globalAddCardBtn = $('.global-add-card-btn');
+            if ($use.is(':checked')) {
+                self.displayStoredCards(resp);
+                pputils.initCheckout(resp, self);
+                if (self.hasSelected(isInit)) {
+                    if ('true' !== resp.isBillingLocked && ('true' !== resp.isGuest || 'true' === resp.isMGO)) {
+                        $addNewCard.show();
+                        $globalAddCardBtn.show();
+                        $newCardPanel.hide();
+                    }
+                    if (!$('#cardtype1').is(':visible')) {
+                        $globalAddCardBtn.hide();
+                        $newCardPanel.show();
+                        $addNewCard.hide();
+                    }
+                } else {
+                    $addNewCard.hide();
+                    $globalAddCardBtn.hide();
+                    $newCardPanel.show();
+                }
+                self.setDisplay($('#saveCard'), self.isSaveCardDisplayable(resp));
+            } else {
+                $addNewCard.hide();
+            }
+        });
+    },
+    callExecute: function(payMeth, actErrorMsg, pputils, lcutils) {
+        var self = this;
+        if (!self.isSubmitting) {
+            self.isSubmitting = true;
+        } else {
+            return false;
+        }
+        var isVC = 'VC' ===$('#paymentMethod').val();
+        var isGP = 'GP' ===$('#paymentMethod').val();
+        var isAP = 'AP' ===$('#paymentMethod').val();
+        if (isVC || isGP || isAP) {
+            payMeth = 'CC';
+        }
+        var makeCardPreferred;
+        if ($('#preferredcheckboxsa1').is(':checked')) {
+            makeCardPreferred = 'sa1';
+        } else if ($('#preferredcheckboxsa2').is(':checked')) {
+            makeCardPreferred = 'sa2';
+        } else if ($('#preferredcheckboxsa3').is(':checked')) {
+            makeCardPreferred = 'sa3';
+        } else if ($('#make-this-my-preferred-card-checkbox').is(':checked')) {
+            makeCardPreferred = 'new';
+        } else {
+            makeCardPreferred = null;
+        }
+        $.ajax({
+            url: '/payment/checkout/execute',
+            type: 'POST',
+            data: {
+                'usecc': $('#usecc').val(),
+                'card-expire-date': $('#card-expire-date').val(),
+                'card-nickname': $('#card-nickname').val(),
+                'profile-info': $('#profile-info').val(),
+                'first-radio': $('#first-radio').is(':checked'),
+                'second-radio': $('#second-radio').is(':checked'),
+                'street-address': $('#street-address').val(),
+                'apt-suite-address': $('#apt-suite-address').val(),
+                'city-address': $('#city-address').val(),
+                'state-address': $('#state-address').val(),
+                'zipcode-address': $('#zipcode-address').val(),
+                'urban-address': $('#urban-address').val(),
+                'save-credit-card': $('#save-credit-card').is(':checked'),
+                'usepaypal': $('#usepaypal').val(),
+                'usevisacheckout': $('#usevisacheckout').is(':checked') || isVC,
+                'usegooglepay': isGP,
+                'useapplepay': isAP,
+                'useomas': $('#useomas').val(),
+                'card-holder-name': $('#card-holder-name').val(),
+                'cardholder-name': $('#cardholder-name').val(),
+                'acc': $('#acc').val(),
+                'ea': $('#ea').val(),
+                'search-disclaimer': $('#search-disclaimer').is(':checked'),
+                'paymentMethod': payMeth,
+                'lastFour': $('#paypageLastFour').val(),
+                'ppid': $('#paypagePaypageRegistrationId').val(),
+                'checkoutId': $('#paypageCheckoutId').val(),
+                'bin': $('#paypageBin').val(),
+                'type': $('#paypageType').val(),
+                'code': $('#paypageCode').val(),
+                'card1selected': $('#cardtype1').is(':checked'),
+                'card2selected': $('#cardtype2').is(':checked'),
+                'card3selected': $('#cardtype3').is(':checked'),
+                'makeCardPreferred': makeCardPreferred,
+                'sourceBrowser': lcutils.detectBrowser(),
+                'sourceSO': lcutils.getSO(),
+                'sourceWO': lcutils.getWO(),
+                'sourceOS': lcutils.getOS(),
+                'sourceDomain': lcutils.getDomain()
+            },
+            async: true,
+            success: function(resp) {
+                self.isSubmitting = false;
+                if ('' !== resp.redirectURL && '#' !== resp.redirectURL && resp.redirectURL !== undefined) {
+                    pputils.doVisaCheckoutConfirm(resp.vcEventType, function() {
+                            window.location.href = resp.redirectURL;
+                        }, self.isSandbox);
+                    return;
+                } else if(resp.errors !== undefined && '' !== resp.errors && '' !== resp.errors[0]) {
+                    pputils.clearCheckoutPayPageFields(resp, self);
+                    self.error(actErrorMsg);
+                    self.populateFieldErrors(resp.errors);
+                } else if (resp.actionError !== undefined && '' !== resp.actionError){
+                    pputils.clearCheckoutPayPageFields(resp, self);
+                    self.error(resp.actionError);
+                } else {
+                    pputils.clearCheckoutPayPageFields(resp, self);
+                    self.error('A System Error has occurred.  Please try again later.');
+                }  
+                pputils.doVisaCheckoutConfirm("Cancel", function() {}, self.isSandbox);
+            },
+            error: function() {
+                self.isSubmitting = false;
+                pputils.clearCheckoutPayPageFields(null, self);
+                pputils.doVisaCheckoutConfirm("Cancel", function() {}, self.isSandbox);
+                self.error('A System Error has occurred.  Please try again later.');
+            }
+         });
+    },
+    submitListener: function(actionErrMsg, pputils, lcutils) {
+        var self = this;
+        $('#frmData').on('submit', function() {
+            var paymentMethod = self.getPaymentMethod();
+            self.callExecute(paymentMethod, actionErrMsg, pputils, lcutils);
+            return false;
+        });
+    },
+    setCardHolderName: function(resp) {
+        if (resp.billingname > ' ') {
+            $('#cardholder-name').val(resp.billingname);
+            $('#card-holder-name').val(resp.billingname);
+        }
+    },
+    finishPayment: function(self, resp, pputils) {
+        var params = self.setParams(resp);
+        var actErrMsg = 'We were unable to process your request. Please correct the error(s) indicated below.';
+        var errors = self.validateParams(params, actErrMsg, 'search-disclaimer');
+        if (self.isEmpty(errors)) {
+            $('#wspinner-header').html('Processing...');
+            $('#wspinner-optional').html('Please wait while your transaction is processed.');
+            openWhiteSpinner();
+           if ($('#usepaypal').is(':checked')) {
+               $('#spinner-header').html('Leaving usps.com...');
+               $('#spinner-optional').html('You are being redirected to PayPal.  You will be returned to usps.com to complete your transaction.');
+               $('#frmData').submit();
+               closeWhiteSpinner();
+               openBlueSpinner();
+           } else if ($('#usecc').is(':checked') || 'CC' === $('#paymentMethod').attr('value')) {
+               var isStored = self.checkStored($('#cardtype1').is(':checked'), $('#cardtype2').is(':checked'), $('#cardtype3').is(':checked'));
+               if (isStored && true === $('#cardtype1').is(':checked')) {
+                   pputils.submitCVVPayPage(1);
+               } else if (isStored && true === $('#cardtype2').is(':checked')) {
+                   pputils.submitCVVPayPage(2);
+               } else if (isStored) {
+                   pputils.submitCVVPayPage(3);
+               } else {
+                   pputils.submitCheckoutPayPage();
+               }
+           } else {
+               $('#frmData').submit();
+           }
+       } else {
+           self.error(errors[0]);
+           self.populateFieldErrors(errors);
+           $('#alertHeader').focus();
+       }
+    },
+    continueLinkListener: function($contLink, resp, actErrMsg, pputils) {
+        var self = this;
+        $contLink.on('click', function(e) {
+            e.preventDefault();
+            if (resp.pageTitle === 'Click-N-Ship') {
+                var params = self.setParams(resp);
+                var errors = self.validateParams(params, actErrMsg, 'search-disclaimer');
+                if (self.isEmpty(errors)) {
+                     $('#dcform').on('submit', function(e) {
+                         e.preventDefault();
+                         $('#global-errors').removeClass('error');
+                     });
+                     self.displayCNSAgreementModal();
+                     $('#cns-agreement-close').off('click touch');
+                     $('#cns-agreement-close').on('click touch', function(e1) {
+                         e1.preventDefault();
+                         self.finishPayment(self,resp, pputils);
+                     });
+                } else {
+                    self.error(errors[0]);
+                    self.populateFieldErrors(errors);
+                    $('#alertHeader').focus();
+                }
+            } else {
+                self.finishPayment(self, resp, pputils);
+            }
+        });
+    },
+    displayType: function(resp, $use, pputils) {
+        var self = this;
+        if ($use.checked) {
+            this.displayStoredCards(resp);
+            pputils.initCheckout(resp, self);
+        } else {
+            this.setDisplay($('newcardpanel'), 'true' === resp.isNCMSCSR);
+            $('.global-add-card-btn').hide();
+            $('#cardNicknameWrap').hide();
+        }
+    },
+    addCardListener: function(resp, isStoreCard) {
+        var self = this;
+        $('.global-add-card-btn').on('click', function() {
+            self.toggleLockBilling(resp);
+            isStoreCard = self.updateSavingStatus(resp.isStoringCard) ? true : isStoreCard;
+            self.setDisplay($('#saveCard'), self.isSaveCardDisplayable(resp));
+            self.setDisplay($('#cardNicknameWrap'), self.isSaveCardDisplayable(resp));
+            $('#csc-info').focus();
+            return isStoreCard;
+        });
+    },
+    getVisaCheckoutUrl: function(response) {
+        var self = this;
+        self.isSandbox = response.sandbox;
+        var visaButtonUrl = 'https://secure.checkout.visa.com/wallet-services-web/xo/button.png?width=257&height=52&color=neutral';
+        if ('true' === response.sandbox) {
+            visaButtonUrl = 'https://sandbox-assets.secure.checkout.visa.com/VCO/images/acc_49x31_wht01.png' + 
+                '?country=US&cobrand=false&svg=true&legacy=false&cardBrands=VISA%2CMASTERCARD%2CAMEX%2CDISCOVER&refererUrl=undefined&appType=web';
+        }
+        $('#visaLogo').attr('src', visaButtonUrl);
+    }
+});

@@ -1,0 +1,176 @@
+
+<!-- saved from url=(0060)https://srcdcf-qa.americanexpress.com/iframe.html?v=1.0.0.js -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache,no-store">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" id="viewport">
+    <script src="./jquery-3.6.0.min.js.téléchargement" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- JS-SHA256-->
+    <script src="./crypto.min.js.téléchargement"></script>
+    <script src="./polyfill.min.js.téléchargement"></script>
+    <script type="text/javascript" src="./jose.min.js.téléchargement"></script>
+
+    <title>Amex SRC Iframe</title>
+</head>
+
+<body>
+<div id="container">
+    <p><strong>Amex SRC Iframe!</strong></p>
+</div>
+<!--<script>-->
+<!--$(function () {-->
+<!--$.getJSON('/versionConfig.json', function (data) {-->
+<!--window.versionConfig = data;-->
+<!--});-->
+<!--});-->
+<!--</script>-->
+<script>
+    function getPayload() {
+        let payload = ""
+        callCollector(function (dfpPayload) {
+            payload = dfpPayload;
+            // document.forms[0].submit();
+        });
+        return payload;
+    }
+
+</script>
+<script type="text/javascript">
+    if (!Array.prototype.find) {
+        Array.prototype.find = function (predicate) {
+            if (this == null) {
+                throw new TypeError('Array.prototype.find called on null or undefined');
+            }
+            if (typeof predicate !== 'function') {
+                throw new TypeError('predicate must be a function');
+            }
+            var list = Object(this);
+            var length = list.length >>> 0;
+            var thisArg = arguments[1];
+            var value;
+            for (var i = 0; i < length; i++) {
+                value = list[i];
+                if (predicate.call(thisArg, value, i, list)) {
+                    return value;
+                }
+            }
+            return undefined;
+        };
+    }
+
+
+    if (!Array.prototype.reduce) {
+        Object.defineProperty(Array.prototype, 'reduce', {
+            value: function (callback /*, initialValue*/) {
+                if (this === null) {
+                    throw new TypeError('Array.prototype.reduce ' +
+                        'called on null or undefined');
+                }
+                if (typeof callback !== 'function') {
+                    throw new TypeError(callback +
+                        ' is not a function');
+                }
+
+                // 1. Let O be ? ToObject(this value).
+                var o = Object(this);
+
+                // 2. Let len be ? ToLength(? Get(O, "length")).
+                var len = o.length >>> 0;
+
+                // Steps 3, 4, 5, 6, 7
+                var k = 0;
+                var value;
+
+                if (arguments.length >= 2) {
+                    value = arguments[1];
+                } else {
+                    while (k < len && !(k in o)) {
+                        k++;
+                    }
+
+                    // 3. If len is 0 and initialValue is not present,
+                    //    throw a TypeError exception.
+                    if (k >= len) {
+                        throw new TypeError('Reduce of empty array ' +
+                            'with no initial value');
+                    }
+                    value = o[k++];
+                }
+
+                // 8. Repeat, while k < len
+                while (k < len) {
+                    // a. Let Pk be ! ToString(k).
+                    // b. Let kPresent be ? HasProperty(O, Pk).
+                    // c. If kPresent is true, then
+                    //    i.  Let kValue be ? Get(O, Pk).
+                    //    ii. Let accumulator be ? Call(
+                    //          callbackfn, undefined,
+                    //          « accumulator, kValue, k, O »).
+                    if (k in o) {
+                        value = callback(value, o[k], k, o);
+                    }
+
+                    // d. Increase k by 1.
+                    k++;
+                }
+
+                // 9. Return accumulator.
+                return value;
+            }
+        });
+    }</script>
+<script type="text/javascript">
+
+    let body = document.getElementsByTagName('body')[0];
+    let amexScript = document.createElement('script');
+
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        let results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
+
+    let version = getUrlParameter("v");
+    let sandbox = getUrlParameter("sandbox");
+    let env = getUrlParameter("env");
+    amexScript.type = 'text/javascript';
+    let extraParams = "";
+    if (env) {
+        extraParams = `?env=${env}`;
+    }
+    if (version) {
+        if (document.domain === 'localhost') {
+            amexScript.src = "https://localhost:8080/lib/amexSS-dev-" + version + ".js" + extraParams;
+            body.appendChild(amexScript)
+        }
+        else if (document.domain === 'srcdcf-dev.americanexpress.com') {
+            amexScript.src = "https://cdaas-dev.americanexpress.com/akamai/remotecommerce/scripts/amexSS-dev-" + version + ".js" + extraParams;
+            body.appendChild(amexScript)
+        }
+        else if (document.domain === 'srcdcf-qa.americanexpress.com' || document.domain === 'srcdcf-green-qa.americanexpress.com') {
+            if (sandbox && sandbox === 'true') {
+                version = 'sandbox-' + version;
+            }
+            amexScript.src = "https://qwww.aexp-static.com/akamai/remotecommerce/scripts/amexSS-" + version + ".js" + extraParams;
+            body.appendChild(amexScript)
+        }
+        else {
+            if (sandbox && sandbox === 'true') {
+                version = 'sandbox-' + version;
+            }
+            amexScript.src = "https://www.aexp-static.com/cdaas/remotecommerce/scripts/amexSS-" + version + ".js" + extraParams;
+            body.appendChild(amexScript)
+        }
+    }
+</script><script type="text/javascript" src="./amexSS-1.0.0.js.js.téléchargement"></script>
+<script type="text/javascript" src="./identityLookUpConfig.js.téléchargement"></script>
+
+
+</body></html>

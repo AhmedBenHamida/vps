@@ -1,0 +1,299 @@
+var $j = jQuery.noConflict(true);
+// $j is the new alias for jQuery, please use it going forward - no '$'
+
+
+
+//////////////////////
+// Shopping Cart JS //
+//////////////////////
+
+
+// $j(function() {
+	
+	// Prevent <a> tags with 'href="#"' from jumping to the top of the page.
+	$j('.container-fluid a[href="#"], .modal a[href="#"]').click(function(e) {
+		e.preventDefault();
+	});
+	
+	
+	// Make the selected service box active by adding the red underline. 
+	$j('a.address-tab').on('click touch', function (e) {
+		e.preventDefault();
+		$j('a.address-tab').removeClass('active');
+        $j(this).addClass('active');
+	});
+	
+	
+	// Header tabs underline functionality
+	$j('.sort-by-letter .header-tabs').on('click touch', function() {
+		$j('.sort-by-letter .header-tabs').removeClass('active');
+		$j(this).addClass('active');
+	});
+	
+	
+	// Function to select a radio button by clicking anywhere on the row.
+	$j('#address-book-table tr').click(function() {
+		$j(this).children('th').children('input').prop('checked', true);
+		
+	});
+	
+	
+	// Display the Address Book after clicking on the "Select from Address Book" tab.
+	$j('a.select-from-address-book-tab').on('click touch', function (e) {
+		$j('.create-shipping-address-wrapper').hide();
+		$j('.select-from-address-book-wrapper').show();
+	});
+	
+	
+	// Display the Shipping Address form upon clicking on the "Create a Shipping Address" tab.
+	$j('a.create-shipping-address-tab').on('click touch', function (e) {
+		$j('.select-from-address-book-wrapper').hide();
+		$j('.create-shipping-address-wrapper').show();
+	});
+	
+	
+	// Display the "Company Name" input field on new address upon selecting the business checkbox.
+	$j('#business-checkbox').click(function(){
+		$j('.business-field').toggle();
+	});
+	
+	// Display the "Company Name" input field on address edit upon selecting the business checkbox.
+	$j('#edit-business-checkbox').click(function(){
+		$j('.edit-business-field').toggle();
+	});
+	
+	
+	// Show Urbanization Code input field when "PR" selected in state dropdowns
+	$j('.state-dropdown').change(function() {
+		if ($j(this).val() === "PR") {
+			$j(this).closest('.row').siblings('.row').find('.urbanization-code-field').show();
+		} else {
+			$j(this).closest('.row').siblings('.row').find('.urbanization-code-field').hide();
+		}
+	});
+// The CreateAttribute below is used for UI testing purposes only
+// document.createAttribute('data-skuid');
+
+	// Enable Bootstrap dropdowns
+	// $j(".dropdown-menu li").on('click touch', function(e) {
+	$j(document).on('click touch', '.dropdown-menu li', function() {
+		//e.preventDefault();
+		if (!$j(this).hasClass('dropdown-disabled')) {
+			var dropdownButton = $j(this).parents(".dropdown-selection").find('.btn');
+			dropdownButton.html($j(this).text());
+			dropdownButton.val($j(this).find('a').data('value'));
+			dropdownButton.attr('data-skuid', $j(this).attr('data-skuid'));
+			dropdownButton.trigger('change');
+		}
+	});
+	
+	
+	// Allow cycling through options on press of a letter key
+	$j(".dropdown-selection").bind('keydown', function (event) {
+		// Open the list and select a value 
+		if (event.keyCode != 13) { 
+			if ($j(this).find('button').attr('aria-expanded') == 'false') {
+				$j(this).find('.dropdown-toggle').dropdown('toggle');
+			}
+		}
+		
+		var keyChar = String.fromCharCode(event.keyCode).toLowerCase();
+		var selectedItems = $j(this).find('a').filter(function () {
+			return $j(this).text().toLowerCase().indexOf(keyChar) === 0;
+		});
+		
+		// var f = $j(selectedItems).is(':focus');
+		if ($j(selectedItems).is(':focus')) {
+			selectedItems = $j('a:focus').parent().nextAll().find('a').filter(function () {
+				return $j(this).text().toLowerCase().indexOf(keyChar) === 0;
+			}).first();
+			
+			if (selectedItems.length == 0) {
+				selectedItems = $j(this).find('a').filter(function () {
+					return $j(this).text().toLowerCase().indexOf(keyChar) === 0;
+				});
+			}
+		}
+		selectedItems.first().focus();
+	});
+	
+
+	// Display the contacts sort-by range on mobile based on the dropdown selection.
+	$j('.mobile-active-nz').hide();
+	$j('.contacts-dropdown').change(function() {
+		if ($j(this).val() === "AM") {
+			$j('.mobile-active-am').show();
+            $j('.mobile-active-nz').hide();				
+		} 
+		
+		if ($j(this).val() === "NZ") {
+			$j('.mobile-active-am').hide();
+            $j('.mobile-active-nz').show();	
+		}
+	});
+	
+	
+	// Expand/Collapse the Privacy Act Statement on mobile.
+	$j('a.expand-collapse').on('click touch', function(e) {
+		$jthis = $j(this).parents('.expand-collapse-wrapper');
+		$jthis.toggleClass('collapsed');
+		if ($jthis.hasClass('collapsed')) {
+			$jthis.find($j('.visuallyhidden')).text('Expand additional information.');
+		} else {
+			$jthis.find($j('.visuallyhidden')).text('Collapse additional information.');
+		}
+	});
+	
+	/* Multiple pickup options */
+	
+	$j('a.multiple-view-schedule').on('click touch', function(){
+		console.log('test');
+		$j('.multiple-view-schedule.collapse').toggleClass("show");
+	});
+
+	// Resize functionality between desktop/tablet and mobile view.
+	var resizeTimer;
+	$j(window).on('load resize', function(e) {
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(function() {
+			// Run code here, resizing has "stopped"
+			if (window.innerWidth >=768){
+				// Defaults for desktop
+                $j('.expand-collapse-wrapper').removeClass('collapsed');
+			} else if (window.innerWidth < 768) {	
+				// Defaults for mobile
+				 $j('.expand-collapse-wrapper').addClass('collapsed');
+			}              
+		}, 250);
+	});
+	
+// });
+
+	
+	// Display the Back To Top icon after scrolling down past a certain point
+	$j(window).scroll(function() {
+		if ( ($j(this).height() + $j(this).scrollTop()) > 1000) {
+			$j('.results-return').addClass('active');
+		} else {
+			$j('.results-return').removeClass('active');
+		}
+	});
+	
+	$j('.results-return a').on('click touch', function(e) {
+		e.preventDefault();
+		window.scrollTo(0,0);
+	});
+
+
+// Show and hide list
+    $j('.view-all').on('click touch', function(event){
+                  event.preventDefault;
+                  $j('.view-all-container').css('display','none');
+                  $j('.hide-all-container').show();
+    });
+    $j('.hide-all').on('click touch', function(event){
+                  event.preventDefault;
+                  $j('.view-all-container').show();
+                  $j('.hide-all-container').hide();
+    });
+
+/* Press enter radio and check box handler*/
+
+$j('input[type=checkbox], input[type=radio]').keypress(function(){
+		console.log("radio button")
+		var keycode = event.keyCode || event.which;
+		if(keycode == '13') {
+			$j(this).click();
+		}	  
+});
+/* When PR in a state field selected, it show urbanization code field*/
+
+$j(document).on('change','#form-state',function(e){
+	e.preventDefault;
+	if($j(this).val()=='PR'){
+		$j('.urbanization-code-wrapper.collapse').addClass('show');
+	}else{
+		$j('.urbanization-code-wrapper.collapse').removeClass('show');
+	}
+	
+});
+
+/*MODAL FOCUS CONTROL*/
+$j('.last-focus').focusout(function(){
+	$j(this).closest('div.modal-dialog').find('a.close').focus();
+});
+
+/* QUANTITY (input type number)*/
+	
+	 $j('.quantity').each(function() {
+		
+      var spinner = $j(this),
+        input = spinner.find('input[type="number"]'),
+        btnUp = spinner.find('.quantity-up'),
+        btnDown = spinner.find('.quantity-down'),
+        min = input.attr('min'),
+        max = input.attr('max');
+      btnUp.off('click').on('click',function() {
+        var oldValue = parseFloat(input.val());
+        if (oldValue >= max ) {
+          var newVal = oldValue;
+         }else {
+          var newVal = oldValue + 1;
+        }
+        spinner.find("input").val(newVal);
+        spinner.find("input").trigger("change");
+      });
+
+      btnDown.off('click').on('click',function() {
+        var oldValue = parseFloat(input.val());
+        if (oldValue <= min) {
+          var newVal = oldValue;
+        } else {
+          var newVal = oldValue - 1;
+        }
+        spinner.find("input").val(newVal);
+        spinner.find("input").trigger("change");
+      });
+
+    });
+//////////////////////////
+//     DEMO PURPOSE     //
+//////////////////////////
+
+$j(document).ready(function () {
+	// Display Error messages.
+    $j(".error-display").on('click touch', function() {
+		$j(".radio-buttons, .check-boxes, .required-field, .tr-error").toggleClass("error");
+    });
+	
+	// Edit PFSR
+	$j('#editPFS').click(function(event) {
+		setCookie('primaryFirstName', $j('#primaryFirstName').val());
+		setCookie('primaryMiddleInitial', $j('#primaryMiddleInitial').val());
+		setCookie('primaryLastName', $j('#primaryLastName').val());
+		setCookie('primaryAddressLine1', $j('#primaryAddressLine1').val());
+		setCookie('primaryAddressLine2', $j('#primaryAddressLine2').val());
+		setCookie('primaryUrbanization', $j('#primaryUrbanization').val());
+		setCookie('primaryCity', $j('#primaryCity').val());
+		setCookie('primaryState', $j('#primaryState').val());
+		setCookie('primaryZipCode', $j('#primaryZipCode').val());
+		setCookie('primaryPhoneNumber', $j('#primaryPhoneNumber').val());
+		setCookie('primaryEmail', $j('#primaryEmail').val());
+
+		//setCookie('temporaryCompanyName', $j('#temporaryCompanyName').val());
+		setCookie('temporaryAddressLine1', $j('#temporaryAddressLine1').val());
+		setCookie('temporaryAddressLine2', $j('#temporaryAddressLine2').val());
+		setCookie('temporaryUrbanization', $j('#temporaryUrbanization').val());
+		setCookie('temporaryCity', $j('#temporaryCity').val());
+		setCookie('temporaryState', $j('#temporaryState').val());
+		setCookie('temporaryZipCode', $j('#temporaryZipCode').val());
+		setCookie('temporaryPhoneNumber', $j('#temporaryPhoneNumber').val());
+
+		setCookie('startDate', $j('#startDate').val());
+		setCookie('endDate', $j('#endDate').val());
+		setCookie('resumeDate', $j('#resumeDate').val());
+		setCookie('defaultResumeDate', $j('#defaultResumeDate').val());
+		setCookie('isIndividual', $j('#isIndividual').val());
+		setCookie('aRequestExists', false);
+	});
+});

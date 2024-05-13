@@ -1,0 +1,29 @@
+function validateAddress(address1,address2,city,state,zip,company) { 
+	var addr1Test = /^[A-Za-z0-9\s\"\?\#\&\(\)\+\,\-\.\/\@\']{1,50}$/;
+	var addr2Test = /^[A-Za-z0-9\s\"\?\#\&\(\)\+\,\-\.\/\@\']{1,50}$/;
+	var cityTest = /^[A-Za-z0-9\s\"\?\#\&\(\)\+\,\-\.\/\@\']{1,50}$/;
+	var stateTest = /^[A-Za-z]{2}$/;
+	var zipTest = /^(\d{5}-\d{4})|(\d{5})$/;
+	var companyTest = /^[A-Za-z0-9\s\-\&\']{1,50}$/;
+
+	/*
+	alert("Validating Address");
+	alert(address1+" addr1Test.test(address1) = "+addr1Test.test(address1));
+	alert(address2+" addr2Test.test(address2) = "+addr2Test.test(address2));
+	alert("(address2.length==0 || addr2Test.test(address2)) = "+address2.length==0 || addr2Test.test(address2));
+	alert("address2.length==0" + address2.length==0);
+	alert("address2.length =" + address2.length);
+	alert("address2 =" + address2);
+	alert(city+" cityTest.test(city) = "+cityTest.test(city));
+	alert(state+" stateTest.test(state) = "+stateTest.test(state));
+	alert(zip+" zipTest.test(zip) = "+zipTest.test(zip) );
+	alert(company+" companyTest.test(company) = "+companyTest.test(company));
+	alert("(company.length==0 || companyTest.test(company)) = "+company.length==0 || companyTest.test(company));
+	*/
+	return addr1Test.test(address1) && 
+		(address2.length==0 || addr2Test.test(address2)) && 
+		cityTest.test(city) && 
+		stateTest.test(state) && 
+		zipTest.test(zip) && 
+		(company.length==0 || companyTest.test(company));
+}

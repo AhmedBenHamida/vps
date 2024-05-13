@@ -1,0 +1,23 @@
+/**
+ *
+ */
+define([], 
+function() {
+    var lookupCodes = null;
+    return {
+        /* */
+        getLookupCode : function(key, defaultValue) {
+            var lookupCode = lookupCodes[key];
+            if (defaultValue !== undefined) {
+                return (lookupCode) ? lookupCode : defaultValue;
+            } else {
+                return lookupCode;
+            }
+        },
+        /* */
+        setLookupCodes : function(lookupCodeList) {
+            lookupCodes = lookupCodeList; 
+        }
+    };
+}
+);

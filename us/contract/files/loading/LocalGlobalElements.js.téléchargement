@@ -1,0 +1,46 @@
+define([], 
+function() {
+    /* */
+    function addAjax(el) {
+        $(el).find("script").each(function() {
+            if ($(this).attr("src")) {
+                $.ajax({
+                    type:'GET',
+                    async:false,
+                    dataType:'script',
+                    url:this.src
+                });                    
+            }
+        });
+    }
+    /* */
+    function addListener(xh, elm) {
+        xh.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                elm.innerHTML = this.responseText;
+                elm.removeAttribute("data-include-html");
+                elm.classList.remove("hide");
+                addAjax(elm);
+                
+                dataIncludeHTML();
+            }
+        };
+    }
+    /* */
+    function dataIncludeHTML() {
+        var z, i, elmnt, file, xhttp;
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            file = elmnt.getAttribute("data-include-html");
+            if (file) {
+                xhttp = new XMLHttpRequest();
+                addListener(xhttp, elmnt);
+                xhttp.open("GET", file, true);
+                xhttp.send();
+                return;
+            }
+        }
+    }
+    dataIncludeHTML();
+});

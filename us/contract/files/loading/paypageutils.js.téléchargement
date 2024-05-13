@@ -1,0 +1,800 @@
+"use strict";
+var paypageIframeUrl;
+var loadingIframe = false;
+var loadingJs = false;
+var loadingAppleJs = false;
+var loadingAppleSessionJs = false;
+var loadingVisaJs = false;
+var isSandbox = false;
+define({
+    loadingError: false,
+    loadedIframe: false,
+    loadedJs: false,
+    loadedAppleJs: false,
+    loadedAppleSessionJs: false,
+    loadedVisaJs: false,
+    visaReady: false,
+    orderTotal: "",
+    getPaypageConfig: function(cvvState) {
+        return {
+            "tabIndex" : {
+                "accountNumber": 216,
+                "cvv": 217
+            },
+            "paypageId" : $("#paypagePaypageId").val(),
+            "style":"v6r3uspsNewCard",
+            "reportGroup" : $("#paypageReportGroup").val(),
+            "timeout": 15000,
+            "div": "paypageFrame",
+            "numYears":20,
+            "showCvv": cvvState,
+            "enhancedUxFeatures":{
+                "inlineFieldValidations":true
+            },
+            
+            "months": {
+                "1":"January",
+                "2":"February",
+                "3":"March",
+                "4":"April",
+                "5":"May",
+                "6":"June",
+                "7":"July",
+                "8":"August",
+                "9":"September",
+                "10":"October",
+                "11":"November",
+                "12":"December"
+            },
+            htmlTimeout: 15000
+        };
+    },
+    /* initCheckout */
+    initCheckout: function(response, paymentutils) {
+        var self = this;
+        $('#paypageOrderId').val(response.paypageOrderId);
+        $('#paypageMerchantTxnId').val(response.paypageOrderId);
+        $('#paypagePaypageId').val(response.paypageId);
+        $('#paypageReportGroup').val(response.paypageReportGroup);
+        self.orderTotal = response.orderTotal;
+        self.loadNewCardIframe(response, true);
+        if('true' === response.acceptVC && 'true' !== response.isNCMSCSR) {
+            self.loadVisaJs(response);
+            self.loadPaypageJs(response);
+        }
+        var isAppleSim =  navigator.platform.indexOf('iPad Simulator') > -1
+                          ||
+                          navigator.platform.indexOf('iPhone Simulator') > -1
+                          ||
+                          navigator.platform.indexOf('iPod Simulator') > -1;
+        var isAppleDevice = navigator.platform.indexOf('iPad') > -1
+                            ||
+                            navigator.platform.indexOf('iPhone') > -1
+                            ||
+                            navigator.platform.indexOf('iPod') > - 1
+                            ||
+                            navigator.userAgent.indexOf('Mac') > -1;
+        var isApple =    isAppleSim || isAppleDevice ;                          
+                       
+        var isAppleDisabled =   ! window.ApplePaySession
+                                || ! ApplePaySession.canMakePayments() ;
+        var isUnlockedAndNotCSR =   'true' !== response.isBillingLocked 
+                                    &&
+                                    'true' !== response.isNCMSCSR
+                                    ;
+        var isAPAccepted =  isApple
+                            && ! isAppleDisabled
+                            && isUnlockedAndNotCSR
+                            && 'true' === response.acceptAP 
+                            ; 
+        var acceptGoogle =   'true' === response.acceptGP 
+                                && 'true' !== response.isNCMSCSR 
+                                && !isApple ;
+        // Need to detect if its a Macintosh PC
+        // This will be !isApple  OR condition 
+        //                      || ( ! isAppleDisabled && navigator.userAgent.indexOf('Mac') > -1 )  ; 
+// iPad :  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15
+// Mac  :  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15
+// Platform : iPad : The navigator.platform is : MacIntel
+// Platform : MAC : The navigator.platform is : MacIntel
+
+        
+        jsLog('The navigator.userAgent is : ' + navigator.userAgent );
+        jsLog('The navigator.platform is : ' + navigator.platform );
+
+        if(acceptGoogle) {
+            self.initGoogle(response);
+        } else {
+            $('#usegooglepaywrap').hide();
+        }
+
+        if(isAPAccepted) {
+            self.loadApplePayJs(response);
+            self.loadPaypageJs(response);
+            self.loadApplePaySessionJs();
+            self.appleClickListener(response, paymentutils) ; 
+            $('#useapplepaywrap').show();
+        } else {
+            $('#useapplepaywrap').hide();
+        }
+    },
+    /* loadIframe */
+    loadIframe: function(which) {
+        var cvvPh = '000';
+        var typeAMEX = "American Express";
+        if ($('#forcardtype' + which).html() !== undefined && 0 < $('#forcardtype' + which).html().indexOf(typeAMEX)) {
+            cvvPh = '0000';
+        }
+        $('#cvvIframe-' + which).on('load', function(){
+                document.getElementById('cvvIframe-' + which).contentWindow.loadPaypage(paypageIframeUrl, cvvPh);
+            });
+        $('#cvvIframe-' + which).attr('src','cvvIframe.html');
+    },
+    /* submitCheckoutPayPage */
+    submitCheckoutPayPage: function() {
+        var self = this;
+        if(typeof $('#paypageFrame') !== undefined){
+            var message = {
+                    'id':$('#paypageMerchantTxnId').val(),
+                    'orderId':$('#paypageOrderId').val()
+            };                                
+            payframeClient.getPaypageRegistrationId(message);
+        } else {
+            self.error();
+        }
+    },
+    /* submitCVVPayPage */
+    submitCVVPayPage: function(which) {
+        var self = this;
+        if (typeof document.getElementById('cvvIframe-' + which) !== undefined) {
+            var message = {
+                    'id':$('#paypageMerchantTxnId').val(),
+                    'orderId':$('#paypageOrderId').val()
+            };                                
+            document.getElementById('cvvIframe-' + which).contentWindow.payframe.getCheckoutId(message);
+        } else {
+            self.error();
+        }
+    },
+    /* clearCheckoutPayPageFields */
+    clearCheckoutPayPageFields: function(resp, paymentutils) {
+        var empty = '';
+        var falseResp = 'false';
+        var response = {};
+        response.paypageOrderId = $('#paypageOrderId').val();
+        response.paypageOrderId = $('#paypageMerchantTxnId').val();
+        response.paypageId = $('#paypagePaypageId').val();
+        response.paypageReportGroup = $('#paypageReportGroup').val();
+        response.paypageIframeUrl = paypageIframeUrl;
+        response.sandbox = '' + isSandbox;
+        response.isNCMSCSR = falseResp;
+        response.gmid = '';
+        response.acceptGP = falseResp;
+        response.acceptAP = falseResp;
+        if (resp !== null) {
+            response.isNCMSCSR = resp.isNCMSCSR;
+            response.gmid = resp.gmid;
+            response.acceptGP = resp.isGP;
+            response.acceptAP = resp.isAP;
+        }
+        $('#paypagePaypageId').val(empty);
+        $('#paypageMerchantTxnId').val(empty);
+        $('#paypageOrderId').val(empty);
+        $('#paypageReportGroup').val(empty);
+        $('#paypagePaypageRegistrationId').val(empty);
+        $('#paypageBin').val(empty);
+        $('#paypageCode').val(empty);
+        $('#paypageMessage').val(empty);
+        $('#paypageResponseTime').val(empty);
+        $('#paypageType').val(empty);
+        $('#paypageLitleTxnId').val(empty);
+        $('#paypageLastFour').val(empty);
+        $('#paypageCheckoutId').val(empty);
+        
+        this.initCheckout(response, paymentutils);
+    },
+    /* openPanelIfOne */
+    openPanelIfOne: function(resp, $use, paymentutils) {
+        // if there's only cc available, select it and open the panels accordingly...
+        if ('true' === resp.acceptCC && 'true' !== resp.acceptPayPal) {
+            $use.click();
+            if ('true' === resp.isBillingLocked) {
+                $('#newcardpanel').show();
+                        $('#newtxt').hide();
+                this.initCheckout(resp, paymentutils);
+            }
+            // ... unless it's DI
+            if ('USPS Delivery Instructions' === resp.pageTitle) {
+               $('#newcardpanel').removeClass('show');
+            }
+        }
+    },
+    /* addNewCardListener */
+    addNewCardListener: function(resp, paymentutils) {
+        var self = this;
+        $('#add-new-card').on('click', function() {
+            self.initCheckout(resp, paymentutils);
+        });
+    },
+    loadNewCardIframe: function(response, isShowCvv) {
+        var self = this;
+        var showCvv = isShowCvv;
+        if ('true' === response.isNCMSCSR && $('#for-bycvv').html() === undefined) {
+            var html = '<span id="cvv-checkbox-container" class="checkbox-container"><label class="checkbox-component" for="bycvv" id="for-bycvv">' +
+                       '<input type="checkbox" name="disableCVV" value="true" id="bycvv" tabindex="136"><span class="checkbox"></span>Disable Security Code Field?</label></span >';
+            $(html).insertBefore($('#savecard'));
+            $('#bycvv').on('click', function() {
+                if ($('#cvv-info').is(':visible')) {
+                    showCvv = false;
+                    if ($('#cvv-info')) {
+                        $('#cvv-info').hide();
+                    }
+                } else {
+                    showCvv = true;
+                    if ($('#cvv-info')) {
+                        $('#cvv-info').show();
+                    }
+                }
+                self.unloadNewCardIframe('paypageFrame');
+                self.loadNewCardIframe(response, showCvv);
+                return;
+            });
+        }
+        if (false !== showCvv) {
+           showCvv = true;
+        }
+        var root = "https://";
+        if ('true' === response.sandbox) {
+            paypageIframeUrl = root + "request.eprotect.vantivprelive.com/eProtect/js/payframe-client3.min.js";
+            isSandbox = true;
+        } else {
+            paypageIframeUrl = root + "request.eprotect.vantivcnp.com/eProtect/js/payframe-client3.min.js";
+        }
+        
+        var paypageConfig;
+        if(loadingIframe === true) {
+            return;
+        } else if(typeof LitlePayframeClient !== "undefined"){
+            paypageConfig = self.getPaypageConfig(showCvv);
+            prepPaypage('frmData', paypageConfig);
+            self.loadIframe(1);
+            self.loadIframe(2);
+            self.loadIframe(3);
+        } else {
+            loadingIframe = true;
+            $.getScript(paypageIframeUrl).
+            done(function() {
+                paypageConfig = self.getPaypageConfig(showCvv);
+                prepPaypage('frmData', paypageConfig);
+                self.loadIframe(1);
+                self.loadIframe(2);
+                self.loadIframe(3);
+                loadingIframe = false;
+                self.loadedIframe = true;
+            }).
+            fail(function (j, s, e) {
+                jsLog('unable to load iFrame: ' + e);
+                self.displayGenericError();
+                loadingIframe = false;
+                self.loadingError = true;
+            });
+        }
+    },
+    loadPaypageJs: function(response) {
+        var self = this;
+        var paypageJsUrl = "";
+        var root = "https://";
+        if ('true' === response.sandbox) {
+            paypageJsUrl = root + "request.eprotect.vantivprelive.com/eProtect/eProtect-api3.js";
+            isSandbox = true;
+        } else {
+            paypageJsUrl = root + "request.eprotect.vantivcnp.com/eProtect/eProtect-api3.js";
+        }
+        if(loadingJs === true) {
+            return;
+        } else if(typeof eProtect !== "undefined"){
+            self.initVisa();
+        } else {
+            loadingJs = true;
+            $.getScript(paypageJsUrl).
+            done(function() {
+                loadingJs = false;
+                self.loadedJs = true;
+                self.initVisa();
+            }).
+            fail(function (j) {
+                jsLog("loadPaypageJs error: " + j.status);
+                self.displayGenericError();
+                loadingJs = false;
+                self.loadingError = true;
+            });
+        }
+    },
+    loadVisaJs: function(response) {
+        var self = this;
+        var visaJsUrl = "";
+        var visaLogoUrl = "";
+        var root = "https://";
+        if ('true' === response.sandbox) {
+            visaJsUrl = root + "sandbox-assets.secure.checkout.visa.com/checkout-widget/resources/js/integration/v1/sdk.js";
+            visaLogoUrl = root + "sandbox-assets.secure.checkout.visa.com/wallet-services-web/xo/button.png";
+            isSandbox = true;
+        } else {
+            visaJsUrl = root + "assets.secure.checkout.visa.com/checkout-widget/resources/js/integration/v1/sdk.js";
+            visaLogoUrl = root + "assets.secure.checkout.visa.com/wallet-services-web/xo/button.png";
+        }
+        
+        $('#visaLogo').attr("src", visaLogoUrl);
+        
+        if(loadingVisaJs === true) {
+            return;
+        } else if(typeof V !== "undefined"){
+            self.initVisa();
+        } else {
+            loadingVisaJs = true;
+            $('head:first').append('<script type="text/javascript" src="' + visaJsUrl +'" onload="loadingVisaJs=false;" ></script>');
+            $.getScript(visaJsUrl).
+            done(function() {
+                loadingVisaJs = false;
+                self.loadedVisaJs = true;
+                self.initVisa();
+            }).
+            fail(function (j) {
+                jsLog("loadVisaJs error: " + j.status);
+                self.displayGenericError();
+                loadingVisaJs = false;
+                self.loadingError = true;
+            });
+        }
+    },
+    completePayment: function(payment) {
+        var self = this;
+        openWhiteSpinner();
+        var formFields = {  
+                "paypageRegistrationId":document.getElementById('paypageRegistrationId'),  
+                "bin"  :document.getElementById('bin')   
+           }; 
+           var root = "https://";
+           var url = root + 'request.eprotect.vantivcnp.com';
+           if (true === isSandbox) {
+            url =  root + 'request.eprotect.vantivprelive.com';
+           }
+           var eProtectRequest = { 
+               "paypageId" : $("#paypagePaypageId").val(),
+               "reportGroup" : $("#paypageReportGroup").val(),  
+               "orderId" : $('#paypageOrderId').val(),
+               "id" : $('#paypageMerchantTxnId').val(),  
+               "url" : url,  
+               "visaCheckout": payment
+           };
+           var onErrorAfterEprotect = function(response){
+               jsLog("Received error for VC eprotect: " + JSON.stringify(response));
+               self.displayGenericError();
+           };
+           var timeout = function(){
+                   self.displayGenericError();
+                   jsLog("Paypage timeout error for VC");
+               };
+           // Page 30 in documentation
+           new eProtect().sendToEprotect(eProtectRequest, formFields, getPayframeCallback('frmData'),
+           onErrorAfterEprotect, timeout);
+    },
+    
+    initVisa: function () {
+        var self = this;
+        if (self.loadedJs === false || self.loadedVisaJs === false) {
+            return;
+        }
+        if (typeof V === "undefined") {
+            window.setTimeout(function(){
+                    self.initVisa();
+                }, 100);
+            return;
+        }
+        var ep = new eProtect();
+        var visaInit = { sourceId: $('#paypageOrderId').val(),
+                externalProfileId: "USPS",
+                externalClientId: "USPS",
+                apikey: ep.getVisaCheckoutApiKey(),
+                encryptionKey:ep.getVisaCheckoutEncryptionKey(),
+                settings: {
+                    displayName: "USPS"
+                },
+                paymentRequest:{
+                    currencyCode: "USD",
+                    total: self.orderTotal
+                }}; 
+        V.init(visaInit);
+        V.on("payment.success", function(payment) {
+             $('#vcCallId').val(payment.callid);
+             $('#wspinner-header').html('Processing...');
+             $('#wspinner-optional').html('Please wait while your transaction is processed.');
+             openWhiteSpinner();
+             if (!($('#search-disclaimer').is(':checked'))) {
+                 var msg = 'We were unable to process your request. Please correct the error(s) indicated below.';
+                 var $alertHeader = $('#alertHeader');
+                 $alertHeader.html(msg);
+                 $alertHeader.parent().parent().addClass('error');
+                 $alertHeader.attr('role','alert');
+                 $('#top-agreement-error').addClass('error');
+                 window.scrollTo(0,0);
+             } else if ($('#pageTitle').text() === 'Click-N-Ship') {
+                 $('#dcform').on('submit', function(e) {
+                     e.preventDefault();
+                     $('#global-errors').removeClass('error');
+                 });
+                 closeWhiteSpinner();
+                 var $cnsExtraAgreementTrigger = $('#cns-extra-trigger');
+                 $cnsExtraAgreementTrigger.attr('data-toggle', 'modal');
+                 $cnsExtraAgreementTrigger.attr('data-target', '#mailing-terms-and-conditions-modal');
+                 $cnsExtraAgreementTrigger.click();
+                 $('#cns-agreement-close').off('click touch');
+                 $('#cns-agreement-close').on('click touch', function(e) {
+                     e.preventDefault();
+                     self.completePayment(payment);
+                 });
+                 return;
+            } else {
+                // do nothing
+            }
+            self.completePayment(payment);
+        });
+        V.on("payment.error", function(payment, error)
+            {
+                self.displayGenericError(); 
+                jsLog("Visa checkout error: " + error);
+            });
+        V.on("payment.cancel", function()
+            {
+                closeWhiteSpinner();
+            });
+        self.visaReady = true;
+    },
+    displayGenericError: function() {
+        closeWhiteSpinner();
+        closeBlueSpinner();
+        $('#alertHeader').text('A System Error has occurred.  Please try again later.');
+        $('#alertHeader').parent().parent().addClass('error');
+        window.scrollTo(0,0);
+    },
+    doVisaCheckoutConfirm: function (vcEvent, onComplete, isSBox) {
+        var callId = $('#vcCallId').val();
+        var self = this;
+        if (!self.checkPopulated(callId)) {
+            onComplete();
+            return;
+        }
+        var subtotal = $('#orderSubtotal').text();
+        var shippingTotal = $('#shippingCost').text();
+        if (!self.checkPopulated(subtotal)) {
+            subtotal = $('#orderTotal').text();
+        }
+        var root = 'https://';
+        var url = root + 'secure.checkout.visa.com/wallet-services-web/payment/updatepaymeninfo.gif?';
+        if ('true' === isSBox) {
+            url = root + 'sandbox.secure.checkout.visa.com/wallet-services-web/payment/updatepaymeninfo.gif?';
+        }
+        var ep = new eProtect();
+        url = url + 'apikey=' + ep.getVisaCheckoutApiKey() + '&callId=' + callId + '&currencyCode=USD' + '&eventType=' + vcEvent + '&orderId=' + $('#paypageOrderId').val();
+        if (self.checkPopulated(shippingTotal)) {
+            url = url + '&shippingHandling=' + shippingTotal;
+        }
+        url = url + '&subtotal=' + subtotal + '&total=' + $('#orderTotal').text();
+        $.ajax({
+            url: url,
+            type: 'GET',
+            async: true,
+            success: function() {
+                onComplete();
+            },
+            error: function() {
+                jsLog("Error completing Visa Checkout pixel confirmation.");
+                onComplete();
+            }
+         });
+        $('#vcCallId').val('');
+    },
+    initGoogle: function(response) {
+        var self = this;
+        if ((typeof google.payments.api.PaymentsClient !== "undefined") && $('.gpay-button-fill') !== null && $('.gpay-button-fill').html() !== undefined) {
+            return;
+        }
+        if (typeof google.payments.api.PaymentsClient === "undefined") {
+            window.setTimeout(function(){
+                    self.initGoogle(response);
+                }, 100);
+            return;
+        }
+        var tokenizationSpecification = {type: 'PAYMENT_GATEWAY',
+                parameters: {
+                    "gateway": 'vantiv',
+                    "vantiv:merchantPayPageId": response.paypageId,
+                    "vantiv:merchantOrderId": response.paypageOrderId,
+                    "vantiv:merchantTransactionId": response.paypageOrderId,
+                    "vantiv:merchantReportGroup": response.paypageReportGroup
+                }
+            };
+        
+        var baseCardPaymentMethod = {
+                type: 'CARD',
+                parameters: {
+                    allowedCardNetworks: ['AMEX','MASTERCARD','VISA','DISCOVER'],
+                    allowedAuthMethods: ['PAN_ONLY'],
+                    billingAddressRequired: true,
+                    billingAddressParameters: {format: "FULL"},
+                    assuranceDetailsRequired: true
+                }
+            };
+        var baseRequest = { apiVersion: 2, apiVersionMinor: 0, allowedPaymentMethods: [baseCardPaymentMethod] };
+        var environment = 'PRODUCTION';
+        if ('true' === response.sandbox) {
+            environment = 'TEST';
+        }
+        var paymentsClient = new google.payments.api.PaymentsClient({environment: environment});
+
+
+        baseRequest.merchantInfo = {
+            merchantName: 'USPS',
+            merchantId: response.gmid
+        };
+        
+        baseRequest.transactionInfo = {
+            totalPriceStatus: 'FINAL',
+            totalPrice: response.orderTotal + '',
+            currencyCode: 'USD',
+            countryCode: 'US'
+        };
+        
+        baseCardPaymentMethod.tokenizationSpecification = tokenizationSpecification;
+        baseRequest.allowedPaymentMethods = [baseCardPaymentMethod];
+        
+        paymentsClient.isReadyToPay(baseRequest)
+            .then(function(response) {
+                if(response.result === true) {
+                    var googleButton = paymentsClient.createButton({buttonType: 'plain',
+                        buttonSizeMode: 'fill',
+                        onClick: function (){
+                        paymentsClient.loadPaymentData(baseRequest).then(function(paymentData) {
+                            $('#paypagePaypageRegistrationId').val(paymentData.paymentMethodData.tokenizationData.token);
+                            $('#paypageType').val(paymentData.paymentMethodData.info.cardNetwork);
+                            $('#paypageLastFour').val(paymentData.paymentMethodData.info.cardDetails);
+                            $('#card-holder-name').val(paymentData.paymentMethodData.info.billingAddress.name);
+                            $('#street-address').val(paymentData.paymentMethodData.info.billingAddress.address1);
+                            $('#card-expire-date').val(paymentData.paymentMethodData.info.cardExpires);
+                            $('#apt-suite-address').val(paymentData.paymentMethodData.info.billingAddress.address2);
+                            $('#city-address').val(paymentData.paymentMethodData.info.billingAddress.locality);
+                            $('#zipcode-address').val(paymentData.paymentMethodData.info.billingAddress.postalCode);
+                            $('#state-address').val(paymentData.paymentMethodData.info.billingAddress.administrativeArea);
+                            $('#continueLink').click();
+                        }).catch(function(err) {
+                            if (err.statusCode !== "CANCELED") {
+                                self.displayGenericError();
+                            }
+                        });
+                    }});
+                    $('#google-pay-btn-div').append(googleButton);
+                }
+            })
+            .catch(function() {
+                self.displayGenericError();
+            });
+
+        paymentsClient.prefetchPaymentData(baseRequest);
+    },
+    checkLoaded: function(response, self) {
+        if (self.loadingError === false && self.visaReady === false &&
+                'true' === response.acceptVC && 'true' !== response.isNCMSCSR) {
+            window.setTimeout(function() {
+                    self.checkLoaded(response, self);
+                }, 100);
+        } else {
+            closeBlueSpinner();
+            closeWhiteSpinner();
+        }
+    },
+    checkPopulated: function(val) {
+        return val !== null && val !== undefined && val !== '';
+    },
+    completePaymentAP: function(payment, apSession) {
+        var self = this;
+        openWhiteSpinner();
+        var formFields = {
+                "bin"  :document.getElementById('bin'),
+                "paypageRegistrationId":document.getElementById('paypageRegistrationId')  
+        }; 
+        var root = "https://";
+        var url = root + 'request.eprotect.vantivcnp.com';
+        if (true === isSandbox) {
+          url =  root + 'request.eprotect.vantivprelive.com';
+        }
+        var eProtectRequest = { 
+           "reportGroup" : $("#paypageReportGroup").val(),  
+           "orderId" : $('#paypageOrderId').val(),
+           "id" : $('#paypageMerchantTxnId').val(),  
+           "url" : url,
+           "paypageId" : $("#paypagePaypageId").val(),
+           "applepay" : payment
+        };
+        var onErrorAfterEprotectAP = function(response){
+           jsLog("onErrorAfterEprotectAP : [request/" + JSON.stringify(eProtectRequest) + "][response/" + JSON.stringify(response) + "]");
+           apSession.completePayment(ApplePaySession.STATUS_FAILURE) ; 
+           self.displayGenericError();
+        };
+        var timeout = function(){
+             self.displayGenericError();
+             jsLog("Paypage timeout error for AP");
+             apSession.completePayment(ApplePaySession.STATUS_FAILURE) ; 
+        };
+        // Page 30 in documentation
+        new eProtect().sendToEprotect(eProtectRequest, 
+                formFields, 
+                getPayframeCallbackAP('frmData', apSession),
+                onErrorAfterEprotectAP, 
+                timeout);
+
+    },    
+    appleCheckLoaded: function(response, self) {
+        if (self.loadingError === false && self.visaReady === false &&
+                'true' === response.acceptVC && 'true' !== response.isNCMSCSR) {
+            window.setTimeout(function() {
+                    self.checkLoaded(response, self);
+                }, 100);
+        } else {
+            closeBlueSpinner();
+            closeWhiteSpinner();
+        }
+    },
+    appleClickListener: function(response , paymentutils ) {
+        var self = this ; 
+        $('#appleButton').on('click', function() {
+            // Make sure the Terms and Condition button is pressed
+            var params = paymentutils.setParams(response);
+            var actErrMsg = 'We were unable to process your request. Please correct the error(s) indicated below.';
+            var errors = paymentutils.validateParams(params, actErrMsg, 'search-disclaimer');
+            // check for agree to error
+            if (paymentutils.isEmpty(errors) === false && errors['search-disclaimer'] !== undefined ) {
+                paymentutils.error(errors[0]);
+                paymentutils.populateFieldErrors(errors);
+                return ; 
+            }
+            var apVersion = 10 ; 
+            if (! window.ApplePaySession) {
+              return ; 
+            }
+                        
+            if (!ApplePaySession.supportsVersion(apVersion) ) {
+              return ; 
+            }
+            if (!ApplePaySession.canMakePayments() ) { 
+              return ; 
+            }
+            var request = "";
+            request = {
+                    countryCode: 'US',
+                    currencyCode: 'USD',
+                    supportedNetworks: ['visa', 'masterCard', 'amex', 'discover'],
+                    merchantCapabilities: ['supports3DS'], 
+                    requiredBillingContactFields: ['postalAddress'],
+                    total: { label: 'USPS', amount: response.orderTotal }
+            };
+            // After you've checked that the Apple Pay JS API is available and is enabled on the current device
+            var apSession = new ApplePaySession(apVersion, request);
+            
+            if (!apSession ) {
+                return ; 
+            }
+            apSession.onpaymentauthorized = function(event) {
+                var payinfo = event.payment;
+                var billingContact = payinfo.billingContact ;
+                // This is where the token will be passed in
+                var pmtToken = payinfo.token.paymentData ;
+                var pmtMethod= payinfo.token.paymentMethod ;
+                
+                // Set the response on the page
+                $('#card-holder-name').val(billingContact.givenName + ' ' + billingContact.familyName);
+                if ( billingContact.addressLines.length > 0  ){
+                    $('#street-address').val(billingContact.addressLines[0]);
+                    if ( billingContact.addressLines.length > 1  ){
+                        $('#apt-suite-address').val(billingContact.addressLines[1]);
+                    }
+                }
+                $('#city-address').val(billingContact.locality);
+                $('#zipcode-address').val(billingContact.postalCode);
+                $('#state-address').val(billingContact.administrativeArea);
+                // Need to create a 2 character value
+                if ( pmtMethod.network !== undefined && pmtMethod.network.length > 0 ) { 
+                    var netInLC = pmtMethod.network.toLowerCase() ; 
+                    // supportedNetworks: ['visa', 'masterCard', 'amex', 'discover']
+                    if ( netInLC.indexOf('visa') > -1 ) { 
+                        netInLC = 'VI' ; 
+                    } else if ( netInLC.indexOf('mastercard') > -1 ) { 
+                        netInLC = 'MC' ; 
+                    } else if ( netInLC.indexOf('amex') > -1 ) { 
+                        netInLC = 'AX' ; 
+                    } else if ( netInLC.indexOf('discover') > -1 ) { 
+                        netInLC = 'DI' ; 
+                    } else { 
+                        // do nothing
+                    }
+                    $('#paypageType').val(netInLC);
+                }
+                // Send the token to WP
+                self.completePaymentAP(pmtToken, apSession) ; 
+            };
+            apSession.onvalidatemerchant = function() {
+                var urlForAppleSession = "/payment/checkout/fetchAPSession" ; 
+                // Fetch a merchant session from the server.
+                $.ajax({
+                    url: urlForAppleSession,
+                    type: "GET",
+                    dataType: "json" ,
+                    success: function (objReturned) {
+                        // This method will return JSON and should display the payment sheet
+                        apSession.completeMerchantValidation ( objReturned );
+                    },
+                    error: function (jqXhr, statusText, errorText) {
+                        jsLog( "An error was detected getting " + urlForAppleSession + " \r\n[statusText/" + statusText + "]\r\n[errorText/" + errorText + "]\r\n[time/" + new Date() + "]");
+                    }
+                });
+            };
+            apSession.oncancel = function() {
+                // To Do?
+            };
+            //the payment sheet is presented and the merchant validation process is initiated.
+            apSession.begin() ; 
+        });
+    },
+    loadApplePayJs: function(response) {
+        if(loadingAppleJs === true) {
+            return;
+        } else {
+            var self = this;
+            var appleJsUrl = "";
+            var root = "https://";
+            if ('true' === response.sandbox) {
+                appleJsUrl = root + "request.eprotect.vantivprelive.com/eProtect/eProtect-api3.js";
+                isSandbox = true;
+            } else {
+                appleJsUrl = root + "request.eprotect.vantivcnp.com/eProtect/eProtect-api3.js";
+            }
+            loadingAppleJs = true;
+            $.getScript(appleJsUrl).
+            done(function() {
+                loadingAppleJs = false;
+                self.loadedAppleJs = true;
+            }).
+            fail(function (j) {
+                jsLog("loadApplePayJs error: " + j.status);
+                self.displayGenericError();
+                loadingAppleJs = false;
+                self.loadingError = true;
+                $('#useapplepaywrap').hide();
+            });
+        }
+    },
+    loadApplePaySessionJs: function() {
+        if ( loadingAppleSessionJs === true ) { 
+            return;
+        } else { 
+            loadingAppleSessionJs = true ; 
+            var self = this;
+            var root = "https://";
+            var sessionUrl = root + "applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js";
+            $.getScript(sessionUrl).
+            done(function() {
+                self.loadedAppleSessionJs = true;
+                loadingAppleSessionJs = false;
+            }).
+            fail(function (j) {
+                jsLog("loadApplePaySessionJs error: " + j.status);
+                self.displayGenericError();
+                loadingAppleSessionJs = false;
+                self.loadingError = true;
+                $('#useapplepaywrap').hide();
+            });
+        }
+    },
+    unloadNewCardIframe: function(frameID) {
+        $('#' + frameID).html(' ');
+    }
+});

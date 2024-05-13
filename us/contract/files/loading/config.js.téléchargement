@@ -1,0 +1,4 @@
+var version="";void 0!==version&&""!==version?doRequire():$.ajax({url:"/payment/configuration/jsVersion",type:"GET",dataType:"JSON",async:!1,success:function(a){version=a.build;doRequire()},error:function(){window.location.href="systemError.html"}});
+function doRequire(){require.config({baseUrl:"scripts",paths:{mrm:"./MRM",app:"./app",libs:"./libs",utils:"./utils",text:"libs/text",gp:"../global-payment/script/",gputils:"../global-payment/script/"},map:{"*":{text2:"text"}},urlArgs:"v="+version,waitSeconds:0});define("init",["global-payment","utils/LookupCodes","gp/global-payment","gp/global-payment-utils","utils/LocalGlobalElements"],function(){for(var a=document.getElementsByTagName("script"),b=0;b<a.length;b++){var c=a[b];"function"===typeof c.getAttribute&&
+null!=c.getAttribute("data-app-main")&&require([c.getAttribute("data-app-main")])}});require(["init"])};
+//# sourceMappingURL=config.js.map
